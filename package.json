@@ -1,0 +1,43 @@
+{
+  "author": "Cédric Belin <cedric@belin.io>",
+  "bugs": "https://github.com/cedx/cookies.js/issues",
+  "description": "Service for interacting with the HTTP Cookies.",
+  "homepage": "https://github.com/cedx/cookies.js",
+  "license": "MIT",
+  "main": "./lib/index",
+  "name": "@cedx/cookies",
+  "repository": "cedx/cookies.js",
+  "version": "0.1.0",
+  "dependencies": {
+    "events": "^1.1.1"
+  },
+  "devDependencies": {
+    "@cedx/coveralls": "^3.1.0",
+    "@cedx/gulp-david": "^9.0.0",
+    "chai": "^4.1.1",
+    "del": "^3.0.0",
+    "esdoc": "^1.0.1",
+    "esdoc-standard-plugin": "^1.0.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0",
+    "jsdom": "^11.2.0",
+    "mocha": "^3.5.0",
+    "nsp": "^2.7.0",
+    "nyc": "^11.1.0"
+  },
+  "engines": {
+    "node": ">=8.4.0"
+  },
+  "keywords": [
+    "browser",
+    "cookie",
+    "document",
+    "dom",
+    "html",
+    "service"
+  ],
+  "scripts": {
+    "coverage": "coveralls var/lcov.info",
+    "test": "nyc --report-dir=var --reporter=lcovonly mocha --recursive"
+  }
+}
