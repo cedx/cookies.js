@@ -1,7 +1,7 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/cookies.js/issues",
-  "description": "Service for interacting with the HTTP Cookies.",
+  "description": "Service for interacting with the HTTP cookies.",
   "homepage": "https://github.com/cedx/cookies.js",
   "license": "MIT",
   "main": "./lib/index",
@@ -38,6 +38,7 @@
     "cookie",
     "document",
     "dom",
+    "events",
     "html",
     "service"
   ],
