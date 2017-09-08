@@ -4,18 +4,31 @@ const {david} = require('@cedx/gulp-david');
 const {spawn} = require('child_process');
 const del = require('del');
 const gulp = require('gulp');
+const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const {normalize} = require('path');
 
 /**
  * Runs the default tasks.
  */
-gulp.task('default', ['test']);
+gulp.task('default', ['build']);
+
+/**
+ * Builds the client scripts.
+ */
+gulp.task('build', () => gulp.src('src/**/*.js')
+  .pipe(babel())
+  .pipe(gulp.dest('lib'))
+);
 
 /**
  * Deletes all generated files and resets any saved state.
  */
-gulp.task('clean', () => del(['.nyc_output', 'var/**/*']));
+gulp.task('clean', () => del([
+  '.nyc_output',
+  'lib',
+  'var/**/*'
+]));
 
 /**
  * Sends the results of the code coverage.
@@ -60,7 +73,9 @@ gulp.task('test', () => _exec('node_modules/.bin/nyc', [
   '--report-dir=var',
   '--reporter=lcovonly',
   normalize('node_modules/.bin/mocha'),
-  '--recursive'
+  '--compilers=js:babel-register',
+  '--recursive',
+  '--require=babel-polyfill'
 ]));
 
 /**

@@ -5,6 +5,7 @@
   "homepage": "https://github.com/cedx/cookies.js",
   "license": "MIT",
   "main": "./lib/index",
+  "module": "./src/index",
   "name": "@cedx/cookies",
   "repository": "cedx/cookies.js",
   "version": "0.1.0",
@@ -14,11 +15,15 @@
   "devDependencies": {
     "@cedx/coveralls": "^4.0.0",
     "@cedx/gulp-david": "^10.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "del": "^3.0.0",
     "esdoc": "^1.0.2",
     "esdoc-standard-plugin": "^1.0.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
     "gulp-eslint": "^4.0.0",
     "jsdom": "^11.2.0",
     "mocha": "^3.5.0",
@@ -38,6 +43,7 @@
   ],
   "scripts": {
     "coverage": "coveralls var/lcov.info",
-    "test": "nyc --report-dir=var --reporter=lcovonly mocha --recursive"
+    "prepare": "gulp build",
+    "test": "nyc --report-dir=var --reporter=lcovonly mocha --compilers=js:babel-register --recursive --require=babel-polyfill"
   }
 }

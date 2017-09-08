@@ -6,6 +6,8 @@
 /var/
 /www/
 
+/.babelrc
+/.browserslistrc
 /.editorconfig
 /.esdoc.json
 /.eslintrc.yaml
