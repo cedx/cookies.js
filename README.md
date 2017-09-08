@@ -12,14 +12,21 @@ $ npm install --save @cedx/cookies
 
 ## Usage
 This package provides a service dedicated to the cookie management: the `Cookies` class.
+It should be registered with the application by exposing it as a property on the global object:
 
 ```javascript
 import {Cookies} from '@cedx/cookies';
 
-// Expose the service.
+// Expose the service as an application-wide singleton.
 window.cookies = new Cookies;
+```
 
-// Work with the service.
+Then, it will be available in the component classes:
+
+```javascript
+// Optional statement: the service should be available globally.
+const cookies = window.cookies;
+
 cookies.get('foo');
 cookies.getObject('bar');
 
@@ -44,6 +51,8 @@ cookies.defaults.secure = true;
 console.log(JSON.stringify(cookies.defaults));
 // {"domain": "domain.com", "expires": null, "path": "/www", "secure": true}
 ```
+
+> This property allows the configuration of the default cookie options at runtime.
 
 #### `.keys: string[]`
 Returns the keys of the cookies associated with the current document:
@@ -165,7 +174,7 @@ cookies.setObject('foo', {bar: 'baz'}, new Date(Date.now() + 3600 * 1000));
 
 ### Options
 Several methods accept an `options` parameter in order to customize the cookie attributes.
-These options are expressed using an instance of the `CookieOptions` class, which has the following properties:
+These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/src/cookie_options.js) class, which has the following properties:
 
 - `expires: Date = null`: The expiration date and time for the cookie.
 - `path: string = ""`: The path to which the cookie applies.
@@ -175,10 +184,21 @@ These options are expressed using an instance of the `CookieOptions` class, whic
 For example:
 
 ```javascript
+import {CookieOptions} from '@cedx/cookies';
+
 let duration = 3600 * 1000; // One hour.
 let options = new CookieOptions(Date.now() + duration, '/', 'www.domain.com');
 cookies.set('foo', 'bar', options);
 ```
+
+You can provide default values for the cookie options when instantiating the `Cookies` class:
+
+```javascript
+const defaultOptions = new CookieOptions(null, '/', 'www.domain.com', true);
+window.cookies = new Cookies(defaultOptions);
+```
+
+> The `Cookies#defaults` property let you override the default cookie options at runtime.
 
 ### Iteration
 The `Cookies` class is iterable: you can go through all key/value pairs contained using a `for...of` loop. Each entry is an array with two elements (e.g. the key and the value):
@@ -195,7 +215,7 @@ for (let entry of cookies) {
 ```
 
 ### Events
-The `Cookies` class is an [`EventEmitter`](https://nodejs.org/api/events.html): every time one or several values are changed (added, removed or updated) through an instance of this class, a `changes` event is triggered.
+The `Cookies` class is an [`EventEmitter`](https://nodejs.org/api/events.html): every time one or several values are changed (added, removed or updated) through this class, a `changes` event is triggered.
 
 You can subscribe to this event using the `on()` method:
 
@@ -205,10 +225,14 @@ cookies.on('changes', changes => {
 });
 ```
 
-The changes are expressed as an array of `ChangeEvent` instances, where a `null` reference indicates an absence of value:
+The changes are expressed as an array of [`ChangeEvent`](https://github.com/cedx/cookies.js/blob/master/src/change_event.js) instances, where a `null` reference indicates an absence of value:
 
 ```javascript
-cookies.on('changes', changes => console.log(changes[0]));
+cookies.on('changes', changes => console.log({
+  key: changes[0].key,
+  currentValue: changes[0].currentValue,
+  previousValue: changes[0].previousValue
+}));
 
 cookies.set('foo', 'bar');
 // Prints: {key: "foo", currentValue: "bar", previousValue: null}
@@ -220,7 +244,7 @@ cookies.remove('foo');
 // Prints: {key: "foo", currentValue: null, previousValue: "baz"}
 ```
 
-The values contained in the `currentValue` and `previousValue` properties of the `ChangeEvent` instances are the raw cookie values. If you use the `Cookies#setObject` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
+The values contained in the `currentValue` and `previousValue` properties of the `ChangeEvent` instances are the raw cookie values. If you use the `Cookies#setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
 
 ```javascript
 cookies.setObject('foo', {bar: 'baz'});

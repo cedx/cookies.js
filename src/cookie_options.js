@@ -23,7 +23,7 @@ export class CookieOptions {
      * @type {Date}
      */
     this.expires = expires instanceof Date ? expires : null;
-    if (Number.isInteger(expires) || typeof expires == 'string') this.expires = new Date(expires);
+    if (!this.expires && (Number.isInteger(expires) || typeof expires == 'string')) this.expires = new Date(expires);
 
     /**
      * The path to which the cookie applies.
