@@ -12,18 +12,18 @@
     "events": "^1.1.1"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^3.1.0",
-    "@cedx/gulp-david": "^9.0.0",
-    "chai": "^4.1.1",
+    "@cedx/coveralls": "^4.0.0",
+    "@cedx/gulp-david": "^10.0.0",
+    "chai": "^4.1.2",
     "del": "^3.0.0",
-    "esdoc": "^1.0.1",
+    "esdoc": "^1.0.2",
     "esdoc-standard-plugin": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
     "jsdom": "^11.2.0",
     "mocha": "^3.5.0",
-    "nsp": "^2.7.0",
-    "nyc": "^11.1.0"
+    "nsp": "^2.8.0",
+    "nyc": "^11.2.1"
   },
   "engines": {
     "node": ">=8.4.0"
