@@ -1,13 +1,12 @@
-'use strict';
-
-const EventEmitter = require('events');
-const {CookieOptions} = require('./cookie_options');
+import EventEmitter from 'events';
+import {ChangeEvent} from './change_event';
+import {CookieOptions} from './cookie_options';
 
 /**
  * Provides access to the HTTP cookies.
  * See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
  */
-exports.Cookies = class Cookies extends EventEmitter {
+export class Cookies extends EventEmitter {
 
   /**
    * Initializes a new instance of the class.
@@ -75,7 +74,7 @@ exports.Cookies = class Cookies extends EventEmitter {
    * @emits {ChangeEvent[]} The "changes" event.
    */
   clear() {
-    let changes = this.keys.map(key => ({currentValue: null, key, previousValue: this.get(key)}));
+    let changes = this.keys.map(key => new ChangeEvent(key, null, this.get(key)));
     for (let key of this.keys) this._removeItem(key);
     this.emit('changes', changes);
   }
@@ -136,7 +135,7 @@ exports.Cookies = class Cookies extends EventEmitter {
   remove(key, options = this.defaults) {
     let previousValue = this.get(key);
     this._removeItem(key, options);
-    this.emit('changes', [{currentValue: null, key, previousValue}]);
+    this.emit('changes', [new ChangeEvent(key, null, previousValue)]);
   }
 
   /**
@@ -156,7 +155,7 @@ exports.Cookies = class Cookies extends EventEmitter {
 
     let previousValue = this.get(key);
     this._document.cookie = cookieValue;
-    this.emit('changes', [{currentValue: value, key, previousValue}]);
+    this.emit('changes', [new ChangeEvent(key, value, previousValue)]);
   }
 
   /**
@@ -190,4 +189,4 @@ exports.Cookies = class Cookies extends EventEmitter {
     let cookieOptions = new CookieOptions(0, path, domain);
     this._document.cookie = `${encodeURIComponent(key)}=; ${cookieOptions}`;
   }
-};
+}

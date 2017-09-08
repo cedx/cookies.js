@@ -1,9 +1,7 @@
-'use strict';
-
 /**
  * Defines the attributes of a HTTP cookie.
  */
-exports.CookieOptions = class CookieOptions {
+export class CookieOptions {
 
   /**
    * Initializes a new instance of the class.
@@ -73,4 +71,4 @@ exports.CookieOptions = class CookieOptions {
     if (this.secure) value.push('secure');
     return value.join('; ');
   }
-};
+}

@@ -1,9 +1,7 @@
-'use strict';
-
 /**
  * Represents the event parameter used for a change event.
  */
-exports.ChangeEvent = class ChangeEvent {
+export class ChangeEvent {
 
   /**
    * Initializes a new instance of the class.
@@ -39,4 +37,4 @@ exports.ChangeEvent = class ChangeEvent {
   get [Symbol.toStringTag]() {
     return 'ChangeEvent';
   }
-};
+}
