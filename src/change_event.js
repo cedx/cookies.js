@@ -5,9 +5,9 @@ export class ChangeEvent {
 
   /**
    * Initializes a new instance of the class.
-   * @param {string} [key] The path to which the cookie applies.
-   * @param {*} [currentValue] The domain for which the cookie is valid.
-   * @param {*} [previousValue] Value indicating whether to transmit the cookie over HTTPS only.
+   * @param {string} [key] The cookie name.
+   * @param {*} [currentValue] The current value for the cookie.
+   * @param {*} [previousValue] The previous value for the cookie.
    */
   constructor(key = '', currentValue = null, previousValue = null) {
 
