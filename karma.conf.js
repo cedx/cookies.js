@@ -27,7 +27,6 @@ module.exports = config => config.set({
     'coverage'
   ],
   rollupPreprocessor: {
-    context: 'window',
     format: 'iife',
     name: 'cookies',
     plugins: [

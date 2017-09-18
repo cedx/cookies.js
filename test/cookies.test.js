@@ -5,7 +5,7 @@ import {Cookies, KeyValueChange} from '../src/index';
  * Value indicating whether the current program is running in a browser.
  * @type {boolean}
  */
-const isBrowser = typeof window != 'undefined' && window === this;
+const isBrowser = typeof process == 'undefined' && typeof window != 'undefined';
 
 /**
  * @test {Cookies}

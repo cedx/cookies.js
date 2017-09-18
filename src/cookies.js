@@ -20,7 +20,7 @@ export class Cookies extends EventEmitter {
      * The default cookie options.
      * @type {CookieOptions}
      */
-    this._defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
+    this.defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
 
     /**
      * The underlying HTML document.
@@ -35,14 +35,6 @@ export class Cookies extends EventEmitter {
    */
   get [Symbol.toStringTag]() {
     return 'Cookies';
-  }
-
-  /**
-   * The default cookie options.
-   * @type {CookieOptions}
-   */
-  get defaults() {
-    return this._defaults;
   }
 
   /**
