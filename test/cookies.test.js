@@ -2,7 +2,7 @@
 
 const {expect} = require('chai');
 const {JSDOM} = require('jsdom');
-const {ChangeEvent, CookieOptions, Cookies} = require('../src');
+const {CookieOptions, Cookies, KeyValueChange} = require('../src');
 
 /**
  * @test {Cookies}
@@ -176,7 +176,7 @@ describe('Cookies', () => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
         let record = changes[0];
-        expect(record).to.be.instanceof(ChangeEvent);
+        expect(record).to.be.instanceof(KeyValueChange);
         expect(record.key).to.equal('foo');
         expect(record.currentValue).to.equal('bar');
         expect(record.previousValue).to.be.null;
@@ -196,7 +196,7 @@ describe('Cookies', () => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
         let record = changes[0];
-        expect(record).to.be.instanceof(ChangeEvent);
+        expect(record).to.be.instanceof(KeyValueChange);
         expect(record.key).to.equal('foo');
         expect(record.currentValue).to.equal('baz');
         expect(record.previousValue).to.equal('bar');
@@ -216,7 +216,7 @@ describe('Cookies', () => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
         let record = changes[0];
-        expect(record).to.be.instanceof(ChangeEvent);
+        expect(record).to.be.instanceof(KeyValueChange);
         expect(record.key).to.equal('foo');
         expect(record.currentValue).to.be.null;
         expect(record.previousValue).to.equal('bar');
@@ -237,13 +237,13 @@ describe('Cookies', () => {
         expect(changes).to.be.an('array').and.have.lengthOf(2);
 
         let record = changes[0];
-        expect(record).to.be.instanceof(ChangeEvent);
+        expect(record).to.be.instanceof(KeyValueChange);
         expect(record.key).to.equal('foo');
         expect(record.currentValue).to.be.null;
         expect(record.previousValue).to.equal('bar');
 
         record = changes[1];
-        expect(record).to.be.instanceof(ChangeEvent);
+        expect(record).to.be.instanceof(KeyValueChange);
         expect(record.key).to.equal('bar');
         expect(record.currentValue).to.be.null;
         expect(record.previousValue).to.equal('baz');

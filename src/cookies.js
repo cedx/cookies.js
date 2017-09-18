@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import {ChangeEvent} from './change_event';
+import {KeyValueChange} from './change_event';
 import {CookieOptions} from './cookie_options';
 
 /**
@@ -71,10 +71,10 @@ export class Cookies extends EventEmitter {
 
   /**
    * Removes all cookies associated with the current document.
-   * @emits {ChangeEvent[]} The "changes" event.
+   * @emits {KeyValueChange[]} The "changes" event.
    */
   clear() {
-    let changes = this.keys.map(key => new ChangeEvent(key, null, this.get(key)));
+    let changes = this.keys.map(key => new KeyValueChange(key, null, this.get(key)));
     for (let key of this.keys) this._removeItem(key);
     this.emit('changes', changes);
   }
@@ -130,12 +130,12 @@ export class Cookies extends EventEmitter {
    * Removes the value associated to the specified key.
    * @param {string} key The cookie name.
    * @param {CookieOptions} [options] The cookie options.
-   * @emits {ChangeEvent[]} The "changes" event.
+   * @emits {KeyValueChange[]} The "changes" event.
    */
   remove(key, options = this.defaults) {
     let previousValue = this.get(key);
     this._removeItem(key, options);
-    this.emit('changes', [new ChangeEvent(key, null, previousValue)]);
+    this.emit('changes', [new KeyValueChange(key, null, previousValue)]);
   }
 
   /**
@@ -144,7 +144,7 @@ export class Cookies extends EventEmitter {
    * @param {string} value The cookie value.
    * @param {CookieOptions|Date} [options] The cookie options, or the expiration date and time for the cookie.
    * @throws {TypeError} The specified key is invalid.
-   * @emits {ChangeEvent[]} The "changes" event.
+   * @emits {KeyValueChange[]} The "changes" event.
    */
   set(key, value, options = this.defaults) {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
@@ -155,7 +155,7 @@ export class Cookies extends EventEmitter {
 
     let previousValue = this.get(key);
     this._document.cookie = cookieValue;
-    this.emit('changes', [new ChangeEvent(key, value, previousValue)]);
+    this.emit('changes', [new KeyValueChange(key, value, previousValue)]);
   }
 
   /**
@@ -163,7 +163,7 @@ export class Cookies extends EventEmitter {
    * @param {string} key The cookie name.
    * @param {*} value The cookie value.
    * @param {CookieOptions|Date} [options] The cookie options, or the expiration date and time for the cookie.
-   * @emits {ChangeEvent[]} The "changes" event.
+   * @emits {KeyValueChange[]} The "changes" event.
    */
   setObject(key, value, options = this.defaults) {
     this.set(key, JSON.stringify(value), options);

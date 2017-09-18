@@ -225,7 +225,7 @@ cookies.on('changes', changes => {
 });
 ```
 
-The changes are expressed as an array of [`ChangeEvent`](https://github.com/cedx/cookies.js/blob/master/src/change_event.js) instances, where a `null` reference indicates an absence of value:
+The changes are expressed as an array of [`KeyValueChange`](https://github.com/cedx/cookies.js/blob/master/src/key_value_change.js) instances, where a `null` reference indicates an absence of value:
 
 ```javascript
 cookies.on('changes', changes => console.log({
@@ -244,7 +244,7 @@ cookies.remove('foo');
 // Prints: {key: "foo", currentValue: null, previousValue: "baz"}
 ```
 
-The values contained in the `currentValue` and `previousValue` properties of the `ChangeEvent` instances are the raw cookie values. If you use the `Cookies#setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
+The values contained in the `currentValue` and `previousValue` properties of the `KeyValueChange` instances are the raw cookie values. If you use the `Cookies#setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
 
 ```javascript
 cookies.setObject('foo', {bar: 'baz'});
