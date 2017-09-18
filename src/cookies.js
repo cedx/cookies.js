@@ -170,6 +170,16 @@ export class Cookies extends EventEmitter {
   }
 
   /**
+   * Converts this object to a map in JSON format.
+   * @return {object} The map in JSON format corresponding to this object.
+   */
+  toJSON() {
+    let map = {};
+    for (let [key, value] of this) map[key] = value;
+    return map;
+  }
+
+  /**
    * Returns a string representation of this object.
    * @return {string} The string representation of this object.
    */
