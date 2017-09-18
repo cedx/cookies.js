@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
-import {KeyValueChange} from './change_event';
 import {CookieOptions} from './cookie_options';
+import {KeyValueChange} from './key_value_change';
 
 /**
  * Provides access to the HTTP cookies.
@@ -10,17 +10,17 @@ export class Cookies extends EventEmitter {
 
   /**
    * Initializes a new instance of the class.
-   * @param {CookieOptions} defaults The default cookie options.
+   * @param {CookieOptions|object} defaults The default cookie options.
    * @param {HTMLDocument} document The underlying HTML document.
    */
-  constructor(defaults = new CookieOptions, document = window.document) {
+  constructor(defaults = {}, document = window.document) {
     super();
 
     /**
      * The default cookie options.
      * @type {CookieOptions}
      */
-    this._defaults = defaults;
+    this._defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
 
     /**
      * The underlying HTML document.
@@ -74,7 +74,7 @@ export class Cookies extends EventEmitter {
    * @emits {KeyValueChange[]} The "changes" event.
    */
   clear() {
-    let changes = this.keys.map(key => new KeyValueChange(key, null, this.get(key)));
+    let changes = this.keys.map(key => new KeyValueChange(key, {previousValue: this.get(key)}));
     for (let key of this.keys) this._removeItem(key);
     this.emit('changes', changes);
   }
@@ -129,43 +129,43 @@ export class Cookies extends EventEmitter {
   /**
    * Removes the value associated to the specified key.
    * @param {string} key The cookie name.
-   * @param {CookieOptions} [options] The cookie options.
+   * @param {CookieOptions|object} [options] The cookie options.
    * @emits {KeyValueChange[]} The "changes" event.
    */
-  remove(key, options = this.defaults) {
+  remove(key, options = {}) {
     let previousValue = this.get(key);
     this._removeItem(key, options);
-    this.emit('changes', [new KeyValueChange(key, null, previousValue)]);
+    this.emit('changes', [new KeyValueChange(key, {previousValue})]);
   }
 
   /**
    * Associates a given value to the specified key.
    * @param {string} key The cookie name.
    * @param {string} value The cookie value.
-   * @param {CookieOptions|Date} [options] The cookie options, or the expiration date and time for the cookie.
+   * @param {CookieOptions|object} [options] The cookie options.
    * @throws {TypeError} The specified key is invalid.
    * @emits {KeyValueChange[]} The "changes" event.
    */
-  set(key, value, options = this.defaults) {
+  set(key, value, options = {}) {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
 
+    let cookieOptions = this._getOptions(options);
     let cookieValue = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-    if (options instanceof Date) options = new CookieOptions(options, this.defaults.path, this.defaults.domain, this.defaults.secure);
-    if (options.toString().length) cookieValue += `; ${options}`;
+    if (cookieOptions.toString().length) cookieValue += `; ${cookieOptions}`;
 
     let previousValue = this.get(key);
     this._document.cookie = cookieValue;
-    this.emit('changes', [new KeyValueChange(key, value, previousValue)]);
+    this.emit('changes', [new KeyValueChange(key, {currentValue: value, previousValue})]);
   }
 
   /**
    * Serializes and associates a given value to the specified key.
    * @param {string} key The cookie name.
    * @param {*} value The cookie value.
-   * @param {CookieOptions|Date} [options] The cookie options, or the expiration date and time for the cookie.
+   * @param {CookieOptions|object} [options] The cookie options.
    * @emits {KeyValueChange[]} The "changes" event.
    */
-  setObject(key, value, options = this.defaults) {
+  setObject(key, value, options = {}) {
     this.set(key, JSON.stringify(value), options);
   }
 
@@ -188,15 +188,24 @@ export class Cookies extends EventEmitter {
   }
 
   /**
+   * TODO
+   * @param {CookieOptions|object} options
+   * @return {CookieOptions}
+   */
+  _getOptions(options) {
+    return new CookieOptions(Object.assign(this.defaults.toJSON(), options instanceof CookieOptions ? options.toJSON() : options));
+  }
+
+  /**
    * Removes the value associated to the specified key.
    * @param {string} key The cookie name.
-   * @param {CookieOptions} [options] The cookie options.
+   * @param {CookieOptions|object} [options] The cookie options.
    */
-  _removeItem(key, options = this.defaults) {
+  _removeItem(key, options = {}) {
     if (!this.has(key)) return;
 
-    let {domain, path} = options;
-    let cookieOptions = new CookieOptions(0, path, domain);
+    let {domain, path} = this._getOptions(options);
+    let cookieOptions = new CookieOptions({domain, expires: 0, path});
     this._document.cookie = `${encodeURIComponent(key)}=; ${cookieOptions}`;
   }
 }
