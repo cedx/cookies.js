@@ -71,6 +71,11 @@ gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
  */
 gulp.task('test', ['test:browser', 'test:node']);
 
+gulp.task('test:browser', () => {
+  if (process.platform == 'win32') process.env.FIREFOX_BIN = 'firefox.exe';
+  return _exec('node_modules/.bin/karma', ['start', '--single-run']);
+});
+
 gulp.task('test:node', () => _exec('node_modules/.bin/mocha'));
 
 /**
