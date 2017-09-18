@@ -5,12 +5,9 @@ export class CookieOptions {
 
   /**
    * Initializes a new instance of the class.
-   * @param {Date|number|string} [expires] The expiration date and time for the cookie.
-   * @param {string} [path] The path to which the cookie applies.
-   * @param {string} [domain] The domain for which the cookie is valid.
-   * @param {boolean} [secure] Value indicating whether to transmit the cookie over HTTPS only.
+   * @param {object} [options] An object specifying values used to initialize this instance.
    */
-  constructor(expires = null, path = '', domain = '', secure = false) {
+  constructor({domain = '', expires = null, path = '', secure = false} = {}) {
 
     /**
      * The domain for which the cookie is valid.
