@@ -10,7 +10,7 @@
   "repository": "cedx/cookies.js",
   "version": "0.1.0",
   "dependencies": {
-    "events": "^1.1.1"
+    "eventemitter3": "^2.0.3"
   },
   "devDependencies": {
     "@cedx/coveralls": "^4.0.0",
