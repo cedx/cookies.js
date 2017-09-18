@@ -69,14 +69,9 @@ gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
 /**
  * Runs the unit tests.
  */
-gulp.task('test', () => _exec('node_modules/.bin/nyc', [
-  '--report-dir=var',
-  '--reporter=lcovonly',
-  normalize('node_modules/.bin/mocha'),
-  '--compilers=js:babel-register',
-  '--recursive',
-  '--require=babel-polyfill'
-]));
+gulp.task('test', ['test:browser', 'test:node']);
+
+gulp.task('test:node', () => _exec('node_modules/.bin/mocha'));
 
 /**
  * Spawns a new process using the specified command.
