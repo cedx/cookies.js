@@ -1,16 +1,39 @@
 'use strict';
 
+const commonjs = require('rollup-plugin-commonjs');
+const nodeResolve = require('rollup-plugin-node-resolve');
+
 module.exports = config => config.set({
   browsers: ['Firefox'],
-  client: {mocha: {opts: true}},
   frameworks: ['mocha'],
-  files: ['test/**/*.js'],
-  preprocessors: {'src/**/*.js': ['coverage']},
-  reporters: ['progress', 'coverage'],
+  client: {
+    mocha: {opts: true}
+  },
   coverageReporter: {
     dir: 'var',
     includeAllSources: true,
     subdir: '.',
     type: 'lcovonly'
+  },
+  files: [
+    {pattern: 'test/**/*.js', watched: false}
+  ],
+  preprocessors: {
+    'src/**/*.js': ['coverage'],
+    'test/**/*.js': ['rollup']
+  },
+  reporters: [
+    'progress',
+    'coverage'
+  ],
+  rollupPreprocessor: {
+    context: 'window',
+    format: 'iife',
+    name: 'cookies',
+    plugins: [
+      nodeResolve(),
+      commonjs({namedExports: {chai: ['expect']}})
+    ],
+    sourcemap: 'inline'
   }
 });

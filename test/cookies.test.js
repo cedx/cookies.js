@@ -1,28 +1,30 @@
 import {expect} from 'chai';
 import {Cookies, KeyValueChange} from '../src/index';
 
-const {JSDOM} = require('jsdom');
+/**
+ * Value indicating whether the current program is running in a browser.
+ * @type {boolean}
+ */
+const isBrowser = typeof window != 'undefined' && window === this;
 
 /**
  * @test {Cookies}
  */
-describe('Cookies', () => {
+(isBrowser ? describe : describe.skip)('Cookies', () => {
 
   /**
    * @test {Cookies#keys}
    */
   describe('#keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
-      let {document} = (new JSDOM).window;
-      expect(new Cookies(new CookieOptions, document).keys).to.be.an('array').that.is.empty;
+      expect((new Cookies).keys).to.be.an('array').that.is.empty;
     });
 
     it('should return the keys of the cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
       document.cookie = 'bar=baz';
 
-      let keys = new Cookies(new CookieOptions, document).keys;
+      let keys = (new Cookies).keys;
       expect(keys).to.be.an('array').and.have.lengthOf(2);
       expect(keys[0]).to.equal('foo');
       expect(keys[1]).to.equal('bar');
@@ -34,15 +36,13 @@ describe('Cookies', () => {
    */
   describe('#length', () => {
     it('should return zero if the current document has no associated cookie', () => {
-      let {document} = (new JSDOM).window;
-      expect(new Cookies(new CookieOptions, document)).to.have.lengthOf(0);
+      expect(new Cookies).to.have.lengthOf(0);
     });
 
     it('should return the number of cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
       document.cookie = 'bar=baz';
-      expect(new Cookies(new CookieOptions, document)).to.have.lengthOf(2);
+      expect(new Cookies).to.have.lengthOf(2);
     });
   });
 
@@ -51,17 +51,15 @@ describe('Cookies', () => {
    */
   describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
-      let cookies = new Cookies(new CookieOptions, (new JSDOM).window.document);
-      let iterator = cookies[Symbol.iterator]();
+      let iterator = (new Cookies)[Symbol.iterator]();
       expect(iterator.next().done).to.be.true;
     });
 
     it('should return a value iterator if the current document has associated cookies', () => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
       document.cookie = 'bar=baz';
 
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       let iterator = cookies[Symbol.iterator]();
 
       let next = iterator.next();
@@ -83,11 +81,10 @@ describe('Cookies', () => {
    */
   describe('#clear()', () => {
     it('should remove all the cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
       document.cookie = 'bar=baz';
 
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       cookies.clear();
       expect(document.cookie).to.not.contain('foo');
       expect(document.cookie).to.not.contain('bar');
@@ -99,9 +96,7 @@ describe('Cookies', () => {
    */
   describe('#get()', () => {
     it('should properly get the cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
-      let cookies = new Cookies(new CookieOptions, document);
-
+      let cookies = new Cookies;
       expect(cookies.get('foo')).to.be.null;
       expect(cookies.get('foo', '123')).to.equal('123');
 
@@ -118,9 +113,7 @@ describe('Cookies', () => {
    */
   describe('#getObject()', () => {
     it('should properly get the deserialized cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
-      let cookies = new Cookies(new CookieOptions, document);
-
+      let cookies = new Cookies;
       expect(cookies.getObject('foo')).to.be.null;
       expect(cookies.getObject('foo', {key: 'value'})).to.deep.equal({key: 'value'});
 
@@ -136,11 +129,8 @@ describe('Cookies', () => {
     });
 
     it('should return the default value if the value can\'t be deserialized', () => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
-
-      let cookies = new Cookies(new CookieOptions, document);
-      expect(cookies.getObject('foo', 'defaultValue')).to.equal('defaultValue');
+      expect((new Cookies).getObject('foo', 'defaultValue')).to.equal('defaultValue');
     });
   });
 
@@ -149,15 +139,13 @@ describe('Cookies', () => {
    */
   describe('#has()', () => {
     it('should return `false` if the current document has an associated cookie with the specified key', () => {
-      let {document} = (new JSDOM).window;
-      expect(new Cookies(new CookieOptions, document).has('foo')).to.be.false;
+      expect((new Cookies).has('foo')).to.be.false;
     });
 
     it('should return `true` if the current document does not have an associated cookie with the specified key', () => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
 
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       expect(cookies.has('foo')).to.be.true;
       expect(cookies.has('bar')).to.be.false;
     });
@@ -168,9 +156,7 @@ describe('Cookies', () => {
    */
   describe('#on("changes")', () => {
     it('should trigger an event when a cookie is added', done => {
-      let {document} = (new JSDOM).window;
-      let cookies = new Cookies(new CookieOptions, document);
-
+      let cookies = new Cookies;
       cookies.on('changes', changes => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
@@ -187,10 +173,9 @@ describe('Cookies', () => {
     });
 
     it('should trigger an event when a cookie is updated', done => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
 
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       cookies.on('changes', changes => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
@@ -207,10 +192,9 @@ describe('Cookies', () => {
     });
 
     it('should trigger an event when a cookie is removed', done => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
 
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       cookies.on('changes', changes => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
@@ -227,11 +211,10 @@ describe('Cookies', () => {
     });
 
     it('should trigger an event when all the cookies are removed', done => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
       document.cookie = 'bar=baz';
 
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       cookies.on('changes', changes => {
         expect(changes).to.be.an('array').and.have.lengthOf(2);
 
@@ -259,11 +242,10 @@ describe('Cookies', () => {
    */
   describe('#remove()', () => {
     it('should properly remove the cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
       document.cookie = 'foo=bar';
       document.cookie = 'bar=baz';
 
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       cookies.remove('foo');
       expect(document.cookie).to.not.contain('foo');
       expect(document.cookie).to.contain('bar=baz');
@@ -278,8 +260,7 @@ describe('Cookies', () => {
    */
   describe('#set()', () => {
     it('should properly set the cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       expect(document.cookie).to.not.contain('foo');
 
       cookies.set('foo', 'bar');
@@ -290,8 +271,7 @@ describe('Cookies', () => {
     });
 
     it('should throw an error if the specified key is a reserved word', () => {
-      let {document} = (new JSDOM).window;
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       expect(() => cookies.set('domain', 'foo')).to.throw(TypeError);
       expect(() => cookies.set('expires', 'foo')).to.throw(TypeError);
       expect(() => cookies.set('max-age', 'foo')).to.throw(TypeError);
@@ -305,8 +285,7 @@ describe('Cookies', () => {
    */
   describe('#setObject()', () => {
     it('should properly serialize and set the cookies associated with the current document', () => {
-      let {document} = (new JSDOM).window;
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       expect(document.cookie).to.not.contain('foo');
 
       cookies.setObject('foo', 123);
@@ -320,8 +299,7 @@ describe('Cookies', () => {
     });
 
     it('should throw an error if the specified key is a reserved word', () => {
-      let {document} = (new JSDOM).window;
-      let cookies = new Cookies(new CookieOptions, document);
+      let cookies = new Cookies;
       expect(() => cookies.setObject('domain', 'foo')).to.throw(TypeError);
       expect(() => cookies.setObject('expires', 'foo')).to.throw(TypeError);
       expect(() => cookies.setObject('max-age', 'foo')).to.throw(TypeError);
@@ -331,17 +309,22 @@ describe('Cookies', () => {
   });
 
   /**
+   * @test {Cookies#toJSON}
+   */
+  describe('#toJSON()', () => {
+    // TODO test toJSON
+  });
+
+  /**
    * @test {Cookies#toString}
    */
   describe('#toString()', () => {
     it('should return an empty string for a newly created instance', () => {
-      let {document} = (new JSDOM).window;
-      expect(String(new Cookies(new CookieOptions, document))).to.be.empty;
+      expect(String(new Cookies)).to.be.empty;
     });
 
-    it('should return a format like "<key>=<value>(;<key>=<value>)*" for an initialized instance', () => {
-      let {document} = new JSDOM('', {url: 'https://domain.com/path'}).window;
-      let cookies = new Cookies(new CookieOptions(null, '/path', 'domain.com', true), document);
+    it('should return a format like "<key>=<value>(; <key>=<value>)*" for an initialized instance', () => {
+      let cookies = new Cookies({domain: 'domain.com', path: '/path', secure: true});
 
       cookies.set('foo', 'bar');
       expect(String(cookies)).to.equal('foo=bar');
