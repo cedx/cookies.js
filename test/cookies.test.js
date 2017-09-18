@@ -1,8 +1,7 @@
-'use strict';
+import {expect} from 'chai';
+import {Cookies, KeyValueChange} from '../src/index';
 
-const {expect} = require('chai');
 const {JSDOM} = require('jsdom');
-const {CookieOptions, Cookies, KeyValueChange} = require('../src');
 
 /**
  * @test {Cookies}

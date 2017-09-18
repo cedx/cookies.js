@@ -15,7 +15,6 @@
   "devDependencies": {
     "@cedx/coveralls": "^5.0.0",
     "@cedx/gulp-david": "^10.0.0",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",

@@ -1,7 +1,5 @@
-'use strict';
-
-const {expect} = require('chai');
-const {KeyValueChange} = require('../src');
+import {expect} from 'chai';
+import {KeyValueChange} from '../src/index';
 
 /**
  * @test {KeyValueChange}

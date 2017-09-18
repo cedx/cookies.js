@@ -1,7 +1,5 @@
-'use strict';
-
-const {expect} = require('chai');
-const {CookieOptions} = require('../src');
+import {expect} from 'chai';
+import {CookieOptions} from '../src/index';
 
 /**
  * @test {CookieOptions}

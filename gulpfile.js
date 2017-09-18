@@ -33,7 +33,7 @@ gulp.task('clean', () => del([
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test'], () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
+gulp.task('coverage', ['test:browser'], () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
 
 /**
  * Checks the package dependencies.
@@ -76,7 +76,7 @@ gulp.task('test:browser', () => {
   return _exec('node_modules/.bin/karma', ['start', '--single-run']);
 });
 
-gulp.task('test:node', () => _exec('node_modules/.bin/mocha'));
+gulp.task('test:node', () => _exec('node_modules/.bin/mocha', ['--require=babel-register']));
 
 /**
  * Spawns a new process using the specified command.
