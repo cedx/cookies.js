@@ -8,6 +8,9 @@ const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const {normalize} = require('path');
 
+// Initialize the test environment.
+if (process.platform == 'win32') process.env.FIREFOX_BIN = 'firefox.exe';
+
 /**
  * Runs the default tasks.
  */
@@ -33,7 +36,7 @@ gulp.task('clean', () => del([
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test:browser'], () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
+gulp.task('coverage', ['test'], () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
 
 /**
  * Checks the package dependencies.
@@ -69,14 +72,12 @@ gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
 /**
  * Runs the unit tests.
  */
-gulp.task('test', ['test:browser', 'test:node']);
+gulp.task('test', () => _exec('node_modules/.bin/karma', ['start', '--single-run']));
 
-gulp.task('test:browser', () => {
-  if (process.platform == 'win32') process.env.FIREFOX_BIN = 'firefox.exe';
-  return _exec('node_modules/.bin/karma', ['start', '--single-run']);
-});
-
-gulp.task('test:node', () => _exec('node_modules/.bin/mocha', ['--require=babel-register']));
+/**
+ * Watches for file changes.
+ */
+gulp.task('watch', () => _exec('node_modules/.bin/karma', ['start']));
 
 /**
  * Spawns a new process using the specified command.

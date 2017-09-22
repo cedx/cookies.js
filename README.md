@@ -127,7 +127,7 @@ cookies.set('foo', 'bar');
 console.log(cookies.has('foo')); // true
 ```
 
-#### `.remove(key: string, options: CookieOptions = this.defaults)`
+#### `.remove(key: string, options: CookieOptions|object = this.defaults)`
 Removes the value associated to the specified key:
 
 ```javascript
@@ -138,7 +138,7 @@ cookies.remove('foo');
 console.log(cookies.has('foo')); // false
 ```
 
-#### `.set(key: string, value: string, options: CookieOptions|Date = this.defaults)`
+#### `.set(key: string, value: string, options: CookieOptions|object = this.defaults)`
 Associates a given value to the specified key:
 
 ```javascript
@@ -148,13 +148,7 @@ cookies.set('foo', 'bar');
 console.log(cookies.get('foo')); // "bar"
 ```
 
-An expiration date and time can be provided for setting the cookie duration:
-
-```javascript
-cookies.set('foo', 'bar', new Date(Date.now() + 3600 * 1000));
-```
-
-#### `.setObject(key: string, value: any, options: CookieOptions|Date = this.defaults)`
+#### `.setObject(key: string, value: any, options: CookieOptions|object= this.defaults)`
 Serializes and associates a given value to the specified key:
 
 ```javascript
@@ -165,12 +159,6 @@ console.log(cookies.getObject('foo')); // {bar: "baz"}
 ```
 
 > The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method.
-
-An expiration date and time can be provided for setting the cookie duration:
-
-```javascript
-cookies.setObject('foo', {bar: 'baz'}, new Date(Date.now() + 3600 * 1000));
-```
 
 ### Options
 Several methods accept an `options` parameter in order to customize the cookie attributes.
@@ -186,16 +174,33 @@ For example:
 ```javascript
 import {CookieOptions} from '@cedx/cookies';
 
-let duration = 3600 * 1000; // One hour.
-let options = new CookieOptions(Date.now() + duration, '/', 'www.domain.com');
+let options = new CookieOptions({
+  domain: 'www.domain.com',
+  expires: new Date(Date.now() + (3600 * 1000)), // One hour.
+  path: '/'
+});
+
 cookies.set('foo', 'bar', options);
 ```
 
-You can provide default values for the cookie options when instantiating the `Cookies` class:
+For convenience, you can also use a literal object instead of a `CookieOptions` instance:
 
 ```javascript
-const defaultOptions = new CookieOptions(null, '/', 'www.domain.com', true);
-window.cookies = new Cookies(defaultOptions);
+cookies.set('foo', 'bar', {
+  domain: 'www.domain.com',
+  expires: Date.now() + (3600 * 1000), // Numbers and strings also work.
+  path: '/'
+});
+```
+
+It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
+
+```javascript
+window.cookies = new Cookies({
+  domain: 'www.domain.com',
+  path: '/',
+  secure: true
+});
 ```
 
 > The `Cookies#defaults` property let you override the default cookie options at runtime.

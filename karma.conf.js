@@ -5,27 +5,20 @@ const nodeResolve = require('rollup-plugin-node-resolve');
 
 module.exports = config => config.set({
   browsers: ['Firefox'],
+  client: {mocha: {opts: true}},
   frameworks: ['mocha'],
-  client: {
-    mocha: {opts: true}
-  },
+  files: ['test/**/*.js'],
+  reporters: ['progress', 'coverage'],
   coverageReporter: {
     dir: 'var',
     includeAllSources: true,
     subdir: '.',
     type: 'lcovonly'
   },
-  files: [
-    {pattern: 'test/**/*.js', watched: false}
-  ],
   preprocessors: {
     'src/**/*.js': ['coverage'],
     'test/**/*.js': ['rollup']
   },
-  reporters: [
-    'progress',
-    'coverage'
-  ],
   rollupPreprocessor: {
     format: 'iife',
     name: 'cookies',
