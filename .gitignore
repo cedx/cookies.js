@@ -3,6 +3,7 @@
 /lib/
 /node_modules/
 /var/
+/web/
 
 /*.iml
 /**/.DS_Store
