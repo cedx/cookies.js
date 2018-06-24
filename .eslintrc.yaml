@@ -35,9 +35,9 @@ rules:
       Boolean: boolean
       Function: function
       Number: number
-      Object: object
       String: string
-      Symbol: symbol
+      object: Object
+      symbol: Symbol
     requireReturn: false
 
   # Best practices.
@@ -91,9 +91,11 @@ rules:
 
   # Node.js and CommonJS.
   handle-callback-err: error
+  no-buffer-constructor: error
   no-mixed-requires: error
   no-new-require: error
   no-path-concat: error
+  no-process-exit: error
   no-sync: error
 
   # Stylistic issues.

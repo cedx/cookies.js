@@ -9,7 +9,7 @@
       "test": {"source": "test"},
       "brand": {
         "description": "Service for interacting with the HTTP cookies, implemented in JavaScript.",
-        "logo": "www/favicon.ico",
+        "logo": "doc/img/favicon.ico",
         "repository": "https://github.com/cedx/cookies.js",
         "title": "Cookies for JS"
       }
