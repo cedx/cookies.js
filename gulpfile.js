@@ -8,14 +8,6 @@ const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const {normalize} = require('path');
 
-// Initialize the test environment.
-if (process.platform == 'win32') process.env.FIREFOX_BIN = 'firefox.exe';
-
-/**
- * Runs the default tasks.
- */
-gulp.task('default', ['build']);
-
 /**
  * Builds the client scripts.
  */
@@ -27,31 +19,26 @@ gulp.task('build', () => gulp.src('src/**/*.js')
 /**
  * Deletes all generated files and resets any saved state.
  */
-gulp.task('clean', () => del([
-  '.nyc_output',
-  'lib',
-  'var/**/*'
-]));
+gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'var/**/*', 'web']));
 
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', ['test'], () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
+gulp.task('coverage', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
 
 /**
  * Checks the package dependencies.
  */
-gulp.task('deps', ['deps:outdated', 'deps:security']);
 gulp.task('deps:outdated', () => gulp.src('package.json').pipe(david()));
 gulp.task('deps:security', () => _exec('node_modules/.bin/nsp', ['check']));
+gulp.task('deps', gulp.series('deps:outdated', 'deps:security'));
 
 /**
  * Builds the documentation.
  */
-gulp.task('doc', async () => {
-  await del('doc/api');
-  return _exec('node_modules/.bin/esdoc');
-});
+gulp.task('doc:api', () => _exec('node_modules/.bin/esdoc'));
+gulp.task('doc:web', () => _exec('mkdocs', ['build']));
+gulp.task('doc', gulp.series('doc:api', 'doc:web'));
 
 /**
  * Fixes the coding standards issues.
@@ -75,9 +62,25 @@ gulp.task('lint', () => gulp.src(['*.js', 'src/**/*.js', 'test/**/*.js'])
 gulp.task('test', () => _exec('node_modules/.bin/karma', ['start', '--single-run']));
 
 /**
+ * Upgrades the project to the latest revision.
+ */
+gulp.task('upgrade', async () => {
+  await _exec('git', ['reset', '--hard']);
+  await _exec('git', ['fetch', '--all', '--prune']);
+  await _exec('git', ['pull', '--rebase']);
+  await _exec('npm', ['install']);
+  return _exec('npm', ['update']);
+});
+
+/**
  * Watches for file changes.
  */
 gulp.task('watch', () => _exec('node_modules/.bin/karma', ['start']));
+
+/**
+ * Runs the default tasks.
+ */
+gulp.task('default', gulp.task('build'));
 
 /**
  * Spawns a new process using the specified command.

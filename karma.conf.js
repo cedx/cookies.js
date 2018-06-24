@@ -4,7 +4,7 @@ const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 
 module.exports = config => config.set({
-  browsers: ['Firefox'],
+  browsers: ['Chrome'],
   client: {mocha: {opts: true}},
   frameworks: ['mocha'],
   files: ['test/**/*.js'],
