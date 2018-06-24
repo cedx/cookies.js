@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {KeyValueChange} from '../src/index';
+import {KeyValueChange} from './index';
 
 /**
  * @test {KeyValueChange}

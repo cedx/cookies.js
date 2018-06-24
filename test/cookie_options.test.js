@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {CookieOptions} from '../src/index';
+import {CookieOptions} from './index';
 
 /**
  * @test {CookieOptions}

@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
-import {CookieOptions} from './cookie_options';
-import {KeyValueChange} from './key_value_change';
+import {CookieOptions} from './cookie_options.mjs';
+import {KeyValueChange} from './key_value_change.mjs';
 
 /**
  * Provides access to the HTTP cookies.
