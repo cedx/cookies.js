@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {Cookies, KeyValueChange} from './index';
+import {Cookies, SimpleChange} from './index';
 
 /**
  * @test {Cookies}
@@ -167,7 +167,7 @@ describe('Cookies', () => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
         let record = changes[0];
-        expect(record).to.be.instanceof(KeyValueChange);
+        expect(record).to.be.instanceof(SimpleChange);
         expect(record.key).to.equal('onChanges');
         expect(record.currentValue).to.equal('foo');
         expect(record.previousValue).to.be.null;
@@ -186,7 +186,7 @@ describe('Cookies', () => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
         let record = changes[0];
-        expect(record).to.be.instanceof(KeyValueChange);
+        expect(record).to.be.instanceof(SimpleChange);
         expect(record.key).to.equal('onChanges');
         expect(record.currentValue).to.equal('bar');
         expect(record.previousValue).to.equal('foo');
@@ -205,7 +205,7 @@ describe('Cookies', () => {
         expect(changes).to.be.an('array').and.have.lengthOf(1);
 
         let record = changes[0];
-        expect(record).to.be.instanceof(KeyValueChange);
+        expect(record).to.be.instanceof(SimpleChange);
         expect(record.key).to.equal('onChanges');
         expect(record.currentValue).to.be.null;
         expect(record.previousValue).to.equal('bar');
@@ -224,12 +224,12 @@ describe('Cookies', () => {
       cookies.on('changes', changes => {
         expect(changes).to.be.an('array').and.have.lengthOf.at.least(2);
 
-        let records = changes.filter(value => value instanceof KeyValueChange && value.key == 'onChanges1');
+        let records = changes.filter(value => value instanceof SimpleChange && value.key == 'onChanges1');
         expect(records).to.have.lengthOf(1);
         expect(records[0].currentValue).to.be.null;
         expect(records[0].previousValue).to.equal('foo');
 
-        records = changes.filter(value => value instanceof KeyValueChange && value.key == 'onChanges2');
+        records = changes.filter(value => value instanceof SimpleChange && value.key == 'onChanges2');
         expect(records).to.have.lengthOf(1);
         expect(records[0].currentValue).to.be.null;
         expect(records[0].previousValue).to.equal('bar');

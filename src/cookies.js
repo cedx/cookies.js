@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
 import {CookieOptions} from './cookie_options.js';
-import {KeyValueChange} from './key_value_change.js';
+import {SimpleChange} from './key_value_change.js';
 
 /**
  * Provides access to the HTTP cookies.
@@ -20,7 +20,7 @@ export class Cookies extends EventEmitter {
      * The default cookie options.
      * @type {CookieOptions}
      */
-    this.defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
+    this._defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
 
     /**
      * The underlying HTML document.
@@ -35,6 +35,14 @@ export class Cookies extends EventEmitter {
    */
   get [Symbol.toStringTag]() {
     return 'Cookies';
+  }
+
+  /**
+   * The default cookie options.
+   * @type {CookieOptions}
+   */
+  get defaults() {
+    return this._defaults;
   }
 
   /**
@@ -63,10 +71,10 @@ export class Cookies extends EventEmitter {
 
   /**
    * Removes all cookies associated with the current document.
-   * @emits {KeyValueChange[]} The "changes" event.
+   * @emits {SimpleChange[]} The "changes" event.
    */
   clear() {
-    let changes = this.keys.map(key => new KeyValueChange(key, {previousValue: this.get(key)}));
+    let changes = this.keys.map(key => new SimpleChange(key, {previousValue: this.get(key)}));
     for (let key of this.keys) this._removeItem(key);
     this.emit('changes', changes);
   }
@@ -122,12 +130,14 @@ export class Cookies extends EventEmitter {
    * Removes the value associated to the specified key.
    * @param {string} key The cookie name.
    * @param {CookieOptions|object} [options] The cookie options.
-   * @emits {KeyValueChange[]} The "changes" event.
+   * @emits {SimpleChange[]} The "changes" event.
    */
   remove(key, options = {}) {
     let previousValue = this.get(key);
     this._removeItem(key, options);
-    this.emit('changes', [new KeyValueChange(key, {previousValue})]);
+    this.emit('changes', {
+      key: new SimpleChange({previousValue})
+    });
   }
 
   /**
@@ -136,7 +146,7 @@ export class Cookies extends EventEmitter {
    * @param {string} value The cookie value.
    * @param {CookieOptions|object} [options] The cookie options.
    * @throws {TypeError} The specified key is invalid.
-   * @emits {KeyValueChange[]} The "changes" event.
+   * @emits {SimpleChange[]} The "changes" event.
    */
   set(key, value, options = {}) {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
@@ -147,7 +157,7 @@ export class Cookies extends EventEmitter {
 
     let previousValue = this.get(key);
     this._document.cookie = cookieValue;
-    this.emit('changes', [new KeyValueChange(key, {currentValue: value, previousValue})]);
+    this.emit('changes', [new SimpleChange(key, {currentValue: value, previousValue})]);
   }
 
   /**
@@ -155,7 +165,7 @@ export class Cookies extends EventEmitter {
    * @param {string} key The cookie name.
    * @param {*} value The cookie value.
    * @param {CookieOptions|object} [options] The cookie options.
-   * @emits {KeyValueChange[]} The "changes" event.
+   * @emits {SimpleChange[]} The "changes" event.
    */
   setObject(key, value, options = {}) {
     this.set(key, JSON.stringify(value), options);
@@ -180,12 +190,18 @@ export class Cookies extends EventEmitter {
   }
 
   /**
-   * TODO
-   * @param {CookieOptions|object} options
-   * @return {CookieOptions}
+   * Merges the default cookie options with the specified ones.
+   * @param {CookieOptions} options The options to merge with the defaults.
+   * @return {CookieOptions} The resulting cookie options.
    */
   _getOptions(options) {
-    return new CookieOptions(Object.assign(this.defaults.toJSON(), options instanceof CookieOptions ? options.toJSON() : options));
+    if (!(options instanceof CookieOptions)) options = new CookieOptions(options);
+    return new CookieOptions({
+      domain: options.domain.length ? options.domain : defaults.domain,
+      expires: options.expires ? options.expires : defaults.expires,
+      path: options.path.length ? options.path : defaults.path,
+      secure: options.secure ? options.secure : defaults.secure
+    });
   }
 
   /**
@@ -195,9 +211,8 @@ export class Cookies extends EventEmitter {
    */
   _removeItem(key, options = {}) {
     if (!this.has(key)) return;
-
-    let {domain, path} = this._getOptions(options);
-    let cookieOptions = new CookieOptions({domain, expires: 0, path});
+    let cookieOptions = this._getOptions(options instanceof CookieOptions ? options : new CookieOptions(options));
+    cookieOptions.expires = new Date(0);
     this._document.cookie = `${encodeURIComponent(key)}=; ${cookieOptions}`;
   }
 }

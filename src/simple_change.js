@@ -1,26 +1,19 @@
 /**
  * Represents the event parameter used for a cookie change event.
  */
-export class KeyValueChange {
+export class SimpleChange {
 
   /**
    * Initializes a new instance of the class.
-   * @param {string} key The cookie name.
    * @param {object} [options] An object specifying values used to initialize this instance.
    */
-  constructor(key, {currentValue = null, previousValue = null} = {}) {
+  constructor({currentValue = null, previousValue = null} = {}) {
 
     /**
      * The current value for the cookie, or a `null` reference if removed.
      * @type {string}
      */
     this.currentValue = currentValue;
-
-    /**
-     * The cookie name.
-     * @type {string}
-     */
-    this.key = key;
 
     /**
      * The previous value for the cookie, or a `null` reference if added.
@@ -34,7 +27,7 @@ export class KeyValueChange {
    * @type {string}
    */
   get [Symbol.toStringTag]() {
-    return 'KeyValueChange';
+    return 'SimpleChange';
   }
 
   /**

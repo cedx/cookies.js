@@ -1,5 +1,5 @@
 # Cookies for JS
-![Runtime](https://img.shields.io/badge/node-%3E%3D10.5-brightgreen.svg) ![Release](https://img.shields.io/npm/v/@cedx/cookies.svg) ![License](https://img.shields.io/npm/l/@cedx/cookies.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/cookies.svg) ![Dependencies](https://david-dm.org/cedx/cookies.js.svg) ![Coverage](https://coveralls.io/repos/github/cedx/cookies.js/badge.svg) ![Build](https://travis-ci.org/cedx/cookies.js.svg)
+![Runtime](https://img.shields.io/badge/node-%3E%3D10.6-brightgreen.svg) ![Release](https://img.shields.io/npm/v/@cedx/cookies.svg) ![License](https://img.shields.io/npm/l/@cedx/cookies.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/cookies.svg) ![Dependencies](https://david-dm.org/cedx/cookies.js.svg) ![Coverage](https://coveralls.io/repos/github/cedx/cookies.js/badge.svg) ![Build](https://travis-ci.org/cedx/cookies.js.svg)
 
 Yet another service for interacting with the [HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
@@ -230,7 +230,7 @@ cookies.on('changes', changes => {
 });
 ```
 
-The changes are expressed as an array of [`KeyValueChange`](https://github.com/cedx/cookies.js/blob/master/src/key_value_change.js) instances, where a `null` reference indicates an absence of value:
+The changes are expressed as an array of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/key_value_change.js) instances, where a `null` reference indicates an absence of value:
 
 ```javascript
 cookies.on('changes', changes => console.log({
@@ -249,7 +249,7 @@ cookies.remove('foo');
 // Prints: {key: "foo", currentValue: null, previousValue: "baz"}
 ```
 
-The values contained in the `currentValue` and `previousValue` properties of the `KeyValueChange` instances are the raw cookie values. If you use the `Cookies#setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
+The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw cookie values. If you use the `Cookies#setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
 
 ```javascript
 cookies.setObject('foo', {bar: 'baz'});
