@@ -1,13 +1,9 @@
+addons: {chrome: stable}
 dist: trusty
 language: node_js
-sudo: false
-
-env: NODE_ENV="test"
-node_js: 8
-addons:
-  firefox: latest
-notifications:
-  email: false
+node_js: 10
+notifications: {email: false}
+sudo: required
 
 before_script:
 - export DISPLAY=:99.0
