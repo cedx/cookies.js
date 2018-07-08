@@ -1,33 +1,32 @@
 import {expect} from 'chai';
-import {Cookies, SimpleChange} from './index';
+import {Cookies, SimpleChange} from '../lib/index.js';
 
 /**
  * @test {Cookies}
  */
 describe('Cookies', () => {
-  const getNativeCookies = () => {
+  function getNativeCookies() {
     let nativeCookies = {};
-    if (document.cookie.length) document.cookie.split(';').forEach(value => {
+    if (document.cookie.length) for (let value of document.cookie.split(';')) {
       let index = value.indexOf('=');
       nativeCookies[value.substring(0, index)] = value.substring(index + 1);
-    });
+    }
 
     return nativeCookies;
-  };
+  }
 
   /**
    * @test {Cookies#keys}
    */
   describe('#keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
-      let keys = Object.keys(getNativeCookies());
-      expect((new Cookies).keys).to.be.an('array').and.have.lengthOf(keys.length);
+      expect(new Cookies().keys).to.be.an('array').and.have.lengthOf(Object.keys(getNativeCookies()).length);
     });
 
     it('should return the keys of the cookies associated with the current document', () => {
       document.cookie = 'key1=foo';
       document.cookie = 'key2=bar';
-      expect((new Cookies).keys).to.be.an('array').and.include.members(['key1', 'key2']);
+      expect(new Cookies().keys).to.be.an('array').and.include.members(['key1', 'key2']);
     });
   });
 
@@ -36,15 +35,14 @@ describe('Cookies', () => {
    */
   describe('#length', () => {
     it('should return zero if the current document has no associated cookie', () => {
-      let entries = Object.entries(getNativeCookies());
-      expect(new Cookies).to.have.lengthOf(entries.length);
+      expect(new Cookies().to.have.lengthOf(Object.entries(getNativeCookies()).length);
     });
 
     it('should return the number of cookies associated with the current document', () => {
       let entries = Object.entries(getNativeCookies());
       document.cookie = 'length1=foo';
       document.cookie = 'length2=bar';
-      expect(new Cookies).to.have.length.within(entries.length, entries.length + 2);
+      expect(new Cookies().to.have.length.within(entries.length, entries.length + 2);
     });
   });
 
@@ -86,7 +84,7 @@ describe('Cookies', () => {
       document.cookie = 'clear1=foo';
       document.cookie = 'clear2=bar';
 
-      (new Cookies).clear();
+      new Cookies().clear();
       expect(document.cookie).to.not.contain('clear1');
       expect(document.cookie).to.not.contain('clear2');
     });
@@ -131,7 +129,7 @@ describe('Cookies', () => {
 
     it('should return the default value if the value can\'t be deserialized', () => {
       document.cookie = 'getObject4=bar';
-      expect((new Cookies).getObject('getObject4', 'defaultValue')).to.equal('defaultValue');
+      expect(new Cookies().getObject('getObject4', 'defaultValue')).to.equal('defaultValue');
     });
   });
 
@@ -140,7 +138,7 @@ describe('Cookies', () => {
    */
   describe('#has()', () => {
     it('should return `false` if the current document has an associated cookie with the specified key', () => {
-      expect((new Cookies).has('foo')).to.be.false;
+      expect(new Cookies().has('foo')).to.be.false;
     });
 
     it('should return `true` if the current document does not have an associated cookie with the specified key', () => {
