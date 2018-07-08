@@ -215,7 +215,7 @@ cookies.set('anotherKey', 'anotherValue');
 for (let entry of cookies) {
   console.log(entry);
   // Round 1: ["foo", "bar"]
-  // Round 2: ["anotherKey", "anotherValue"] 
+  // Round 2: ["anotherKey", "anotherValue"]
 }
 ```
 
@@ -255,11 +255,6 @@ The values contained in the `currentValue` and `previousValue` properties of the
 cookies.setObject('foo', {bar: 'baz'});
 // Prints: {key: "foo", currentValue: "{\"bar\": \"baz\"}", previousValue: null}
 ```
-
-## See also
-- [API reference](https://cedx.github.io/cookies.js)
-- [Code coverage](https://coveralls.io/github/cedx/cookies.js)
-- [Continuous integration](https://travis-ci.org/cedx/cookies.js)
 
 ## License
 [Cookies for JS](https://github.com/cedx/cookies.js) is distributed under the MIT License.
