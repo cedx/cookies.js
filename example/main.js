@@ -24,7 +24,7 @@ function main() {
   console.log(cookies.foo.constructor.name); // "String"
   console.log(cookies.foo); // "bar"
 
-  console.log(cookies.getObject('baz').constructor.name); // "_JsonMap"
+  console.log(cookies.getObject('baz').constructor.name); // "Object"
   console.log(cookies.getObject('baz')); // {"qux": 123}
   console.log(cookies.getObject('baz').qux); // 123
 

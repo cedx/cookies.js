@@ -1,3 +1,6 @@
+path: blob/master/lib
+source: simple_change.js
+
 # Events
 The `Cookies` class is an [`EventEmitter`](https://nodejs.org/api/events.html): every time one or several values are changed (added, removed or updated) through this class, a `changes` event is triggered.
 
@@ -5,7 +8,7 @@ You can subscribe to this event using the `on()` method:
 
 ```javascript
 cookies.on('changes', changes => {
-  for (let change of changes) console.log(change);
+  for (let key of changes.keys()) console.log(key);
 });
 ```
 
@@ -13,14 +16,11 @@ The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/
 
 ```javascript
 cookies.on('changes', changes => {
-  for (let key of changes.keys()) {
-    let change = changes.get(key);
-    console.log({
-      key,
-      current: change.currentValue,
-      previous: change.previousValue
-    });
-  }
+  for (let [key, change] of changes.entries()) console.log({
+    key,
+    current: change.currentValue,
+    previous: change.previousValue
+  });
 });
 
 cookies.set('foo', 'bar');

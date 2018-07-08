@@ -1,3 +1,6 @@
+path: blob/master/lib
+source: cookies.js
+
 # Programming interface
 This package provides a service dedicated to the cookie management: the `Cookies` class.
 It should be registered with the application by exposing it as a property on the global object:
@@ -12,14 +15,17 @@ window.cookies = new Cookies;
 Then, it will be available in your component classes:
 
 ```javascript
-// Optional statement: the service should be available globally.
-const cookies = window.cookies;
+import {Cookies} from '@cedx/cookies';
 
-cookies.get('foo');
-cookies.getObject('bar');
+function main() {
+  const cookies = new Cookies;
 
-cookies.set('foo', 'bar');
-cookies.setObject('foo', {bar: 'baz'});
+  cookies.get('foo');
+  cookies.getObject('bar');
+
+  cookies.set('foo', 'bar');
+  cookies.setObject('foo', {bar: 'baz'});
+}
 ```
 
 The `Cookies` class has the following API:
