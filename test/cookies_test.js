@@ -5,11 +5,11 @@ import {Cookies, SimpleChange} from '../lib/index.js';
  * @test {Cookies}
  */
 describe('Cookies', () => {
-  function getNativeCookies() {
-    let nativeCookies = {};
+  function getNativeCookies() { // eslint-disable-line require-jsdoc
+    let nativeCookies = new Map;
     if (document.cookie.length) for (let value of document.cookie.split(';')) {
       let index = value.indexOf('=');
-      nativeCookies[value.substring(0, index)] = value.substring(index + 1);
+      nativeCookies.set(value.substring(0, index), value.substring(index + 1));
     }
 
     return nativeCookies;
@@ -20,7 +20,7 @@ describe('Cookies', () => {
    */
   describe('#keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
-      expect(new Cookies().keys).to.be.an('array').and.have.lengthOf(Object.keys(getNativeCookies()).length);
+      expect(new Cookies().keys).to.be.an('array').and.have.lengthOf(Array.from(getNativeCookies().keys()).length);
     });
 
     it('should return the keys of the cookies associated with the current document', () => {
@@ -35,19 +35,20 @@ describe('Cookies', () => {
    */
   describe('#length', () => {
     it('should return zero if the current document has no associated cookie', () => {
-      expect(new Cookies().to.have.lengthOf(Object.entries(getNativeCookies()).length);
+      expect(new Cookies).to.have.lengthOf(Array.from(getNativeCookies().entries()).length);
     });
 
     it('should return the number of cookies associated with the current document', () => {
-      let entries = Object.entries(getNativeCookies());
+      let count = Array.from(getNativeCookies().entries()).length;
       document.cookie = 'length1=foo';
       document.cookie = 'length2=bar';
-      expect(new Cookies().to.have.length.within(entries.length, entries.length + 2);
+      expect(new Cookies).to.have.length.within(count, count + 2);
     });
   });
 
   /**
    * @test {Cookies#Symbol.iterator}
+   * TODO: not implemented !!!
    */
   describe.skip('#[Symbol.iterator]()', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
@@ -162,11 +163,12 @@ describe('Cookies', () => {
 
       let cookies = new Cookies;
       cookies.on('changes', changes => {
-        expect(changes).to.be.an('array').and.have.lengthOf(1);
+        expect(changes).to.be.an.instanceof(Map);
+        expect(Array.from(changes.entries())).to.have.lengthOf(1);
 
-        let record = changes[0];
+        let record = Array.from(changes.values())[0];
+        expect(Array.from(changes.keys())[0]).to.equal('onChanges');
         expect(record).to.be.instanceof(SimpleChange);
-        expect(record.key).to.equal('onChanges');
         expect(record.currentValue).to.equal('foo');
         expect(record.previousValue).to.be.null;
 
@@ -181,11 +183,12 @@ describe('Cookies', () => {
 
       let cookies = new Cookies;
       cookies.on('changes', changes => {
-        expect(changes).to.be.an('array').and.have.lengthOf(1);
+        expect(changes).to.be.an.instanceof(Map);
+        expect(Array.from(changes.entries())).to.have.lengthOf(1);
 
-        let record = changes[0];
+        let record = Array.from(changes.values())[0];
+        expect(Array.from(changes.keys())[0]).to.equal('onChanges');
         expect(record).to.be.instanceof(SimpleChange);
-        expect(record.key).to.equal('onChanges');
         expect(record.currentValue).to.equal('bar');
         expect(record.previousValue).to.equal('foo');
 
@@ -200,11 +203,12 @@ describe('Cookies', () => {
 
       let cookies = new Cookies;
       cookies.on('changes', changes => {
-        expect(changes).to.be.an('array').and.have.lengthOf(1);
+        expect(changes).to.be.an.instanceof(Map);
+        expect(Array.from(changes.entries())).to.have.lengthOf(1);
 
-        let record = changes[0];
+        let record = Array.from(changes.values())[0];
+        expect(Array.from(changes.keys())[0]).to.equal('onChanges');
         expect(record).to.be.instanceof(SimpleChange);
-        expect(record.key).to.equal('onChanges');
         expect(record.currentValue).to.be.null;
         expect(record.previousValue).to.equal('bar');
 
@@ -220,15 +224,20 @@ describe('Cookies', () => {
 
       let cookies = new Cookies;
       cookies.on('changes', changes => {
-        expect(changes).to.be.an('array').and.have.lengthOf.at.least(2);
+        expect(changes).to.be.an.instanceof(Map);
 
-        let records = changes.filter(value => value instanceof SimpleChange && value.key == 'onChanges1');
+        let entries = Array.from(changes.entries());
+        expect(entries).to.have.lengthOf.at.least(2);
+
+        let records = entries.filter(entry => entry[0] == 'onChanges1').map(entry => entry[1]);
         expect(records).to.have.lengthOf(1);
+        expect(records[0]).to.be.instanceof(SimpleChange);
         expect(records[0].currentValue).to.be.null;
         expect(records[0].previousValue).to.equal('foo');
 
-        records = changes.filter(value => value instanceof SimpleChange && value.key == 'onChanges2');
+        records = entries.filter(entry => entry[0] == 'onChanges2').map(entry => entry[1]);
         expect(records).to.have.lengthOf(1);
+        expect(records[0]).to.be.instanceof(SimpleChange);
         expect(records[0].currentValue).to.be.null;
         expect(records[0].previousValue).to.equal('bar');
 

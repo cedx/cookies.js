@@ -1,4 +1,4 @@
-/* eslint-disable line-comment-position */
+/* eslint-disable line-comment-position, no-unused-vars */
 import {Cookies} from '@cedx/cookies';
 
 /**

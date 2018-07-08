@@ -162,7 +162,7 @@ console.log(cookies.getObject('foo')); // {bar: "baz"}
 
 ### Options
 Several methods accept an `options` parameter in order to customize the cookie attributes.
-These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/src/cookie_options.js) class, which has the following properties:
+These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/lib/cookie_options.js) class, which has the following properties:
 
 - `expires: Date = null`: The expiration date and time for the cookie.
 - `path: string = ""`: The path to which the cookie applies.
@@ -230,7 +230,7 @@ cookies.on('changes', changes => {
 });
 ```
 
-The changes are expressed as an array of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/key_value_change.js) instances, where a `null` reference indicates an absence of value:
+The changes are expressed as an array of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/lib/simple_change.js) instances, where a `null` reference indicates an absence of value:
 
 ```javascript
 cookies.on('changes', changes => console.log({

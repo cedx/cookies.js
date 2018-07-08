@@ -1,5 +1,6 @@
 'use strict';
 
+const {join} = require('path');
 const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 
@@ -16,16 +17,22 @@ module.exports = config => config.set({
     type: 'lcovonly'
   },
   preprocessors: {
-    'src/**/*.js': ['coverage'],
+    'lib/**/*.js': ['coverage'],
     'test/**/*.js': ['rollup']
   },
   rollupPreprocessor: {
-    format: 'iife',
-    name: 'cookies',
+    onwarn: warning => {
+      if (warning.code == 'CIRCULAR_DEPENDENCY' && warning.importer.includes(join('node_modules', 'chai'))) return;
+      console.warn(`(!) ${warning.message}`);
+    },
+    output: {
+      format: 'iife',
+      name: 'cookies',
+      sourcemap: 'inline'
+    },
     plugins: [
       nodeResolve(),
       commonjs({namedExports: {chai: ['expect']}})
-    ],
-    sourcemap: 'inline'
+    ]
   }
 });
