@@ -34,5 +34,5 @@ npm install @cedx/cookies
 Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
 
 ```js
-const cookies = require('@cedx/cookies');
+import {Cookies} from '@cedx/cookies';
 ```

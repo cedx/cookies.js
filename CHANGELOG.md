@@ -1,7 +1,7 @@
 # Changelog
 
 ## Version 0.2.0
-- Breaking change: renamed the `ChangeEvent` class to `KeyValueChange`.
+- Breaking change: renamed the `ChangeEvent` class to `SimpleChange`.
 - Added the `Cookies#toJSON()` method.
 - Added new unit tests.
 - Replaced the `events` module by `eventemitter3`.
