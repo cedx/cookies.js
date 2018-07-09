@@ -6,7 +6,7 @@ and [npm](https://www.npmjs.com), the Node.js package manager, up and running.
 
 !!! warning
     Cookies for JS requires Node.js >= **10.6.0**.
-    
+
 You can verify if you're already good to go with the following commands:
 
 ```shell
@@ -34,5 +34,5 @@ npm install @cedx/cookies
 Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies, CookieOptions} from '@cedx/cookies';
 ```
