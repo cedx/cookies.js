@@ -4,17 +4,8 @@ const {david} = require('@cedx/gulp-david');
 const {spawn} = require('child_process');
 const del = require('del');
 const gulp = require('gulp');
-const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const {normalize} = require('path');
-
-/**
- * Builds the client scripts.
- */
-gulp.task('build', () => gulp.src('lib/**/*.js')
-  .pipe(babel())
-  .pipe(gulp.dest('lib'))
-);
 
 /**
  * Deletes all generated files and resets any saved state.
@@ -80,7 +71,7 @@ gulp.task('watch', () => _exec('node_modules/.bin/karma', ['start']));
 /**
  * Runs the default tasks.
  */
-gulp.task('default', gulp.task('build'));
+gulp.task('default', gulp.task('test'));
 
 /**
  * Spawns a new process using the specified command.
