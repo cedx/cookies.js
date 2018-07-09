@@ -5,10 +5,9 @@
   "homepage": "https://dev.belin.io/cookies.js",
   "license": "MIT",
   "main": "./lib/index.js",
-  "module": "./lib/index.js",
   "name": "@cedx/cookies",
   "repository": "cedx/cookies.js",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "dependencies": {
     "eventemitter3": "^3.1.0"
   },

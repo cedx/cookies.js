@@ -12,7 +12,7 @@ function main() {
   console.log(cookies.has('baz')); // false
   console.log(cookies.length); // 0
 
-  cookies.foo = 'bar';
+  cookies.set('foo', 'bar');
   console.log(cookies.has('foo')); // true
   console.log(cookies.length); // 1
 
@@ -21,11 +21,11 @@ function main() {
   console.log(cookies.length); // 2
 
   // Read the cookies.
-  console.log(cookies.foo.constructor.name); // "String"
-  console.log(cookies.foo); // "bar"
+  console.log(cookies.get('foo').constructor.name); // "String"
+  console.log(cookies.get('foo')); // "bar"
 
   console.log(cookies.getObject('baz').constructor.name); // "Object"
-  console.log(cookies.getObject('baz')); // {"qux": 123}
+  console.log(cookies.getObject('baz')); // {qux: 123}
   console.log(cookies.getObject('baz').qux); // 123
 
   // Delete the cookies.

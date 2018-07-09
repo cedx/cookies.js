@@ -5,7 +5,7 @@ import {Cookies, SimpleChange} from '../lib/index.js';
  * @test {Cookies}
  */
 describe('Cookies', () => {
-  function getNativeCookies() { // eslint-disable-line require-jsdoc
+  const getNativeCookies = () => {
     let nativeCookies = new Map;
     if (document.cookie.length) for (let value of document.cookie.split(';')) {
       let index = value.indexOf('=');
@@ -13,7 +13,7 @@ describe('Cookies', () => {
     }
 
     return nativeCookies;
-  }
+  };
 
   /**
    * @test {Cookies#keys}
@@ -48,30 +48,33 @@ describe('Cookies', () => {
 
   /**
    * @test {Cookies#Symbol.iterator}
-   * TODO: not implemented !!!
    */
-  describe.skip('#[Symbol.iterator]()', () => {
+  describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
-      let iterator = (new Cookies)[Symbol.iterator]();
+      let cookies = new Cookies;
+      cookies.clear();
+
+      let iterator = cookies[Symbol.iterator]();
       expect(iterator.next().done).to.be.true;
     });
 
     it('should return a value iterator if the current document has associated cookies', () => {
+      let cookies = new Cookies;
+      cookies.clear();
+
+      let iterator = cookies[Symbol.iterator]();
       document.cookie = 'iterator1=foo';
       document.cookie = 'iterator2=bar';
-
-      let cookies = new Cookies;
-      let iterator = cookies[Symbol.iterator]();
 
       let next = iterator.next();
       expect(next.done).to.be.false;
       expect(next.value).to.be.an('array');
       expect(next.value[0]).to.equal('iterator1');
-      expect(next.value[1]).to.equal('iterator2');
+      expect(next.value[1]).to.equal('foo');
 
       next = iterator.next();
       expect(next.done).to.be.false;
-      expect(next.value[0]).to.equal('foo');
+      expect(next.value[0]).to.equal('iterator2');
       expect(next.value[1]).to.equal('bar');
       expect(iterator.next().done).to.be.true;
     });
@@ -333,8 +336,22 @@ describe('Cookies', () => {
   /**
    * @test {Cookies#toJSON}
    */
-  describe.skip('#toJSON()', () => {
-    // TODO test toJSON
+  describe('#toJSON()', () => {
+    it('should return an empty map if the current document has no associated cookie', () => {
+      let cookies = new Cookies;
+      cookies.clear();
+      expect(cookies.toJSON()).to.be.an('object').that.is.empty;
+    });
+
+    it('should return a non-empty map if the current document has associated cookies', () => {
+      let cookies = new Cookies;
+      cookies.clear();
+      cookies.set('foo', 'bar').set('baz', 'qux');
+      expect(cookies.toJSON()).to.be.an('object').that.deep.equal({
+        foo: 'bar',
+        baz: 'qux'
+      });
+    });
   });
 
   /**
