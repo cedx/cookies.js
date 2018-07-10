@@ -1,5 +1,5 @@
 {
-  "source": "src",
+  "source": "lib",
   "destination": "doc/api",
   "plugins": [{
     "name": "esdoc-standard-plugin",
