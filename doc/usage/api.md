@@ -40,10 +40,6 @@ function main() {
 }
 ```
 
-!!! tip
-    This property allows the configuration of the default cookie options
-    at runtime.
-
 ## **#keys**: string[]
 Returns the keys of the cookies associated with the current document:
 
