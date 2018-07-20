@@ -1,6 +1,7 @@
 {
   "source": "lib",
   "destination": "doc/api",
+  "excludes": ["index\\.js$"],
   "plugins": [{
     "name": "esdoc-standard-plugin",
     "option": {
