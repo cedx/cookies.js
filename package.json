@@ -1,7 +1,7 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/cookies.js/issues",
-  "description": "Service for interacting with the HTTP cookies.",
+  "description": "Service for interacting with the HTTP cookies. A simple and event-based API for handling cookies.",
   "homepage": "https://dev.belin.io/cookies.js",
   "license": "MIT",
   "main": "./lib/index.js",
