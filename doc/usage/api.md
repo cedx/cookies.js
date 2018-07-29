@@ -29,7 +29,7 @@ import {Cookies} from '@cedx/cookies';
 function main() {
   const cookies = new Cookies;
   console.log(JSON.stringify(cookies.defaults));
-  // {"domain": "", "expires": null, "path": "/", "secure": false}
+  // {"domain": "", "expires": null, "path": "", "secure": false}
 
   cookies.defaults.domain = 'domain.com';
   cookies.defaults.path = '/www';
