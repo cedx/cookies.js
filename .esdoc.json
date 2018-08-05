@@ -1,5 +1,5 @@
 {
-  "source": "lib",
+  "source": "src",
   "destination": "doc/api",
   "excludes": ["index\\.js$"],
   "plugins": [{
