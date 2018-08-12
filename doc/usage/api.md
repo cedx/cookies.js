@@ -4,7 +4,7 @@ source: cookies.js
 # Programming interface
 This package provides a service dedicated to the cookie management: the `Cookies` class.
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -23,7 +23,7 @@ The `Cookies` class has the following API:
 ## **#defaults**: CookieOptions
 Returns the default options to pass when setting cookies:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -43,7 +43,7 @@ function main() {
 ## **#keys**: string[]
 Returns the keys of the cookies associated with the current document:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -58,7 +58,7 @@ function main() {
 ## **#length**: number
 Returns the number of cookies associated with the current document:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -73,7 +73,7 @@ function main() {
 ## **#clear**()
 Removes all cookies associated with the current document:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -89,7 +89,7 @@ function main() {
 ## **#get**(key: string, defaultValue: string = `null`): string
 Returns the value associated to the specified key:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -101,7 +101,7 @@ function main() {
 
 Returns the `defaultValue` parameter if the key is not found:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -114,7 +114,7 @@ function main() {
 ## **#getObject**(key: string, defaultValue: any = `null`): any
 Deserializes and returns the value associated to the specified key:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -129,7 +129,7 @@ function main() {
 
 Returns the `defaultValue` parameter if the key is not found:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -142,7 +142,7 @@ function main() {
 ## **#has**(key: string): boolean
 Returns a boolean value indicating whether the current document has a cookie with the specified key:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -157,7 +157,7 @@ function main() {
 ## **#remove**(key: string, options: CookieOptions|Object = `{}`): string
 Removes the value associated to the specified key:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -174,7 +174,7 @@ function main() {
 ## **#set**(key: string, value: string, options: CookieOptions|Object = `{}`)
 Associates a given value to the specified key:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -189,7 +189,7 @@ function main() {
 ## **#setObject**(key: string, value: any, options: CookieOptions|Object = `{}`)
 Serializes and associates a given value to the specified key:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {

@@ -6,7 +6,7 @@ The `Cookies` class is an [`EventEmitter`](https://nodejs.org/api/events.html): 
 
 You can subscribe to this event using the `on()` method:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -18,7 +18,7 @@ function main() {
 
 The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/lib/simple_change.js) instances, where a `null` property indicates an absence of value:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -45,7 +45,7 @@ function main() {
 
 The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw cookie values. If you use the `Cookies#setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {

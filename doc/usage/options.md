@@ -12,7 +12,7 @@ These options are expressed using an instance of the [`CookieOptions`](https://g
 
 For example:
 
-```javascript
+```ts
 import {Cookies, CookieOptions} from '@cedx/cookies';
 
 function main() {
@@ -26,7 +26,7 @@ function main() {
 
 For convenience, you can also use a literal object instead of a `CookieOptions` instance:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -40,7 +40,7 @@ function main() {
 
 It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
 
-```javascript
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
