@@ -29,7 +29,7 @@ gulp.task('coverage', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info
 /**
  * Builds the documentation.
  */
-gulp.task('doc:api', () => _exec('node_modules/.bin/esdoc'));
+gulp.task('doc:api', () => _exec('node_modules/.bin/typedoc'));
 gulp.task('doc:web', () => _exec('mkdocs', ['build']));
 gulp.task('doc', gulp.series('doc:api', 'doc:web'));
 
@@ -55,7 +55,7 @@ gulp.task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
   await _exec('git', ['fetch', '--all', '--prune']);
   await _exec('git', ['pull', '--rebase']);
-  await _exec('npm', ['install']);
+  await _exec('npm', ['install', '--ignore-scripts']);
   return _exec('npm', ['update']);
 });
 

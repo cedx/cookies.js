@@ -15,8 +15,6 @@
     "@cedx/coveralls": "^6.0.0",
     "chai": "^4.1.2",
     "del": "^3.0.0",
-    "esdoc": "^1.1.0",
-    "esdoc-typescript-plugin": "^1.0.1",
     "gulp": "^4.0.0",
     "karma": "^2.0.5",
     "karma-chrome-launcher": "^2.2.0",
@@ -27,6 +25,7 @@
     "rollup": "^0.63.4",
     "rollup-plugin-commonjs": "^9.1.4",
     "rollup-plugin-node-resolve": "^3.3.0"
+    "typedoc": "^0.11.1",
   },
   "engines": {
     "node": ">=10.8.0",
