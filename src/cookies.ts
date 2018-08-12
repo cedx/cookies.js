@@ -33,7 +33,7 @@ export class Cookies extends EventEmitter {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'Cookies';
   }
 
@@ -71,7 +71,7 @@ export class Cookies extends EventEmitter {
 
   /**
    * Removes all cookies associated with the current document.
-   * @emits {Map<string, SimpleChange>} The "changes" event.
+   * @event {Map<string, SimpleChange>} The "changes" event.
    */
   clear() {
     let changes = new Map;
@@ -135,7 +135,7 @@ export class Cookies extends EventEmitter {
    * @param {string} key The cookie name.
    * @param {CookieOptions|Object} [options] The cookie options.
    * @return {string} The value associated with the specified key before it was removed.
-   * @emits {Map<string, SimpleChange>} The "changes" event.
+   * @event {Map<string, SimpleChange>} The "changes" event.
    */
   remove(key, options = {}) {
     let previousValue = this.get(key);
@@ -154,7 +154,7 @@ export class Cookies extends EventEmitter {
    * @param {CookieOptions|Object} [options] The cookie options.
    * @return {Cookies} This instance.
    * @throws {TypeError} The specified key is invalid.
-   * @emits {Map<string, SimpleChange>} The "changes" event.
+   * @event {Map<string, SimpleChange>} The "changes" event.
    */
   set(key, value, options = {}) {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
@@ -178,7 +178,7 @@ export class Cookies extends EventEmitter {
    * @param {*} value The cookie value.
    * @param {CookieOptions|Object} [options] The cookie options.
    * @return {Cookies} This instance.
-   * @emits {Map<string, SimpleChange>} The "changes" event.
+   * @event {Map<string, SimpleChange>} The "changes" event.
    */
   setObject(key, value, options = {}) {
     this.set(key, JSON.stringify(value), options);
@@ -187,9 +187,9 @@ export class Cookies extends EventEmitter {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  public toJSON(): {[key: string]: any} {
     let map = {};
     for (let [key, value] of this) map[key] = value;
     return map;
@@ -197,9 +197,9 @@ export class Cookies extends EventEmitter {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     return this._document.cookie;
   }
 

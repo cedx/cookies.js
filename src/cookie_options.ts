@@ -39,15 +39,15 @@ export class CookieOptions {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'CookieOptions';
   }
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  public toJSON(): {[key: string]: any} {
     return {
       domain: this.domain,
       expires: this.expires ? this.expires.toISOString() : null,
@@ -58,9 +58,9 @@ export class CookieOptions {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  public toString(): string {
     let value = [];
     if (this.expires) value.push(`expires=${this.expires.toUTCString()}`);
     if (this.domain.length) value.push(`domain=${this.domain}`);
