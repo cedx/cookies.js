@@ -1,12 +1,27 @@
-const {join} = require('path');
-const commonjs = require('rollup-plugin-commonjs');
-const nodeResolve = require('rollup-plugin-node-resolve');
+const {join} from 'path');
+const commonjs from 'rollup-plugin-commonjs');
+const nodeResolve from 'rollup-plugin-node-resolve');
+
+module.exports = config => config.set({
+  browsers: ['Chrome'],
+  files: ['src/**/*.ts', 'test/**/*.ts'],
+  frameworks: ['mocha', 'karma-typescript'],
+  karmaTypescriptConfig: {
+    include: ['test/**/*.ts'],
+    tsconfig: 'tsconfig.json'
+  },
+  preprocessors: {
+    'src/**/*.ts': ['karma-typescript', 'coverage'],
+    'test/**/*.ts': ['karma-typescript']
+  },
+  reporters: ['progress', 'karma-typescript']
+});
 
 module.exports = config => config.set({
   browsers: ['Chrome'],
   client: {mocha: {opts: true}},
   frameworks: ['mocha'],
-  files: ['test/**/*.js'],
+  files: ['test/**/*.ts'],
   reporters: ['progress', 'coverage'],
   coverageReporter: {
     dir: 'var',
@@ -16,7 +31,7 @@ module.exports = config => config.set({
   },
   preprocessors: {
     'lib/**/*.js': ['coverage'],
-    'test/**/*.js': ['rollup']
+    'test/**/*.ts': ['typescript']
   },
   rollupPreprocessor: {
     onwarn: warning => {
