@@ -55,13 +55,14 @@ gulp.task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
   await _exec('git', ['fetch', '--all', '--prune']);
   await _exec('git', ['pull', '--rebase']);
+  await _exec('npm', ['install', '--ignore-scripts']);
   return _exec('npm', ['update', '--dev']);
 });
 
 /**
  * Watches for file changes.
  */
-gulp.task('watch', () => _exec('node_modules/.bin/karma', ['start']));
+gulp.task('watch', () => _exec('node_modules/.bin/karma', ['start', '--no-single-run']));
 
 /**
  * Runs the default tasks.
