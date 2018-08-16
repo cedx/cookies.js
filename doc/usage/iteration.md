@@ -10,7 +10,7 @@ function main() {
   cookies.set('foo', 'bar');
   cookies.set('anotherKey', 'anotherValue');
 
-  for (let entry of cookies) {
+  for (const entry of cookies) {
     console.log(entry);
     // Round 1: ["foo", "bar"]
     // Round 2: ["anotherKey", "anotherValue"]

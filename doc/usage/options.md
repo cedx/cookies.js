@@ -1,9 +1,9 @@
-path: blob/master/lib
-source: cookie_options.js
+path: blob/master
+source: src/cookie_options.ts
 
 # Cookie options
 Several methods accept an `options` parameter in order to customize the cookie attributes.
-These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/lib/cookie_options.js) class, which has the following properties:
+These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/src/cookie_options.ts) class, which has the following properties:
 
 - **domain**: string = `""`: The domain for which the cookie is valid.
 - **expires**: Date = `null`: The expiration date and time for the cookie.
@@ -15,7 +15,7 @@ For example:
 ```ts
 import {Cookies, CookieOptions} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   new Cookies().set('foo', 'bar', new CookieOptions({
     domain: 'www.domain.com',
     expires: new Date(Date.now() + (3600 * 1000)), // One hour.
@@ -29,7 +29,7 @@ For convenience, you can also use a literal object instead of a `CookieOptions` 
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   new Cookies().set('foo', 'bar', {
     domain: 'www.domain.com',
     expires: new Date(Date.now() + (3600 * 1000)), // One hour.
@@ -43,7 +43,7 @@ It is possible to provide default values for the cookie options when instantiati
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies({
     domain: 'www.domain.com',
     path: '/',

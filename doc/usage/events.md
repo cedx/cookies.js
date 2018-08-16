@@ -1,5 +1,5 @@
-path: blob/master/lib
-source: simple_change.js
+path: blob/master
+source: src/simple_change.ts
 
 # Events
 The `Cookies` class is an [`EventEmitter`](https://nodejs.org/api/events.html): every time one or several values are changed (added, removed or updated) through this class, a `changes` event is triggered.
@@ -11,12 +11,12 @@ import {Cookies} from '@cedx/cookies';
 
 function main() {
   new Cookies().on('changes', changes => {
-    for (let [key, value] of changes.entries()) console.log(`${key}: ${value}`);
+    for (const [key, value] of changes.entries()) console.log(`${key}: ${value}`);
   });
 }
 ```
 
-The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/lib/simple_change.js) instances, where a `null` property indicates an absence of value:
+The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/simple_change.ts) instances, where a `null` property indicates an absence of value:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
@@ -25,7 +25,7 @@ function main() {
   const cookies = new Cookies;
 
   cookies.on('changes', changes => {
-    for (let [key, change] of changes.entries()) console.log({
+    for (const [key, change] of changes.entries()) console.log({
       key,
       current: change.currentValue,
       previous: change.previousValue
