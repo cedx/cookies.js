@@ -1,7 +1,9 @@
 # Changelog
 
-## Version [1.1.0](https://github.com/cedx/cookies.js/compare/v1.0.0...v1.1.0)
-- Ported the source code to [TypeScript](https://www.typescriptlang.org).
+## Version [2.0.0](https://github.com/cedx/cookies.js/compare/v1.0.0...v2.0.0)
+- Breaking change: changed the signature of the `CookieOptions` constructor.
+- Breaking change: ported the source code to [TypeScript](https://www.typescriptlang.org).
+- Breaking change: removed the `defaultValue` argument from the `get()` and `getObject()` methods of the `Cookies` class.
 - Replaced [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
 - Replaced [ESLint](https://eslint.org) static analyzer by [TSLint](https://palantir.github.io/tslint).
 - Updated the package dependencies.

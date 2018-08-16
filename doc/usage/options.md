@@ -6,7 +6,7 @@ Several methods of the [Cookies](api.md) class accept an `options` parameter in 
 These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/src/cookie_options.ts) class, which has the following properties:
 
 - **domain**: string = `""`: The domain for which the cookie is valid.
-- **expires**: Date = `null`: The expiration date and time for the cookie.
+- **expires**: Date | null = `null`: The expiration date and time for the cookie.
 - **path**: string = `""`: The path to which the cookie applies.
 - **secure**: boolean = `false`: Value indicating whether to transmit the cookie over HTTPS only.
 
