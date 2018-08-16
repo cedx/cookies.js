@@ -13,7 +13,7 @@ export class CookieOptions {
   /**
    * The expiration date and time for the cookie.
    */
-  public expires: Date | null;
+  private _expires: Date | null;
 
   /**
    * The path to which the cookie applies.
@@ -29,7 +29,7 @@ export class CookieOptions {
 
   /**
    * Initializes a new instance of the class.
-   * @param {Object} [options] An object specifying values used to initialize this instance.
+   * @param options An object specifying values used to initialize this instance.
    */
   constructor(options: Partial<CookieOptions> = {}) {
     const {domain = '', expires = null, path = '', secure = false} = options;
@@ -41,7 +41,7 @@ export class CookieOptions {
      * The expiration date and time for the cookie.
      */
     this.expires = expires instanceof Date ? expires : null;
-    if (!this.expires && (Number.isInteger(expires) || typeof expires == 'string')) this.expires = new Date(expires);
+    // TODO: if (!this.expires && (Number.isInteger(expires) || typeof expires == 'string')) this.expires = new Date(expires);
   }
 
   /**

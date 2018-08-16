@@ -10,78 +10,66 @@ import {SimpleChange} from './simple_change';
 export class Cookies extends EventEmitter {
 
   /**
-   * Initializes a new instance of the class.
-   * @param {CookieOptions|Object} defaults The default cookie options.
-   * @param {HTMLDocument} document The underlying HTML document.
+   * An event that is triggered when a cookie is changed (added, modified, or removed).
+   * @event changes
    */
-  constructor(defaults: Partial<CookieOptions> = {}, document = window.document) {
+  public static readonly eventChanges: string = 'changes';
+
+  /**
+   * The default cookie options.
+   */
+  public readonly defaults: CookieOptions;
+
+  /**
+   * Creates a new cookie service.
+   * @param defaults The default cookie options.
+   * @param _document The underlying HTML document.
+   */
+  constructor(defaults: Partial<CookieOptions> = {}, private _document: Document = window.document) {
     super();
-
-    /**
-     * The default cookie options.
-     * @type {CookieOptions}
-     */
-    this._defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
-
-    /**
-     * The underlying HTML document.
-     * @type {HTMLDocument}
-     */
-    this._document = document;
+    this.defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
   }
 
   /**
    * The class name.
-   * @type {string}
    */
   get [Symbol.toStringTag](): string {
     return 'Cookies';
   }
 
   /**
-   * The default cookie options.
-   * @type {CookieOptions}
-   */
-  get defaults() {
-    return this._defaults;
-  }
-
-  /**
    * The keys of the cookies associated with the current document.
-   * @type {string[]}
    */
-  get keys() {
+  get keys(): string[] {
     const keys = this._document.cookie.replace(/((?:^|\s*;)[^=]+)(?=;|$)|^\s*|\s*(?:=[^;]*)?(?:\1|$)/g, '');
     return keys.length ? keys.split(/\s*(?:=[^;]*)?;\s*/).map(key => decodeURIComponent(key)) : [];
   }
 
   /**
    * The number of cookies associated with the current document.
-   * @type {number}
    */
-  get length() {
+  get length(): number {
     return this.keys.length;
   }
 
   /**
    * Returns a new iterator that allows iterating the cookies associated with the current document.
    */
-  *[Symbol.iterator]() {
+  public *[Symbol.iterator](): Iterator<[string, string]> {
     for (const key of this.keys) yield [key, this.get(key)];
   }
 
   /**
    * Removes all cookies associated with the current document.
-   * @event {Map<string, SimpleChange>} The "changes" event.
    */
-  clear() {
+  public clear(): void {
     const changes = new Map;
     for (const [key, value] of this) {
       changes.set(key, new SimpleChange(value));
       this._removeItem(key);
     }
 
-    this.emit('changes', changes);
+    this.emit(Cookies.eventChanges, changes);
   }
 
   /**
@@ -90,7 +78,7 @@ export class Cookies extends EventEmitter {
    * @param {string} defaultValue The default cookie value if it does not exist.
    * @return {string} The cookie value, or the default value if the item is not found.
    */
-  get(key, defaultValue = null) {
+  public get(key, defaultValue = null) {
     if (!this.has(key)) return defaultValue;
 
     try {
@@ -110,7 +98,7 @@ export class Cookies extends EventEmitter {
    * @param {*} defaultValue The default cookie value if it does not exist.
    * @return {*} The deserialized cookie value, or the default value if the item is not found.
    */
-  getObject(key, defaultValue = null) {
+  public getObject(key, defaultValue = null) {
     try {
       const value = this.get(key);
       return typeof value == 'string' ? JSON.parse(value) : defaultValue;
@@ -126,7 +114,7 @@ export class Cookies extends EventEmitter {
    * @param {string} key The cookie name.
    * @return {boolean} `true` if the current document has a cookie with the specified key, otherwise `false`.
    */
-  has(key) {
+  public has(key) {
     const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
     return new RegExp(`(?:^|;\\s*)${token}\\s*\\=`).test(this._document.cookie);
   }
@@ -134,14 +122,14 @@ export class Cookies extends EventEmitter {
   /**
    * Removes the cookie with the specified key and its associated value.
    * @param {string} key The cookie name.
-   * @param {CookieOptions|Object} [options] The cookie options.
+   * @param options The cookie options.
    * @return {string} The value associated with the specified key before it was removed.
    * @event {Map<string, SimpleChange>} The "changes" event.
    */
-  remove(key, options = {}) {
+  public remove(key, options: Partial<CookieOptions> = {}) {
     const previousValue = this.get(key);
     this._removeItem(key, options);
-    this.emit('changes', new Map([
+    this.emit(Cookies.eventChanges, new Map([
       [key, new SimpleChange(previousValue)]
     ]));
 
@@ -152,12 +140,12 @@ export class Cookies extends EventEmitter {
    * Associates a given value to the specified key.
    * @param {string} key The cookie name.
    * @param {string} value The cookie value.
-   * @param {CookieOptions|Object} [options] The cookie options.
+   * @param options The cookie options.
    * @return {Cookies} This instance.
    * @throws {TypeError} The specified key is invalid.
    * @event {Map<string, SimpleChange>} The "changes" event.
    */
-  set(key, value, options = {}) {
+  public set(key, value, options: Partial<CookieOptions> = {}) {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
 
     const cookieValue = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
@@ -166,7 +154,7 @@ export class Cookies extends EventEmitter {
 
     const previousValue = this.get(key);
     this._document.cookie = cookieValue;
-    this.emit('changes', new Map([
+    this.emit(Cookies.eventChanges, new Map([
       [key, new SimpleChange(previousValue, value)]
     ]));
 
@@ -177,11 +165,11 @@ export class Cookies extends EventEmitter {
    * Serializes and associates a given value to the specified key.
    * @param {string} key The cookie name.
    * @param {*} value The cookie value.
-   * @param {CookieOptions|Object} [options] The cookie options.
+   * @param options The cookie options.
    * @return {Cookies} This instance.
    * @event {Map<string, SimpleChange>} The "changes" event.
    */
-  setObject(key, value, options = {}) {
+  public setObject(key, value, options: Partial<CookieOptions> = {}): this {
     this.set(key, JSON.stringify(value), options);
     return this;
   }
@@ -209,22 +197,22 @@ export class Cookies extends EventEmitter {
    * @param {CookieOptions|Object} options The options to merge with the defaults.
    * @return {CookieOptions} The resulting cookie options.
    */
-  _getOptions(options = {}) {
+  private _getOptions(options: Partial<CookieOptions> = {}): CookieOptions {
     if (!(options instanceof CookieOptions)) options = new CookieOptions(options);
     return new CookieOptions({
-      domain: options.domain.length ? options.domain : this.defaults.domain,
+      domain: options.domain!.length ? options.domain : this.defaults.domain,
       expires: options.expires ? options.expires : this.defaults.expires,
-      path: options.path.length ? options.path : this.defaults.path,
+      path: options.path!.length ? options.path : this.defaults.path,
       secure: options.secure ? options.secure : this.defaults.secure
     });
   }
 
   /**
    * Removes the value associated to the specified key.
-   * @param {string} key The cookie name.
-   * @param {CookieOptions|Object} [options] The cookie options.
+   * @param key The cookie name.
+   * @param options The cookie options.
    */
-  _removeItem(key, options = {}) {
+  private _removeItem(key: string, options: Partial<CookieOptions> = {}): void {
     if (!this.has(key)) return;
     const cookieOptions = this._getOptions(options);
     cookieOptions.expires = new Date(0);
