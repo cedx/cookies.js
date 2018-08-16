@@ -1,3 +1,5 @@
+import {JsonMap} from './map';
+
 /**
  * Represents the event parameter used for a cookie change event.
  */
@@ -5,27 +7,13 @@ export class SimpleChange {
 
   /**
    * Initializes a new instance of the class.
-   * @param {string} [previousValue] The previous value for the cookie, or a `null` reference if added.
-   * @param {string} [currentValue] The current value for the cookie, or a `null` reference if removed.
+   * @param previousValue The previous value for the cookie, or `undefined` if added.
+   * @param currentValue The current value for the cookie, or `undefined` if removed.
    */
-  constructor(previousValue = null, currentValue = null) {
-
-    /**
-     * The current value for the cookie, or a `null` reference if removed.
-     * @type {string}
-     */
-    this.currentValue = currentValue;
-
-    /**
-     * The previous value for the cookie, or a `null` reference if added.
-     * @type {string}
-     */
-    this.previousValue = previousValue;
-  }
+  constructor(public readonly previousValue?: string, public readonly currentValue?: string) {}
 
   /**
    * The class name.
-   * @type {string}
    */
   get [Symbol.toStringTag](): string {
     return 'SimpleChange';
@@ -35,7 +23,7 @@ export class SimpleChange {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): {[key: string]: any} {
+  public toJSON(): JsonMap {
     return {
       currentValue: this.currentValue,
       previousValue: this.previousValue

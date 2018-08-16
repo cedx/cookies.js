@@ -1,5 +1,6 @@
+/* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {CookieOptions} from '../lib/index.js';
+import {CookieOptions} from '../src';
 
 /**
  * @test {CookieOptions}

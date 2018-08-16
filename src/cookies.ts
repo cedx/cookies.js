@@ -1,6 +1,7 @@
-import EventEmitter from 'eventemitter3';
-import {CookieOptions} from './cookie_options.js';
-import {SimpleChange} from './simple_change.js';
+import {EventEmitter} from 'eventemitter3';
+import {CookieOptions} from './cookie_options';
+import {JsonMap} from './map';
+import {SimpleChange} from './simple_change';
 
 /**
  * Provides access to the HTTP cookies.
@@ -13,7 +14,7 @@ export class Cookies extends EventEmitter {
    * @param {CookieOptions|Object} defaults The default cookie options.
    * @param {HTMLDocument} document The underlying HTML document.
    */
-  constructor(defaults = {}, document = window.document) {
+  constructor(defaults: Partial<CookieOptions> = {}, document = window.document) {
     super();
 
     /**
@@ -50,7 +51,7 @@ export class Cookies extends EventEmitter {
    * @type {string[]}
    */
   get keys() {
-    let keys = this._document.cookie.replace(/((?:^|\s*;)[^=]+)(?=;|$)|^\s*|\s*(?:=[^;]*)?(?:\1|$)/g, '');
+    const keys = this._document.cookie.replace(/((?:^|\s*;)[^=]+)(?=;|$)|^\s*|\s*(?:=[^;]*)?(?:\1|$)/g, '');
     return keys.length ? keys.split(/\s*(?:=[^;]*)?;\s*/).map(key => decodeURIComponent(key)) : [];
   }
 
@@ -66,7 +67,7 @@ export class Cookies extends EventEmitter {
    * Returns a new iterator that allows iterating the cookies associated with the current document.
    */
   *[Symbol.iterator]() {
-    for (let key of this.keys) yield [key, this.get(key)];
+    for (const key of this.keys) yield [key, this.get(key)];
   }
 
   /**
@@ -74,8 +75,8 @@ export class Cookies extends EventEmitter {
    * @event {Map<string, SimpleChange>} The "changes" event.
    */
   clear() {
-    let changes = new Map;
-    for (let [key, value] of this) {
+    const changes = new Map;
+    for (const [key, value] of this) {
       changes.set(key, new SimpleChange(value));
       this._removeItem(key);
     }
@@ -93,8 +94,8 @@ export class Cookies extends EventEmitter {
     if (!this.has(key)) return defaultValue;
 
     try {
-      let token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
-      let scanner = new RegExp(`(?:(?:^|.*;)\\s*${token}\\s*\\=\\s*([^;]*).*$)|^.*$`);
+      const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
+      const scanner = new RegExp(`(?:(?:^|.*;)\\s*${token}\\s*\\=\\s*([^;]*).*$)|^.*$`);
       return decodeURIComponent(this._document.cookie.replace(scanner, '$1'));
     }
 
@@ -111,7 +112,7 @@ export class Cookies extends EventEmitter {
    */
   getObject(key, defaultValue = null) {
     try {
-      let value = this.get(key);
+      const value = this.get(key);
       return typeof value == 'string' ? JSON.parse(value) : defaultValue;
     }
 
@@ -126,7 +127,7 @@ export class Cookies extends EventEmitter {
    * @return {boolean} `true` if the current document has a cookie with the specified key, otherwise `false`.
    */
   has(key) {
-    let token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
+    const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
     return new RegExp(`(?:^|;\\s*)${token}\\s*\\=`).test(this._document.cookie);
   }
 
@@ -138,7 +139,7 @@ export class Cookies extends EventEmitter {
    * @event {Map<string, SimpleChange>} The "changes" event.
    */
   remove(key, options = {}) {
-    let previousValue = this.get(key);
+    const previousValue = this.get(key);
     this._removeItem(key, options);
     this.emit('changes', new Map([
       [key, new SimpleChange(previousValue)]
@@ -159,11 +160,11 @@ export class Cookies extends EventEmitter {
   set(key, value, options = {}) {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
 
-    let cookieValue = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-    let cookieOptions = this._getOptions(options).toString();
+    const cookieValue = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    const cookieOptions = this._getOptions(options).toString();
     if (cookieOptions.length) cookieValue += `; ${cookieOptions}`;
 
-    let previousValue = this.get(key);
+    const previousValue = this.get(key);
     this._document.cookie = cookieValue;
     this.emit('changes', new Map([
       [key, new SimpleChange(previousValue, value)]
@@ -189,9 +190,9 @@ export class Cookies extends EventEmitter {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): {[key: string]: any} {
-    let map = {};
-    for (let [key, value] of this) map[key] = value;
+  public toJSON(): JsonMap {
+    const map = {};
+    for (const [key, value] of this) map[key] = value;
     return map;
   }
 
@@ -225,7 +226,7 @@ export class Cookies extends EventEmitter {
    */
   _removeItem(key, options = {}) {
     if (!this.has(key)) return;
-    let cookieOptions = this._getOptions(options);
+    const cookieOptions = this._getOptions(options);
     cookieOptions.expires = new Date(0);
     this._document.cookie = `${encodeURIComponent(key)}=; ${cookieOptions}`;
   }

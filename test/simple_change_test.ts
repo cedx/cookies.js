@@ -1,8 +1,9 @@
+/* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
-import {SimpleChange} from '../lib/index.js';
+import {SimpleChange} from '../src';
 
 /**
- * @test {SimpleChange}
+ * Tests the features of the `SimpleChange` class.
  */
 describe('SimpleChange', () => {
 
@@ -29,7 +30,7 @@ describe('SimpleChange', () => {
    * @test {SimpleChange#toString}
    */
   describe('#toString()', () => {
-    let data = new SimpleChange('baz', 'bar').toString();
+    const data = new SimpleChange('baz', 'bar').toString();
 
     it('should start with the class name', () => {
       expect(data.startsWith('SimpleChange {')).to.be.true;

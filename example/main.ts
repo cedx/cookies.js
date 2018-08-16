@@ -1,9 +1,12 @@
+/* tslint:disable: no-console */
+
+// @ts-ignore
 import {Cookies} from '@cedx/cookies';
 
 /**
  * Tests the cookie service.
  */
-function main() {
+function main(): void {
   const cookies = new Cookies;
 
   // Write the cookies.
