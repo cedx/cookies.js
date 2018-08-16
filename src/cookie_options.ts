@@ -13,17 +13,15 @@ export class CookieOptions {
   /**
    * The expiration date and time for the cookie.
    */
-  private _expires: Date | null;
+  public expires: Date | null;
 
   /**
    * The path to which the cookie applies.
-   * @type {string}
    */
   public path: string;
 
   /**
    * Value indicating whether to transmit the cookie over HTTPS only.
-   * @type {boolean}
    */
   public secure: boolean;
 
@@ -34,14 +32,9 @@ export class CookieOptions {
   constructor(options: Partial<CookieOptions> = {}) {
     const {domain = '', expires = null, path = '', secure = false} = options;
     this.domain = domain;
+    this.expires = expires;
     this.path = path;
     this.secure = secure;
-
-    /**
-     * The expiration date and time for the cookie.
-     */
-    this.expires = expires instanceof Date ? expires : null;
-    // TODO: if (!this.expires && (Number.isInteger(expires) || typeof expires == 'string')) this.expires = new Date(expires);
   }
 
   /**
