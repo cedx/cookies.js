@@ -2,14 +2,14 @@ path: blob/master
 source: src/simple_change.ts
 
 # Events
-The `Cookies` class is an [`EventEmitter`](https://nodejs.org/api/events.html): every time one or several values are changed (added, removed or updated) through this class, a `changes` event is triggered.
+The [`Cookies`](api.md) class is an [`EventEmitter`](https://nodejs.org/api/events.html): every time one or several values are changed (added, removed or updated) through this class, a `changes` event is triggered.
 
 You can subscribe to this event using the `on()` method:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   new Cookies().on('changes', changes => {
     for (const [key, value] of changes.entries()) console.log(`${key}: ${value}`);
   });
@@ -21,7 +21,7 @@ The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
 
   cookies.on('changes', changes => {
@@ -48,7 +48,7 @@ The values contained in the `currentValue` and `previousValue` properties of the
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   cookies.setObject('foo', {bar: 'baz'});
   // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: null}

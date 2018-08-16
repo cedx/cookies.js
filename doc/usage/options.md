@@ -2,7 +2,7 @@ path: blob/master
 source: src/cookie_options.ts
 
 # Cookie options
-Several methods accept an `options` parameter in order to customize the cookie attributes.
+Several methods of the [Cookies](api.md) class accept an `options` parameter in order to customize the cookie attributes.
 These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/src/cookie_options.ts) class, which has the following properties:
 
 - **domain**: string = `""`: The domain for which the cookie is valid.

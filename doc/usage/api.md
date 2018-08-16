@@ -7,7 +7,7 @@ This package provides a service dedicated to the cookie management: the `Cookies
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
 
   cookies.set('foo', 'bar');
@@ -21,12 +21,12 @@ function main() {
 The `Cookies` class has the following API:
 
 ## **#defaults**: CookieOptions
-Returns the default options to pass when setting cookies:
+Returns the default [options](options.md) to pass when setting cookies:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(JSON.stringify(cookies.defaults));
   // {"domain": "", "expires": null, "path": "", "secure": false}
@@ -46,7 +46,7 @@ Returns the keys of the cookies associated with the current document:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(cookies.keys); // []
 
@@ -61,7 +61,7 @@ Returns the number of cookies associated with the current document:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(cookies.length); // 0
 
@@ -76,7 +76,7 @@ Removes all cookies associated with the current document:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   cookies.set('foo', 'bar');
   console.log(cookies.length); // 1
@@ -92,7 +92,7 @@ Returns the value associated to the specified key:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   cookies.set('foo', 'bar');
   console.log(cookies.get('foo')); // "bar"
@@ -104,7 +104,7 @@ Returns the `defaultValue` parameter if the key is not found:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(cookies.get('unknownKey')); // null
   console.log(cookies.get('unknownKey', 'foo')); // "foo"
@@ -117,7 +117,7 @@ Deserializes and returns the value associated to the specified key:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   cookies.setObject('foo', {bar: 'baz'});
   console.log(cookies.getObject('foo')); // {bar: "baz"}
@@ -132,7 +132,7 @@ Returns the `defaultValue` parameter if the key is not found:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(cookies.getObject('unknownKey')); // null
   console.log(cookies.getObject('unknownKey', false)); // false
@@ -145,7 +145,7 @@ Returns a boolean value indicating whether the current document has a cookie wit
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(cookies.has('foo')); // false
 
@@ -160,7 +160,7 @@ Removes the value associated to the specified key:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
 
   cookies.set('foo', 'bar');
@@ -177,7 +177,7 @@ Associates a given value to the specified key:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(cookies.get('foo')); // null
 
@@ -192,7 +192,7 @@ Serializes and associates a given value to the specified key:
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   console.log(cookies.getObject('foo')); // null
 
