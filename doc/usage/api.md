@@ -1,5 +1,5 @@
-path: blob/master/lib
-source: cookies.js
+path: blob/master
+source: src/cookies.ts
 
 # Programming interface
 This package provides a service dedicated to the cookie management: the `Cookies` class.
