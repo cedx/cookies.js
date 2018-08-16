@@ -1,3 +1,4 @@
-export * from './cookie_options.js';
-export * from './cookies.js';
-export * from './simple_change.js';
+export * from './cookie_options';
+export * from './cookies';
+export * from './map';
+export * from './simple_change';

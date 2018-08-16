@@ -1,43 +1,51 @@
+import {JsonMap} from './map';
+
 /**
  * Defines the attributes of a HTTP cookie.
  */
 export class CookieOptions {
 
   /**
+   * The domain for which the cookie is valid.
+   */
+  public domain: string;
+
+  /**
+   * The expiration date and time for the cookie.
+   */
+  public expires: Date | null;
+
+  /**
+   * The path to which the cookie applies.
+   * @type {string}
+   */
+  public path: string;
+
+  /**
+   * Value indicating whether to transmit the cookie over HTTPS only.
+   * @type {boolean}
+   */
+  public secure: boolean;
+
+  /**
    * Initializes a new instance of the class.
    * @param {Object} [options] An object specifying values used to initialize this instance.
    */
-  constructor({domain = '', expires = null, path = '', secure = false} = {}) {
-
-    /**
-     * The domain for which the cookie is valid.
-     * @type {string}
-     */
+  constructor(options: Partial<CookieOptions> = {}) {
+    const {domain = '', expires = null, path = '', secure = false} = options;
     this.domain = domain;
+    this.path = path;
+    this.secure = secure;
 
     /**
      * The expiration date and time for the cookie.
-     * @type {Date}
      */
     this.expires = expires instanceof Date ? expires : null;
     if (!this.expires && (Number.isInteger(expires) || typeof expires == 'string')) this.expires = new Date(expires);
-
-    /**
-     * The path to which the cookie applies.
-     * @type {string}
-     */
-    this.path = path;
-
-    /**
-     * Value indicating whether to transmit the cookie over HTTPS only.
-     * @type {boolean}
-     */
-    this.secure = secure;
   }
 
   /**
    * The class name.
-   * @type {string}
    */
   get [Symbol.toStringTag](): string {
     return 'CookieOptions';
@@ -47,7 +55,7 @@ export class CookieOptions {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): {[key: string]: any} {
+  public toJSON(): JsonMap {
     return {
       domain: this.domain,
       expires: this.expires ? this.expires.toISOString() : null,
@@ -61,7 +69,7 @@ export class CookieOptions {
    * @return The string representation of this object.
    */
   public toString(): string {
-    let value = [];
+    const value = [];
     if (this.expires) value.push(`expires=${this.expires.toUTCString()}`);
     if (this.domain.length) value.push(`domain=${this.domain}`);
     if (this.path.length) value.push(`path=${this.path}`);
