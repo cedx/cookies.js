@@ -1,14 +1,14 @@
 import {JsonMap} from './map';
 
 /**
- * Represents the event parameter used for a cookie change event.
+ * Represents the event parameter used for a change event.
  */
 export class SimpleChange<T = string> {
 
   /**
-   * Initializes a new instance of the class.
-   * @param previousValue The previous value for the cookie, or `undefined` if added.
-   * @param currentValue The current value for the cookie, or `undefined` if removed.
+   * Creates a new simple change.
+   * @param previousValue The previous value, or `undefined` if added.
+   * @param currentValue The current value, or `undefined` if removed.
    */
   constructor(public readonly previousValue?: T, public readonly currentValue?: T) {}
 
