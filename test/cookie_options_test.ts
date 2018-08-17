@@ -8,7 +8,7 @@ import {CookieOptions} from '../src';
 describe('CookieOptions', () => {
   const options = {
     domain: 'domain.com',
-    expires: 0,
+    expires: new Date(0),
     path: '/path',
     secure: true
   };
