@@ -14,4 +14,5 @@ script: npm test
 after_success:
 - pwd
 - ls src/
+- cat src/cookie_options.ts
 - npm run coverage
