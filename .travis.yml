@@ -11,4 +11,7 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 script: npm test
-after_success: npm run coverage
+after_success:
+- ls src/
+- ls var/
+- npm run coverage

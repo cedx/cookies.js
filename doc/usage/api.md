@@ -70,7 +70,7 @@ function main(): void {
 }
 ```
 
-## **#clear**()
+## **#clear**(): void
 Removes all cookies associated with the current document:
 
 ```ts
@@ -86,7 +86,7 @@ function main(): void {
 }
 ```
 
-## **#get**(key: string, defaultValue: string = `null`): string
+## **#get**(key: string, defaultValue?: string): string | undefined
 Returns the value associated to the specified key:
 
 ```ts
@@ -94,24 +94,17 @@ import {Cookies} from '@cedx/cookies';
 
 function main(): void {
   const cookies = new Cookies;
+  console.log(cookies.get('foo')); // undefined
+  console.log(cookies.get('foo', 'qux')); // "qux"
+
   cookies.set('foo', 'bar');
   console.log(cookies.get('foo')); // "bar"
 }
 ```
 
-Returns the `defaultValue` parameter if the key is not found:
+Returns `undefined` or the given default value if the key is not found.
 
-```ts
-import {Cookies} from '@cedx/cookies';
-
-function main(): void {
-  const cookies = new Cookies;
-  console.log(cookies.get('unknownKey')); // null
-  console.log(cookies.get('unknownKey', 'foo')); // "foo"
-}
-```
-
-## **#getObject**(key: string, defaultValue: any = `null`): any
+## **#getObject**(key: string, defaultValue?: any): any
 Deserializes and returns the value associated to the specified key:
 
 ```ts
@@ -119,6 +112,9 @@ import {Cookies} from '@cedx/cookies';
 
 function main(): void {
   const cookies = new Cookies;
+  console.log(cookies.getObject('foo')); // undefined
+  console.log(cookies.getObject('foo', 'qux')); // "qux"
+  
   cookies.setObject('foo', {bar: 'baz'});
   console.log(cookies.getObject('foo')); // {bar: "baz"}
 }
@@ -127,17 +123,7 @@ function main(): void {
 !!! info
     The value is deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
 
-Returns the `defaultValue` parameter if the key is not found:
-
-```ts
-import {Cookies} from '@cedx/cookies';
-
-function main(): void {
-  const cookies = new Cookies;
-  console.log(cookies.getObject('unknownKey')); // null
-  console.log(cookies.getObject('unknownKey', false)); // false
-}
-```
+Returns `undefined` or the given default value if the key is not found.
 
 ## **#has**(key: string): boolean
 Returns a boolean value indicating whether the current document has a cookie with the specified key:

@@ -6,7 +6,7 @@ import {Cookies, SimpleChange} from '../src';
  * @test {Cookies}
  */
 describe('Cookies', () => {
-  const getNativeCookies = () => {
+  const getNativeCookies = (): Map<string, string> => {
     const nativeCookies = new Map<string, string>();
     if (document.cookie.length) for (const value of document.cookie.split(';')) {
       const index = value.indexOf('=');
