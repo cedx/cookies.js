@@ -11,8 +11,4 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 script: npm test
-after_success:
-- pwd
-- ls src/
-- cat src/cookie_options.ts
-- npm run coverage
+after_success: npm run coverage
