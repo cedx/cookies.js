@@ -12,6 +12,6 @@ before_script:
 - sleep 3
 script: npm test
 after_success:
-- ls src/
 - pwd
+- ls src/
 - npm run coverage
