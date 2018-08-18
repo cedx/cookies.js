@@ -13,12 +13,12 @@ export class Cookies extends EventEmitter {
    * An event that is triggered when a cookie is changed (added, modified, or removed).
    * @event changes
    */
-  public static readonly eventChanges: string = 'changes';
+  static readonly eventChanges: string = 'changes';
 
   /**
    * The default cookie options.
    */
-  public readonly defaults: CookieOptions;
+  readonly defaults: CookieOptions;
 
   /**
    * Creates a new cookie service.
@@ -55,14 +55,14 @@ export class Cookies extends EventEmitter {
   /**
    * Returns a new iterator that allows iterating the cookies associated with the current document.
    */
-  public *[Symbol.iterator](): Iterator<[string, string | undefined]> {
+  *[Symbol.iterator](): Iterator<[string, string | undefined]> {
     for (const key of this.keys) yield [key, this.get(key)];
   }
 
   /**
    * Removes all cookies associated with the current document.
    */
-  public clear(): void {
+  clear(): void {
     const changes = new Map<string, SimpleChange>();
     for (const [key, value] of this) {
       changes.set(key, new SimpleChange(value));
@@ -78,7 +78,7 @@ export class Cookies extends EventEmitter {
    * @param defaultValue The default cookie value if it does not exist.
    * @return The cookie value, or the default value if the item is not found.
    */
-  public get(key: string, defaultValue?: string): string | undefined {
+  get(key: string, defaultValue?: string): string | undefined {
     if (!this.has(key)) return defaultValue;
 
     try {
@@ -98,7 +98,7 @@ export class Cookies extends EventEmitter {
    * @param defaultValue The default cookie value if it does not exist.
    * @return The deserialized cookie value, or the default value if the item is not found.
    */
-  public getObject(key: string, defaultValue?: any): any {
+  getObject(key: string, defaultValue?: any): any {
     try {
       const value = this.get(key);
       return typeof value == 'string' ? JSON.parse(value) : defaultValue;
@@ -114,7 +114,7 @@ export class Cookies extends EventEmitter {
    * @param key The cookie name.
    * @return `true` if the current document has a cookie with the specified key, otherwise `false`.
    */
-  public has(key: string): boolean {
+  has(key: string): boolean {
     const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
     return new RegExp(`(?:^|;\\s*)${token}\\s*\=`).test(this._document.cookie);
   }
@@ -125,7 +125,7 @@ export class Cookies extends EventEmitter {
    * @param options The cookie options.
    * @return The value associated with the specified key before it was removed.
    */
-  public remove(key: string, options: Partial<CookieOptions> = {}): string | undefined {
+  remove(key: string, options: Partial<CookieOptions> = {}): string | undefined {
     const previousValue = this.get(key);
     this._removeItem(key, options);
     this.emit(Cookies.eventChanges, new Map<string, SimpleChange>([
@@ -143,7 +143,7 @@ export class Cookies extends EventEmitter {
    * @return This instance.
    * @throws {TypeError} The specified key is invalid.
    */
-  public set(key: string, value: string, options: Partial<CookieOptions> = {}): this {
+  set(key: string, value: string, options: Partial<CookieOptions> = {}): this {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
 
     const cookieOptions = this._getOptions(options).toString();
@@ -166,7 +166,7 @@ export class Cookies extends EventEmitter {
    * @param options The cookie options.
    * @return This instance.
    */
-  public setObject(key: string, value: any, options: Partial<CookieOptions> = {}): this {
+  setObject(key: string, value: any, options: Partial<CookieOptions> = {}): this {
     this.set(key, JSON.stringify(value), options);
     return this;
   }
@@ -175,7 +175,7 @@ export class Cookies extends EventEmitter {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     const map = {} as JsonMap;
     for (const [key, value] of this) map[key] = value;
     return map;
@@ -185,7 +185,7 @@ export class Cookies extends EventEmitter {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return this._document.cookie;
   }
 

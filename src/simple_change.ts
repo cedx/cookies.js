@@ -10,14 +10,14 @@ export class SimpleChange<T = string> {
    * @param previousValue The previous value, or `undefined` if added.
    * @param currentValue The current value, or `undefined` if removed.
    */
-  constructor(public readonly previousValue?: T, public readonly currentValue?: T) {}
+  constructor(readonly previousValue?: T, readonly currentValue?: T) {}
 
   /**
    * Creates a new simple change from the specified JSON map.
    * @param map A JSON map representing a simple change.
    * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson<T = string>(map: StringMap<T | undefined>): SimpleChange<T> {
+  static fromJson<T = string>(map: StringMap<T | undefined>): SimpleChange<T> {
     return new this<T>(
       'previousValue' in map ? map.previousValue : undefined,
       'currentValue' in map ? map.currentValue : undefined
@@ -35,7 +35,7 @@ export class SimpleChange<T = string> {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     return {
       currentValue: this.currentValue,
       previousValue: this.previousValue
@@ -46,7 +46,7 @@ export class SimpleChange<T = string> {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }

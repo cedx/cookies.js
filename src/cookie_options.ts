@@ -8,22 +8,22 @@ export class CookieOptions {
   /**
    * The domain for which the cookie is valid.
    */
-  public domain: string;
+  domain: string;
 
   /**
    * The expiration date and time for the cookie.
    */
-  public expires: Date | null;
+  expires: Date | null;
 
   /**
    * The path to which the cookie applies.
    */
-  public path: string;
+  path: string;
 
   /**
    * Value indicating whether to transmit the cookie over HTTPS only.
    */
-  public secure: boolean;
+  secure: boolean;
 
   /**
    * Initializes a new instance of the class.
@@ -42,7 +42,7 @@ export class CookieOptions {
    * @param map A JSON map representing cookie options.
    * @return The instance corresponding to the specified JSON map.
    */
-  public static fromJson(map: JsonMap): CookieOptions {
+  static fromJson(map: JsonMap): CookieOptions {
     return new this({
       domain: typeof map.domain == 'string' ? map.domain : '',
       expires: typeof map.expires == 'string' ? new Date(map.expires) : null,
@@ -62,7 +62,7 @@ export class CookieOptions {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  public toJSON(): JsonMap {
+  toJSON(): JsonMap {
     return {
       domain: this.domain,
       expires: this.expires ? this.expires.toISOString() : null,
@@ -75,7 +75,7 @@ export class CookieOptions {
    * Returns a string representation of this object.
    * @return The string representation of this object.
    */
-  public toString(): string {
+  toString(): string {
     const value: string[] = [];
     if (this.expires) value.push(`expires=${this.expires.toUTCString()}`);
     if (this.domain.length) value.push(`domain=${this.domain}`);
