@@ -13,5 +13,5 @@ before_script:
 script: npm test
 after_success:
 - ls src/
-- ls var/
+- pwd
 - npm run coverage
