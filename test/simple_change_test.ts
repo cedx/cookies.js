@@ -47,7 +47,7 @@ describe('SimpleChange', () => {
    * @test {SimpleChange#toString}
    */
   describe('#toString()', () => {
-    const data = new SimpleChange<number>(123, 456).toString();
+    const data = new SimpleChange<number>(456, 123).toString();
 
     it('should start with the class name', () => {
       expect(data.startsWith('SimpleChange {')).to.be.true;
