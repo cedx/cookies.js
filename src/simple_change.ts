@@ -1,4 +1,4 @@
-import {JsonMap} from './map';
+import {JsonMap, StringMap} from './map';
 
 /**
  * Represents the event parameter used for a change event.
@@ -11,6 +11,18 @@ export class SimpleChange<T = string> {
    * @param currentValue The current value, or `undefined` if removed.
    */
   constructor(public readonly previousValue?: T, public readonly currentValue?: T) {}
+
+  /**
+   * Creates a new simple change from the specified JSON map.
+   * @param map A JSON map representing a simple change.
+   * @return The instance corresponding to the specified JSON map.
+   */
+  public static fromJson<T = string>(map: StringMap<T | undefined>): SimpleChange<T> {
+    return new this<T>(
+      'currentValue' in map ? map.currentValue : undefined,
+      'previousValue' in map ? map.previousValue : undefined
+    );
+  }
 
   /**
    * The class name.
