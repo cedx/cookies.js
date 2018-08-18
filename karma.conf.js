@@ -1,7 +1,3 @@
-const {join} = require('path');
-const commonjs = require('rollup-plugin-commonjs');
-const nodeResolve = require('rollup-plugin-node-resolve');
-
 module.exports = config => config.set({
   browsers: ['Chrome'],
   coverageReporter: {
@@ -24,6 +20,7 @@ module.exports = config => config.set({
   singleRun: true
 });
 
+/* TODO ???
 module.exports = config => config.set({
   rollupPreprocessor: {
     onwarn: warning => {
@@ -40,4 +37,4 @@ module.exports = config => config.set({
       commonjs({namedExports: {chai: ['expect']}})
     ]
   }
-});
+}); */
