@@ -83,7 +83,7 @@ export class Cookies extends EventEmitter {
 
     try {
       const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
-      const scanner = new RegExp(`(?:(?:^|.*;)\\s*${token}\\s*\\=\\s*([^;]*).*$)|^.*$`);
+      const scanner = new RegExp(`(?:(?:^|.*;)\\s*${token}\\s*\=\\s*([^;]*).*$)|^.*$`);
       return decodeURIComponent(this._document.cookie.replace(scanner, '$1'));
     }
 
@@ -116,7 +116,7 @@ export class Cookies extends EventEmitter {
    */
   public has(key: string): boolean {
     const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
-    return new RegExp(`(?:^|;\\s*)${token}\\s*\\=`).test(this._document.cookie);
+    return new RegExp(`(?:^|;\\s*)${token}\\s*\=`).test(this._document.cookie);
   }
 
   /**

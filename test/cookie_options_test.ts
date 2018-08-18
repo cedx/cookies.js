@@ -28,7 +28,7 @@ describe('CookieOptions', () => {
     it('should return an initialized instance for a non-empty map', () => {
       const cookieOptions = CookieOptions.fromJson(options.toJSON());
       expect(cookieOptions.domain).to.equal(options.domain);
-      expect(cookieOptions.expires).to.equal(options.expires);
+      expect(cookieOptions.expires!.getTime()).to.equal(options.expires!.getTime());
       expect(cookieOptions.path).to.equal(options.path);
       expect(cookieOptions.secure).to.equal(options.secure);
     });
