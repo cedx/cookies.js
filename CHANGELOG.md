@@ -3,7 +3,7 @@
 ## Version [2.0.0](https://github.com/cedx/cookies.js/compare/v1.0.0...v2.0.0)
 - Breaking change: changed the signature of the `CookieOptions` constructor.
 - Breaking change: ported the source code to [TypeScript](https://www.typescriptlang.org).
-- Added the `CookieOptions.fromJson()` static method.
+- Added the `CookieOptions.fromJson()` and `SimpleChange.fromJson()` static methods.
 - Replaced [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
 - Replaced [ESLint](https://eslint.org) static analyzer by [TSLint](https://palantir.github.io/tslint).
 - Updated the package dependencies.
