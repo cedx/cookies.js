@@ -1,4 +1,4 @@
-import {JsonMap} from './map';
+import {JsonMap, StringMap} from './map';
 
 /**
  * Defines the attributes of a HTTP cookie.
@@ -38,6 +38,20 @@ export class CookieOptions {
   }
 
   /**
+   * Creates new cookie options from the specified JSON map.
+   * @param map A JSON map representing cookie options.
+   * @return The instance corresponding to the specified JSON map.
+   */
+  public static fromJson(map: JsonMap): CookieOptions {
+    return new this({
+      domain: typeof map.domain == 'string' ? map.domain : '',
+      expires: typeof map.expires == 'string' ? new Date(map.expires) : null,
+      path: typeof map.path == 'string' ? map.path : '',
+      secure: typeof map.secure == 'boolean' ? map.secure : false
+    });
+  }
+
+  /**
    * The class name.
    */
   get [Symbol.toStringTag](): string {
@@ -62,7 +76,7 @@ export class CookieOptions {
    * @return The string representation of this object.
    */
   public toString(): string {
-    const value = [];
+    const value: string[] = [];
     if (this.expires) value.push(`expires=${this.expires.toUTCString()}`);
     if (this.domain.length) value.push(`domain=${this.domain}`);
     if (this.path.length) value.push(`path=${this.path}`);
