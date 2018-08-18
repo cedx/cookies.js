@@ -6,12 +6,33 @@ import {CookieOptions} from '../src';
  * @test {CookieOptions}
  */
 describe('CookieOptions', () => {
-  const options = {
+  const options = new CookieOptions({
     domain: 'domain.com',
     expires: new Date(0),
     path: '/path',
     secure: true
-  };
+  });
+
+  /**
+   * @test {CookieOptions.fromJson}
+   */
+  describe('.fromJson()', () => {
+    it('should return an instance with default values for an empty map', () => {
+      const cookieOptions = CookieOptions.fromJson({});
+      expect(cookieOptions.domain).to.be.empty;
+      expect(cookieOptions.expires).to.be.null;
+      expect(cookieOptions.path).to.be.empty;
+      expect(cookieOptions.secure).to.be.false;
+    });
+
+    it('should return an initialized instance for a non-empty map', () => {
+      const cookieOptions = CookieOptions.fromJson(options.toJSON());
+      expect(cookieOptions.domain).to.equal(options.domain);
+      expect(cookieOptions.expires).to.equal(options.expires);
+      expect(cookieOptions.path).to.equal(options.path);
+      expect(cookieOptions.secure).to.equal(options.secure);
+    });
+  });
 
   /**
    * @test {CookieOptions#toJSON}

@@ -8,18 +8,35 @@ import {SimpleChange} from '../src';
 describe('SimpleChange', () => {
 
   /**
+   * @test {SimpleChange.fromJson}
+   */
+  describe('.fromJson()', () => {
+    it('should return an empty instance with an empty map', () => {
+      const change = SimpleChange.fromJson<string>({});
+      expect(change.currentValue).to.be.undefined;
+      expect(change.previousValue).to.be.undefined;
+    });
+
+    it('should return a non-empty map for an initialized instance', () => {
+      const change = SimpleChange.fromJson<number>({currentValue: 123, previousValue: 456});
+      expect(change.currentValue).to.equal(123);
+      expect(change.previousValue).to.equal(456);
+    });
+  });
+
+  /**
    * @test {SimpleChange#toJSON}
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      expect(new SimpleChange().toJSON()).to.be.an('object').that.deep.equal({
+      expect(new SimpleChange<string>().toJSON()).to.be.an('object').that.deep.equal({
         currentValue: undefined,
         previousValue: undefined
       });
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      expect(new SimpleChange('baz', 'bar').toJSON()).to.be.an('object').that.deep.equal({
+      expect(new SimpleChange<string>('baz', 'bar').toJSON()).to.be.an('object').that.deep.equal({
         currentValue: 'bar',
         previousValue: 'baz'
       });
@@ -30,14 +47,14 @@ describe('SimpleChange', () => {
    * @test {SimpleChange#toString}
    */
   describe('#toString()', () => {
-    const data = new SimpleChange('baz', 'bar').toString();
+    const data = new SimpleChange<number>(123, 456).toString();
 
     it('should start with the class name', () => {
       expect(data.startsWith('SimpleChange {')).to.be.true;
     });
 
     it('should contain the instance properties', () => {
-      expect(data).to.contain('"currentValue":"bar"').and.contain('"previousValue":"baz"');
+      expect(data).to.contain('"currentValue":123').and.contain('"previousValue":456');
     });
   });
 });
