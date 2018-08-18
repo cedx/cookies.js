@@ -19,7 +19,7 @@ gulp.task('build', () => _exec('node_modules/.bin/tsc'));
 /**
  * Deletes all generated files and resets any saved state.
  */
-gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
+gulp.task('clean', () => del(['coverage', 'doc/api', 'lib', 'var/**/*', 'web']));
 
 /**
  * Sends the results of the code coverage.
@@ -62,7 +62,10 @@ gulp.task('upgrade', async () => {
 /**
  * Watches for file changes.
  */
-gulp.task('watch', () => _exec('node_modules/.bin/karma', ['start', '--no-single-run']));
+gulp.task('watch', () => {
+  gulp.watch('src/**/*.ts', {ignoreInitial: false}, gulp.task('build'));
+  return _exec('node_modules/.bin/karma', ['start', '--no-single-run']);
+});
 
 /**
  * Runs the default tasks.
