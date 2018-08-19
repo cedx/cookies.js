@@ -48,7 +48,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#Symbol.iterator}
+   * @test {Cookies#[Symbol.iterator]}
    */
   describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
@@ -78,6 +78,27 @@ describe('Cookies', () => {
       expect(next.value[0]).to.equal('iterator2');
       expect(next.value[1]).to.equal('bar');
       expect(iterator.next().done).to.be.true;
+    });
+
+    it('should allow the "iterable" protocol', () => {
+      const cookies = new Cookies;
+      cookies.clear();
+      document.cookie = 'iterator1=foo';
+      document.cookie = 'iterator2=bar';
+
+      let index = 0;
+      for (const [key, value] of cookies) {
+        if (index == 0) {
+          expect(key).to.equal('iterator1');
+          expect(value).to.equal('foo');
+        }
+        else if (index == 1) {
+          expect(key).to.equal('iterator2');
+          expect(value).to.equal('bar');
+        }
+        else expect.fail('More than two iteration rounds.');
+        index++;
+      }
     });
   });
 
