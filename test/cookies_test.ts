@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import {Cookies, SimpleChange} from '../src';
 
 /**
- * @test {Cookies}
+ * Tests the features of the `Cookies` class.
  */
 describe('Cookies', () => {
   const getNativeCookies = (): Map<string, string> => {
@@ -17,7 +17,7 @@ describe('Cookies', () => {
   };
 
   /**
-   * @test {Cookies#keys}
+   * Tests the `Cookies#keys` property.
    */
   describe('#keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
@@ -32,7 +32,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#length}
+   * Tests the `Cookies#length` property.
    */
   describe('#length', () => {
     it('should return zero if the current document has no associated cookie', () => {
@@ -48,7 +48,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#[Symbol.iterator]}
+   * Tests the `Cookies#[Symbol.iterator]()` method.
    */
   describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
@@ -103,7 +103,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#clear}
+   * Tests the `Cookies#clear()` method.
    */
   describe('#clear()', () => {
     it('should remove all the cookies associated with the current document', () => {
@@ -117,7 +117,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#get}
+   * Tests the `Cookies#get()` method.
    */
   describe('#get()', () => {
     it('should properly get the cookies associated with the current document', () => {
@@ -134,7 +134,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#getObject}
+   * Tests the `Cookies#getObject()` method.
    */
   describe('#getObject()', () => {
     it('should properly get the deserialized cookies associated with the current document', () => {
@@ -160,7 +160,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#has}
+   * Tests the `Cookies#has()` method.
    */
   describe('#has()', () => {
     it('should return `false` if the current document has an associated cookie with the specified key', () => {
@@ -180,7 +180,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#on}
+   * Tests the `Cookies#on()` method.
    */
   describe('#on("changes")', () => {
     it('should trigger an event when a cookie is added', done => {
@@ -273,7 +273,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#remove}
+   * Tests the `Cookies#remove()` method.
    */
   describe('#remove()', () => {
     it('should properly remove the cookies associated with the current document', () => {
@@ -291,7 +291,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#set}
+   * Tests the `Cookies#set()` method.
    */
   describe('#set()', () => {
     it('should properly set the cookies associated with the current document', () => {
@@ -323,7 +323,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#setObject}
+   * Tests the `Cookies#setObject()` method.
    */
   describe('#setObject()', () => {
     it('should properly serialize and set the cookies associated with the current document', () => {
@@ -355,7 +355,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#toJSON}
+   * Tests the `Cookies#toJSON()` method.
    */
   describe('#toJSON()', () => {
     it('should return an empty map if the current document has no associated cookie', () => {
@@ -376,7 +376,7 @@ describe('Cookies', () => {
   });
 
   /**
-   * @test {Cookies#toString}
+   * Tests the `Cookies#toString()` method.
    */
   describe('#toString()', () => {
     it('should be the same value as `document.cookie` global property', () => {

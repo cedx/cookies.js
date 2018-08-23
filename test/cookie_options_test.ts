@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import {CookieOptions} from '../src';
 
 /**
- * @test {CookieOptions}
+ * Tests the features of the `CookieOptions` class.
  */
 describe('CookieOptions', () => {
   const options = new CookieOptions({
@@ -14,7 +14,7 @@ describe('CookieOptions', () => {
   });
 
   /**
-   * @test {CookieOptions.fromJson}
+   * Tests the `CookieOptions.fromJson()` method.
    */
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
@@ -35,7 +35,7 @@ describe('CookieOptions', () => {
   });
 
   /**
-   * @test {CookieOptions#toJSON}
+   * Tests the `CookieOptions#toJSON()` method.
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
@@ -58,7 +58,7 @@ describe('CookieOptions', () => {
   });
 
   /**
-   * @test {CookieOptions#toString}
+   * Tests the `CookieOptions#toString()` method.
    */
   describe('#toString()', () => {
     it('should return an empty string for a newly created instance', () => {

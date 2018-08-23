@@ -8,7 +8,7 @@ import {SimpleChange} from '../src';
 describe('SimpleChange', () => {
 
   /**
-   * @test {SimpleChange.fromJson}
+   * Tests the `SimpleChange.fromJson()` method.
    */
   describe('.fromJson()', () => {
     it('should return an empty instance with an empty map', () => {
@@ -25,7 +25,7 @@ describe('SimpleChange', () => {
   });
 
   /**
-   * @test {SimpleChange#toJSON}
+   * Tests the `SimpleChange#toJSON()` method.
    */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
@@ -44,7 +44,7 @@ describe('SimpleChange', () => {
   });
 
   /**
-   * @test {SimpleChange#toString}
+   * Tests the `SimpleChange#toString()` method.
    */
   describe('#toString()', () => {
     const data = new SimpleChange<number>(456, 123).toString();
