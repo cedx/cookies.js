@@ -25,7 +25,11 @@ gulp.task('clean', () => del(['coverage', 'doc/api', 'lib', 'var/**/*', 'web']))
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage:fix', () => gulp.src('var/lcov.info').pipe(replace(/cookies\.ts([/\\])src/g, 'cookies.js$1src')).pipe(gulp.dest('var')));
+gulp.task('coverage:fix', () => gulp.src('var/lcov.info')
+  .pipe(replace(/cookies\.ts([/\\])src/g, 'cookies.js$1src'))
+  .pipe(gulp.dest('var'))
+);
+
 gulp.task('coverage:upload', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
 gulp.task('coverage', gulp.series('coverage:fix', 'coverage:upload'));
 
