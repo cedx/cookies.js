@@ -46,7 +46,7 @@
     "service"
   ],
   "scripts": {
-    "coverage": "coveralls var/lcov.info",
+    "coverage": "gulp coverage",
     "prepare": "tsc",
     "test": "karma start --single-run"
   }
