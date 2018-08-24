@@ -3,6 +3,7 @@
 const {spawn} = require('child_process');
 const del = require('del');
 const gulp = require('gulp');
+const replace = require('gulp-replace');
 const {normalize} = require('path');
 
 /**
@@ -24,7 +25,9 @@ gulp.task('clean', () => del(['coverage', 'doc/api', 'lib', 'var/**/*', 'web']))
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
+gulp.task('coverage:fix', () => gulp.src('var/lcov.info').pipe(replace(/cookies\.ts([/\\])src/g, 'cookies.js$1src')).pipe(gulp.dest('var')));
+gulp.task('coverage:upload', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
+gulp.task('coverage', gulp.series('coverage:fix', 'coverage:upload'));
 
 /**
  * Builds the documentation.
