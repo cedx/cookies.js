@@ -4,7 +4,7 @@ const {spawn} = require('child_process');
 const del = require('del');
 const gulp = require('gulp');
 const replace = require('gulp-replace');
-const {normalize} = require('path');
+const {delimiter, normalize, resolve} = require('path');
 
 /**
  * The file patterns providing the list of source files.
@@ -15,7 +15,7 @@ const sources = ['*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.ts'];
 /**
  * Builds the project.
  */
-gulp.task('build', () => _exec('node_modules/.bin/tsc'));
+gulp.task('build', () => _exec('tsc'));
 
 /**
  * Deletes all generated files and resets any saved state.
@@ -25,35 +25,31 @@ gulp.task('clean', () => del(['coverage', 'doc/api', 'lib', 'var/**/*', 'web']))
 /**
  * Sends the results of the code coverage.
  */
-gulp.task('coverage:fix', () => gulp.src('var/lcov.info')
-  .pipe(replace(/cookies\.ts([/\\])src/g, 'cookies.js$1src'))
-  .pipe(gulp.dest('var'))
-);
-
-gulp.task('coverage:upload', () => _exec('node_modules/.bin/coveralls', ['var/lcov.info']));
+gulp.task('coverage:fix', () => gulp.src('var/lcov.info').pipe(replace(/cookies\.ts([/\\])src/g, 'cookies.js$1src')).pipe(gulp.dest('var')));
+gulp.task('coverage:upload', () => _exec('coveralls', ['var/lcov.info']));
 gulp.task('coverage', gulp.series('coverage:fix', 'coverage:upload'));
 
 /**
  * Builds the documentation.
  */
-gulp.task('doc:api', () => _exec('node_modules/.bin/typedoc'));
+gulp.task('doc:api', () => _exec('typedoc'));
 gulp.task('doc:web', () => _exec('mkdocs', ['build']));
 gulp.task('doc', gulp.series('doc:api', 'doc:web'));
 
 /**
  * Fixes the coding standards issues.
  */
-gulp.task('fix', () => _exec('node_modules/.bin/tslint', ['--fix', ...sources]));
+gulp.task('fix', () => _exec('tslint', ['--fix', ...sources]));
 
 /**
  * Performs static analysis of source code.
  */
-gulp.task('lint', () => _exec('node_modules/.bin/tslint', sources));
+gulp.task('lint', () => _exec('tslint', sources));
 
 /**
  * Runs the unit tests.
  */
-gulp.task('test', () => _exec('node_modules/.bin/karma', ['start', '--single-run']));
+gulp.task('test', () => _exec('karma', ['start']));
 
 /**
  * Upgrades the project to the latest revision.
@@ -71,7 +67,7 @@ gulp.task('upgrade', async () => {
  */
 gulp.task('watch', () => {
   gulp.watch('src/**/*.ts', {ignoreInitial: false}, gulp.task('build'));
-  return _exec('node_modules/.bin/karma', ['start', '--no-single-run']);
+  gulp.watch('test/**/*.ts', gulp.task('test'));
 });
 
 /**
@@ -87,7 +83,8 @@ gulp.task('default', gulp.task('build'));
  * @return {Promise} Completes when the command is finally terminated.
  */
 function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
-  return new Promise((resolve, reject) => spawn(normalize(command), args, options)
-    .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : resolve())
+  if (!process.env.PATH.includes(normalize('node_modules/.bin'))) process.env.PATH = `${resolve('node_modules/.bin')}${delimiter}${process.env.PATH}`;
+  return new Promise((fulfill, reject) => spawn(normalize(command), args, options)
+    .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : fulfill())
   );
 }

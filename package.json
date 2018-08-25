@@ -15,7 +15,7 @@
   "devDependencies": {
     "@cedx/coveralls": "^8.0.0",
     "@types/chai": "^4.1.4",
-    "@types/node": "^10.9.0",
+    "@types/node": "^10.9.2",
     "chai": "^4.1.2",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
@@ -47,7 +47,8 @@
   ],
   "scripts": {
     "coverage": "gulp coverage",
-    "prepare": "tsc",
-    "test": "karma start --single-run"
+    "prepare": "gulp build",
+    "start": "gulp watch",
+    "test": "gulp test"
   }
 }
