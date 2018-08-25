@@ -140,7 +140,7 @@ function main(): void {
 }
 ```
 
-## **#remove**(key: string, options: Partial<CookieOptions> = {}): string
+## **#remove**(key: string, options: Partial&lt;CookieOptions&gt; = {}): string
 Removes the value associated to the specified key:
 
 ```ts
@@ -157,7 +157,7 @@ function main(): void {
 }
 ```
 
-## **#set**(key: string, value: string, options: Partial<CookieOptions> = {})
+## **#set**(key: string, value: string, options: Partial&lt;CookieOptions&gt; = {})
 Associates a given value to the specified key:
 
 ```ts
@@ -172,7 +172,7 @@ function main(): void {
 }
 ```
 
-## **#setObject**(key: string, value: any, options: Partial<CookieOptions> = {})
+## **#setObject**(key: string, value: any, options: Partial&lt;CookieOptions&gt; = {})
 Serializes and associates a given value to the specified key:
 
 ```ts

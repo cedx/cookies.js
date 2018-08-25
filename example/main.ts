@@ -9,11 +9,12 @@ import {Cookies} from '@cedx/cookies';
 function main(): void {
   const cookies = new Cookies;
 
-  // Write the cookies.
+  // Query the cookies.
   console.log(cookies.has('foo')); // false
   console.log(cookies.has('baz')); // false
   console.log(cookies.length); // 0
 
+  // Write the cookies.
   cookies.set('foo', 'bar');
   console.log(cookies.has('foo')); // true
   console.log(cookies.length); // 1

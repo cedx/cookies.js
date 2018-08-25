@@ -6,7 +6,6 @@ import {Cookies} from '@cedx/cookies';
 
 function main(): void {
   const cookies = new Cookies;
-
   cookies.set('foo', 'bar');
   cookies.set('anotherKey', 'anotherValue');
 
