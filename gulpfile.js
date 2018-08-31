@@ -18,7 +18,7 @@ gulp.task('build', () => _exec('tsc'));
 // Delete all generated files and reset any saved state.
 gulp.task('clean', () => del(['coverage', 'doc/api', 'lib', 'var/**/*', 'web']));
 
-// Send the results of the code coverage.
+// Upload the results of the code coverage.
 gulp.task('coverage:fix', () => gulp.src('var/lcov.info').pipe(replace(/cookies\.ts([/\\])src/g, 'cookies.js$1src')).pipe(gulp.dest('var')));
 gulp.task('coverage:upload', () => _exec('coveralls', ['var/lcov.info']));
 gulp.task('coverage', gulp.series('coverage:fix', 'coverage:upload'));
@@ -31,10 +31,10 @@ gulp.task('doc', gulp.series('doc:api', 'doc:web'));
 // Fix the coding standards issues.
 gulp.task('fix', () => _exec('tslint', ['--fix', ...sources]));
 
-// Perform static analysis of source code.
+// Perform the static analysis of source code.
 gulp.task('lint', () => _exec('tslint', sources));
 
-// Run the unit tests.
+// Run the test suites.
 gulp.task('test', () => _exec('karma', ['start']));
 
 // Upgrade the project to the latest revision.
