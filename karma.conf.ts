@@ -1,5 +1,5 @@
 export default (config: any) => config.set({
-  browsers: ['Chrome'],
+  browsers: ['Firefox'],
   files: ['src/**/*.ts', 'test/**/*.ts'],
   frameworks: ['mocha', 'karma-typescript'],
   karmaTypescriptConfig: {
