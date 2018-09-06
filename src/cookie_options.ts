@@ -26,7 +26,7 @@ export class CookieOptions {
   secure: boolean;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates new cookie options.
    * @param options An object specifying values used to initialize this instance.
    */
   constructor(options: Partial<CookieOptions> = {}) {
