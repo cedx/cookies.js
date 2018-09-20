@@ -1,4 +1,4 @@
-export default (config: any) => config.set({
+module.exports = config => config.set({
   browsers: ['Firefox'],
   files: ['src/**/*.ts', 'test/**/*.ts'],
   frameworks: ['mocha', 'karma-typescript'],
