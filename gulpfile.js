@@ -20,6 +20,7 @@ const sources = ['*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.ts'];
  * Builds the project.
  */
 gulp.task('build', () => _exec('tsc'));
+gulp.task('build:umd', () => _exec('rollup', ['--config']));
 
 /**
  * Deletes all generated files and reset any saved state.
