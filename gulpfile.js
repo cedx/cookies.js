@@ -19,13 +19,14 @@ const sources = ['*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.ts'];
 /**
  * Builds the project.
  */
-gulp.task('build', () => _exec('tsc'));
-gulp.task('build:umd', () => _exec('rollup', ['--config']));
+gulp.task('build:dist', () => _exec('webpack'));
+gulp.task('build:esm', () => _exec('tsc', ['--project', 'src/tsconfig.json']));
+gulp.task('build', gulp.series('build:esm', 'build:dist'));
 
 /**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
+gulp.task('clean', () => del(['.nyc_output', 'build', 'coverage', 'doc/api', 'lib', 'var/**/*', 'web']));
 
 /**
  * Uploads the results of the code coverage.

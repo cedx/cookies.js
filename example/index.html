@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cookies for JS</title>
+    <script src="https://cdn.jsdelivr.net/npm/@cedx/cookies/build/cookies.js"></script>
+  </head>
+
+  <body>
+    <script>
+      // Query the Cookies.
+      console.log(Cookies.has('foo')); // false
+      console.log(Cookies.has('baz')); // false
+      console.log(Cookies.length); // 0
+
+      // Write the Cookies.
+      Cookies.set('foo', 'bar');
+      console.log(Cookies.has('foo')); // true
+      console.log(Cookies.length); // 1
+
+      Cookies.setObject('baz', {qux: 123});
+      console.log(Cookies.has('baz')); // true
+      console.log(Cookies.length); // 2
+
+      // Read the Cookies.
+      console.log(Cookies.get('foo').constructor.name); // "String"
+      console.log(Cookies.get('foo')); // "bar"
+
+      console.log(Cookies.getObject('baz').constructor.name); // "Object"
+      console.log(Cookies.getObject('baz')); // {qux: 123}
+      console.log(Cookies.getObject('baz').qux); // 123
+
+      // Delete the Cookies.
+      Cookies.remove('foo');
+      console.log(Cookies.has('foo')); // false
+      console.log(Cookies.length); // 1
+
+      Cookies.clear();
+      console.log(Cookies.has('baz')); // false
+      console.log(Cookies.length); // 0
+    </script>
+  </body>
+</html>
