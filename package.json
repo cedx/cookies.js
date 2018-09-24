@@ -9,7 +9,7 @@
   "name": "@cedx/cookies",
   "repository": "cedx/cookies.js",
   "types": "./lib/index.d.ts",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "dependencies": {
     "eventemitter3": "^3.1.0"
   },
@@ -30,7 +30,6 @@
     "mocha-typescript": "^1.1.17",
     "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
-    "tslib": "^1.9.3",
     "tslint": "^5.11.0",
     "typedoc": "^0.12.0",
     "typescript": "^3.0.3",
