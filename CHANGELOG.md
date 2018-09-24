@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [3.0.0](https://github.com/cedx/cookies.js/compare/v2.0.0...v3.0.0)
+- Added support for a redistributable bundle.
+
 ## Version [2.0.0](https://github.com/cedx/cookies.js/compare/v1.0.0...v2.0.0)
 - Breaking change: changed the signature of the `CookieOptions` constructor.
 - Breaking change: ported the source code to [TypeScript](https://www.typescriptlang.org).
