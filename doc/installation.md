@@ -5,16 +5,16 @@ Before installing **Cookies for JS**, you need to make sure you have [Node.js](h
 and [npm](https://www.npmjs.com), the Node.js package manager, up and running.
 
 !!! warning
-    Cookies for JS requires Node.js >= **10.9.0**.
+    Cookies for JS requires Node.js >= **10.11.0**.
 
 You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v10.9.0
+# v10.11.0
 
 npm --version
-# 6.2.0
+# 6.4.1
 ```
 
 !!! info
@@ -35,4 +35,23 @@ Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 ```ts
 import {Cookies, CookieOptions} from '@cedx/cookies';
+```
+
+!!! info
+    This library is packaged as [ECMAScript modules](http://www.ecma-international.org/ecma-262/6.0/#sec-modules).  
+    To consume it, you must use a dedicated tool chain, like a build system coupled with a bundler.
+
+### 3. Use it
+See the [usage information](usage/api.md).
+
+## Installing from a content delivery network
+This library is also available as a ready-made bundle.
+To install it, add this code snippet to the `<head>` of your HTML document:
+
+```html
+<!-- jsDelivr -->
+<script src="https://cdn.jsdelivr.net/npm/@cedx/cookies/build/cookies.js"></script>
+
+<!-- UNPKG -->
+<script src="https://unpkg.com/@cedx/cookies/build/cookies.js"></script>
 ```
