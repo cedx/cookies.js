@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version [3.0.0](https://github.com/cedx/cookies.js/compare/v2.0.0...v3.0.0)
+- Breaking change: ported the [CommonJS](https://nodejs.org/api/modules.html) modules to ES2015 format.
 - Added support for a redistributable bundle.
 
 ## Version [2.0.0](https://github.com/cedx/cookies.js/compare/v1.0.0...v2.0.0)
