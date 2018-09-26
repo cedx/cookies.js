@@ -55,3 +55,11 @@ To install it, add this code snippet to the `<head>` of your HTML document:
 <!-- UNPKG -->
 <script src="https://unpkg.com/@cedx/cookies/build/cookies.js"></script>
 ```
+
+The classes of this library are exposed as `cookies` property on the `window` global object:
+
+```html
+<script>
+  const {Cookies, CookieOptions} = cookies;
+</script>
+```

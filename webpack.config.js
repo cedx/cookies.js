@@ -10,8 +10,7 @@ module.exports = {
   },
   output: {
     filename: 'cookies.js',
-    library: 'Cookies',
-    libraryExport: 'Cookies',
+    library: 'cookies',
     libraryTarget: 'window',
     path: join(__dirname, 'build')
   }

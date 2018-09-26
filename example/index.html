@@ -8,6 +8,9 @@
 
   <body>
     <script>
+      const {Cookies} = cookies;
+      const cookies = new Cookies;
+
       // Query the Cookies.
       console.log(Cookies.has('foo')); // false
       console.log(Cookies.has('baz')); // false
