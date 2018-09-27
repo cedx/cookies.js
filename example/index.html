@@ -8,39 +8,38 @@
 
   <body>
     <script>
-      const {Cookies} = cookies;
-      const cookies = new Cookies;
+      const cookieService = new cookies.Cookies();
 
-      // Query the Cookies.
-      console.log(Cookies.has('foo')); // false
-      console.log(Cookies.has('baz')); // false
-      console.log(Cookies.length); // 0
+      // Query the cookies.
+      console.log(cookieService.has('foo')); // false
+      console.log(cookieService.has('baz')); // false
+      console.log(cookieService.length); // 0
 
-      // Write the Cookies.
-      Cookies.set('foo', 'bar');
-      console.log(Cookies.has('foo')); // true
-      console.log(Cookies.length); // 1
+      // Write the cookies.
+      cookieService.set('foo', 'bar');
+      console.log(cookieService.has('foo')); // true
+      console.log(cookieService.length); // 1
 
-      Cookies.setObject('baz', {qux: 123});
-      console.log(Cookies.has('baz')); // true
-      console.log(Cookies.length); // 2
+      cookieService.setObject('baz', {qux: 123});
+      console.log(cookieService.has('baz')); // true
+      console.log(cookieService.length); // 2
 
-      // Read the Cookies.
-      console.log(Cookies.get('foo').constructor.name); // "String"
-      console.log(Cookies.get('foo')); // "bar"
+      // Read the cookies.
+      console.log(cookieService.get('foo').constructor.name); // "String"
+      console.log(cookieService.get('foo')); // "bar"
 
-      console.log(Cookies.getObject('baz').constructor.name); // "Object"
-      console.log(Cookies.getObject('baz')); // {qux: 123}
-      console.log(Cookies.getObject('baz').qux); // 123
+      console.log(cookieService.getObject('baz').constructor.name); // "Object"
+      console.log(cookieService.getObject('baz')); // {qux: 123}
+      console.log(cookieService.getObject('baz').qux); // 123
 
-      // Delete the Cookies.
-      Cookies.remove('foo');
-      console.log(Cookies.has('foo')); // false
-      console.log(Cookies.length); // 1
+      // Delete the cookies.
+      cookieService.remove('foo');
+      console.log(cookieService.has('foo')); // false
+      console.log(cookieService.length); // 1
 
-      Cookies.clear();
-      console.log(Cookies.has('baz')); // false
-      console.log(Cookies.length); // 0
+      cookieService.clear();
+      console.log(cookieService.has('baz')); // false
+      console.log(cookieService.length); // 0
     </script>
   </body>
 </html>
