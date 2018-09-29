@@ -60,6 +60,6 @@ The classes of this library are exposed as `cookies` property on the `window` gl
 
 ```html
 <script>
-  const {Cookies, CookieOptions} = cookies;
+  const cookieService = new cookies.Cookies();
 </script>
 ```
