@@ -14,7 +14,7 @@
     "eventemitter3": "^3.1.0"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^8.0.0",
+    "@cedx/coveralls": "^8.1.0",
     "@types/chai": "^4.1.6",
     "@types/node": "^10.11.3",
     "babel-minify-webpack-plugin": "^0.3.1",
