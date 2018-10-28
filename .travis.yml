@@ -1,7 +1,7 @@
 addons: {firefox: latest}
 dist: trusty
 language: node_js
-node_js: 10
+node_js: [10, 11]
 notifications: {email: false}
 sudo: required
 
