@@ -1,9 +1,9 @@
-path: blob/master
+path: src/branch/master
 source: src/cookie_options.ts
 
 # Cookie options
 Several methods of the [Cookies](api.md) class accept an `options` parameter in order to customize the cookie attributes.
-These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/src/cookie_options.ts) class, which has the following properties:
+These options are expressed using an instance of the [`CookieOptions`](https://git.belin.io/cedx/cookies.js/src/branch/master/src/cookie_options.ts) class, which has the following properties:
 
 - **domain**: string = `""`: The domain for which the cookie is valid.
 - **expires**: Date | null = `null`: The expiration date and time for the cookie.
