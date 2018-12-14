@@ -1,5 +1,5 @@
 addons: {firefox: latest}
-dist: trusty
+dist: xenial
 language: node_js
 node_js: [10, 11]
 notifications: {email: false}
