@@ -1,5 +1,5 @@
 module.exports = config => config.set({
-  browsers: ['Chrome'],
+  browsers: ['ChromeHeadless'],
   files: ['src/**/*.ts', 'test/**/*.ts'],
   frameworks: ['mocha', 'karma-typescript'],
   karmaTypescriptConfig: {
