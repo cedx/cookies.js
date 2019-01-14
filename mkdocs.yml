@@ -6,8 +6,8 @@ site_url: https://dev.belin.io/cookies.js
 docs_dir: doc
 site_dir: web
 
-repo_name: Gitea/Belin.io
-repo_url: https://git.belin.io/cedx/cookies.js
+repo_name: GitHub
+repo_url: https://github.com/cedx/cookies.js
 edit_uri: ''
 
 copyright: Copyright &copy; 2017 - 2019 Cédric Belin

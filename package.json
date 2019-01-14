@@ -7,6 +7,7 @@
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "@cedx/cookies",
+  "repository": "github:cedx/cookies.js",
   "types": "./lib/index.d.ts",
   "version": "3.0.0",
   "dependencies": {
@@ -49,10 +50,6 @@
     "html",
     "service"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://git.belin.io/cedx/cookies.js.git"
-  },
   "scripts": {
     "coverage": "gulp coverage",
     "prepare": "gulp build",

@@ -8,7 +8,7 @@ Yet another service for interacting with the [HTTP cookies](https://developer.mo
 - [API reference](https://dev.belin.io/cookies.js/api)
 
 ## Development
-- [Git repository](https://git.belin.io/cedx/cookies.js)
+- [Git repository](https://github.com/cedx/cookies.js)
 - [npm package](https://www.npmjs.com/package/@cedx/cookies)
 - [Submit an issue](https://github.com/cedx/cookies.js/issues)
 
