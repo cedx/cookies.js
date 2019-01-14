@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [3.1.0](https://github.com/cedx/cookies.js/compare/v3.0.0...v3.1.0)
+- Updated the package dependencies.
+- Updated the URL of the Git repository.
+
 ## Version [3.0.0](https://github.com/cedx/cookies.js/compare/v2.0.0...v3.0.0)
 - Breaking change: ported the [CommonJS](https://nodejs.org/api/modules.html) modules to ES2015 format.
 - Added support for a redistributable bundle.

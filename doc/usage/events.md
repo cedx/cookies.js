@@ -1,4 +1,4 @@
-path: src/branch/master
+path: blob/master
 source: src/simple_change.ts
 
 # Events
@@ -16,7 +16,7 @@ function main(): void {
 }
 ```
 
-The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://git.belin.io/cedx/cookies.js/src/branch/master/src/simple_change.ts) instances, where a `null` property indicates an absence of value:
+The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/simple_change.ts) instances, where a `null` property indicates an absence of value:
 
 ```ts
 import {Cookies} from '@cedx/cookies';

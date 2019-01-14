@@ -18,7 +18,7 @@ google_analytics:
 extra:
   social:
   - {type: globe, link: 'https://belin.io'}
-  - {type: git, link: 'https://git.belin.io/cedx'}
+  - {type: github, link: 'https://github.com/cedx'}
   - {type: twitter, link: 'https://twitter.com/cedxbelin'}
   - {type: linkedin, link: 'https://linkedin.com/in/cedxbelin'}
 
