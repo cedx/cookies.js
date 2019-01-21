@@ -21,9 +21,11 @@ const sources = ['*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.ts'];
 /**
  * Builds the project.
  */
-gulp.task('build:dist', () => _exec('webpack'));
-gulp.task('build:esm', () => _exec('tsc', ['--project', 'src/tsconfig.json']));
-gulp.task('build', gulp.series('build:esm', 'build:dist'));
+gulp.task('build', async () => {
+  await _exec('tsc', ['--project', 'src/tsconfig.json']);
+  await _exec('rollup', ['--config']);
+  return _exec('minify', ['build/cookies.js', '--out-file=build/cookies.min.js']);
+});
 
 /**
  * Deletes all generated files and reset any saved state.
