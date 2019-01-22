@@ -7,7 +7,7 @@ import {SimpleChange} from './simple_change';
  * Provides access to the HTTP cookies.
  * See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
  */
-export class Cookies extends EventEmitter {
+export class Cookies extends EventEmitter<string> {
 
   /**
    * An event that is triggered when a cookie is changed (added, modified, or removed).
