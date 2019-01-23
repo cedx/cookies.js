@@ -3,10 +3,10 @@
   "description": "Service for interacting with the HTTP cookies. A simple and event-based API for handling cookies.",
   "homepage": "https://dev.belin.io/cookies.js",
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "lib/index",
   "name": "@cedx/cookies",
   "repository": "github:cedx/cookies.js",
-  "types": "./lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "version": "3.1.0",
   "author": {
     "email": "cedric@belin.io",
