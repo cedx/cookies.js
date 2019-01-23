@@ -38,7 +38,7 @@ import {Cookies, CookieOptions} from '@cedx/cookies';
 ```
 
 !!! info
-    This library is packaged as [ECMAScript modules](http://www.ecma-international.org/ecma-262/6.0/#sec-modules).  
+    This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html) (`.js` files).  
     To consume it, you must use a dedicated tool chain, like a build system coupled with a bundler.
 
 ### 3. Use it
@@ -50,10 +50,10 @@ To install it, add this code snippet to the `<head>` of your HTML document:
 
 ```html
 <!-- jsDelivr -->
-<script src="https://cdn.jsdelivr.net/npm/@cedx/cookies/build/cookies.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cedx/cookies/build/cookies.min.js"></script>
 
 <!-- UNPKG -->
-<script src="https://unpkg.com/@cedx/cookies/build/cookies.js"></script>
+<script src="https://unpkg.com/@cedx/cookies/build/cookies.min.js"></script>
 ```
 
 The classes of this library are exposed as `cookies` property on the `window` global object:

@@ -16,6 +16,11 @@ export class Cookies extends EventEmitter<string> {
   static readonly eventChanges: string = 'changes';
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'Cookies';
+
+  /**
    * The default cookie options.
    */
   readonly defaults: CookieOptions;
@@ -28,13 +33,6 @@ export class Cookies extends EventEmitter<string> {
   constructor(defaults: Partial<CookieOptions> = {}, private _document: Document = window.document) {
     super();
     this.defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'Cookies';
   }
 
   /**

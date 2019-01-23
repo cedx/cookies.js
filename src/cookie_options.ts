@@ -6,6 +6,11 @@ import {JsonMap, StringMap} from './map';
 export class CookieOptions {
 
   /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'CookieOptions';
+
+  /**
    * The domain for which the cookie is valid.
    */
   domain: string;
@@ -49,13 +54,6 @@ export class CookieOptions {
       path: typeof map.path == 'string' ? map.path : '',
       secure: typeof map.secure == 'boolean' ? map.secure : false
     });
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'CookieOptions';
   }
 
   /**
