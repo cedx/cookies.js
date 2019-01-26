@@ -7,8 +7,11 @@
   </head>
 
   <body>
+    <p>Open the console provided by your browser's development tools...</p>
+
     <script>
-      const cookieService = new cookies.Cookies();
+      const {Cookies} = window.cookies;
+      const cookieService = new Cookies;
 
       // Query the cookies.
       console.log(cookieService.has('foo')); // false
