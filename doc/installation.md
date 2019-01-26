@@ -11,7 +11,7 @@ You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v11.7.0
+# v11.8.0
 
 npm --version
 # 6.5.0
@@ -60,6 +60,6 @@ The classes of this library are exposed as `cookies` property on the `window` gl
 
 ```html
 <script>
-  const cookieService = new cookies.Cookies();
+  const {Cookies, CookieOptions} = window.cookies;
 </script>
 ```
