@@ -1,7 +1,7 @@
-const commonjs = require('rollup-plugin-commonjs');
-const resolve = require('rollup-plugin-node-resolve');
+import commonjs from 'rollup-plugin-commonjs';
+import resolve from 'rollup-plugin-node-resolve';
 
-module.exports = {
+export default {
   input: 'lib/index.js',
   output: {file: 'build/cookies.js', format: 'iife', name: 'cookies'},
   plugins: [resolve(), commonjs({
