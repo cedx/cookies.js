@@ -144,7 +144,7 @@ export class Cookies extends EventEmitter<string> {
   set(key: string, value: string, options: Partial<CookieOptions> = {}): this {
     if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
 
-    const cookieOptions = this._getOptions(options).toString();
+    const cookieOptions = new CookieOptions(options).toString();
     let cookieValue = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
     if (cookieOptions.length) cookieValue += `; ${cookieOptions}`;
 
@@ -188,27 +188,13 @@ export class Cookies extends EventEmitter<string> {
   }
 
   /**
-   * Merges the default cookie options with the specified ones.
-   * @param options The options to merge with the defaults.
-   * @return The resulting cookie options.
-   */
-  private _getOptions(options: Partial<CookieOptions> = {}): CookieOptions {
-    return new CookieOptions({
-      domain: typeof options.domain == 'string' && options.domain.length ? options.domain : this.defaults.domain,
-      expires: typeof options.expires == 'object' && options.expires ? options.expires : this.defaults.expires,
-      path: typeof options.path == 'string' && options.path.length ? options.path : this.defaults.path,
-      secure: typeof options.secure == 'boolean' && options.secure ? options.secure : this.defaults.secure
-    });
-  }
-
-  /**
    * Removes the value associated to the specified key.
    * @param key The cookie name.
    * @param options The cookie options.
    */
   private _removeItem(key: string, options: Partial<CookieOptions> = {}): void {
     if (!this.has(key)) return;
-    const cookieOptions = this._getOptions(options);
+    const cookieOptions = new CookieOptions(options);
     cookieOptions.expires = new Date(0);
     this._document.cookie = `${encodeURIComponent(key)}=; ${cookieOptions}`;
   }
