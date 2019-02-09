@@ -187,7 +187,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
       const cookies = new Cookies;
-      cookies.on('changes', changes => {
+      cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
         expect(Array.from(changes.entries())).to.have.lengthOf(1);
         expect(Array.from(changes.keys())[0]).to.equal('onChanges');
@@ -206,7 +206,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=foo';
 
       const cookies = new Cookies;
-      cookies.on('changes', changes => {
+      cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
         expect(Array.from(changes.entries())).to.have.lengthOf(1);
         expect(Array.from(changes.keys())[0]).to.equal('onChanges');
@@ -226,7 +226,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=bar';
 
       const cookies = new Cookies;
-      cookies.on('changes', changes => {
+      cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
         expect(Array.from(changes.entries())).to.have.lengthOf(1);
         expect(Array.from(changes.keys())[0]).to.equal('onChanges');
@@ -247,7 +247,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges2=bar';
 
       const cookies = new Cookies;
-      cookies.on('changes', changes => {
+      cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
 
         const entries = Array.from<[string, SimpleChange]>(changes.entries());

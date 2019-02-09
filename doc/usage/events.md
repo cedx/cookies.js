@@ -10,7 +10,7 @@ You can subscribe to this event using the `on()` method:
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
-  new Cookies().on('changes', changes => {
+  new Cookies().on(Cookies.eventChanges, changes => {
     for (const [key, value] of changes.entries()) console.log(`${key}: ${value}`);
   });
 }
@@ -24,7 +24,7 @@ import {Cookies} from '@cedx/cookies';
 function main(): void {
   const cookies = new Cookies;
 
-  cookies.on('changes', changes => {
+  cookies.on(Cookies.eventChanges, changes => {
     for (const [key, change] of changes.entries()) console.log({
       key,
       current: change.currentValue,
