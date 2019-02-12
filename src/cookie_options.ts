@@ -1,4 +1,4 @@
-import {JsonMap, StringMap} from './map';
+import {JsonMap} from './map';
 
 /**
  * Defines the attributes of a HTTP cookie.
