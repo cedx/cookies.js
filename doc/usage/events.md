@@ -16,7 +16,7 @@ function main(): void {
 }
 ```
 
-The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/simple_change.ts) instances, where a `null` property indicates an absence of value:
+The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
@@ -33,13 +33,13 @@ function main(): void {
   });
 
   cookies.set('foo', 'bar');
-  // Prints: {key: "foo", current: "bar", previous: null}
+  // Prints: {key: "foo", current: "bar", previous: undefined}
 
   cookies.set('foo', 'baz');
   // Prints: {key: "foo", current: "baz", previous: "bar"}
 
   cookies.remove('foo');
-  // Prints: {key: "foo", current: null, previous: "baz"}
+  // Prints: {key: "foo", current: undefined, previous: "baz"}
 }
 ```
 
@@ -51,6 +51,6 @@ import {Cookies} from '@cedx/cookies';
 function main(): void {
   const cookies = new Cookies;
   cookies.setObject('foo', {bar: 'baz'});
-  // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: null}
+  // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: undefined}
 }
 ```

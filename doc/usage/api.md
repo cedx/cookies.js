@@ -165,7 +165,7 @@ import {Cookies} from '@cedx/cookies';
 
 function main(): void {
   const cookies = new Cookies;
-  console.log(cookies.get('foo')); // null
+  console.log(cookies.get('foo')); // undefined
 
   cookies.set('foo', 'bar');
   console.log(cookies.get('foo')); // "bar"
@@ -180,7 +180,7 @@ import {Cookies} from '@cedx/cookies';
 
 function main(): void {
   const cookies = new Cookies;
-  console.log(cookies.getObject('foo')); // null
+  console.log(cookies.getObject('foo')); // undefined
 
   cookies.setObject('foo', {bar: 'baz'});
   console.log(cookies.getObject('foo')); // {bar: "baz"}
