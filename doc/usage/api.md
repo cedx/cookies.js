@@ -157,7 +157,7 @@ function main(): void {
 }
 ```
 
-## **#set**(key: string, value: string, options: Partial&lt;CookieOptions&gt; = {})
+## **#set**(key: string, value: string, options: Partial&lt;CookieOptions&gt; = {}): this
 Associates a given value to the specified key:
 
 ```ts
@@ -172,7 +172,7 @@ function main(): void {
 }
 ```
 
-## **#setObject**(key: string, value: any, options: Partial&lt;CookieOptions&gt; = {})
+## **#setObject**(key: string, value: any, options: Partial&lt;CookieOptions&gt; = {}): this
 Serializes and associates a given value to the specified key:
 
 ```ts
