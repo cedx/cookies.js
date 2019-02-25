@@ -53,7 +53,7 @@ export class Cookies extends EventEmitter<string> {
   /**
    * Returns a new iterator that allows iterating the cookies associated with the current document.
    */
-  *[Symbol.iterator](): Iterator<[string, string | undefined]> {
+  *[Symbol.iterator](): IterableIterator<[string, string | undefined]> {
     for (const key of this.keys) yield [key, this.get(key)];
   }
 
@@ -96,7 +96,7 @@ export class Cookies extends EventEmitter<string> {
    * @param defaultValue The default cookie value if it does not exist.
    * @return The deserialized cookie value, or the default value if the item is not found.
    */
-  getObject(key: string, defaultValue?: any): any {
+  getObject<T>(key: string, defaultValue?: T): T | undefined {
     try {
       const value = this.get(key);
       return typeof value == 'string' ? JSON.parse(value) : defaultValue;
