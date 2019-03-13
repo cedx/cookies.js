@@ -212,7 +212,7 @@ describe('Cookies', () => {
         expect(Array.from(changes.keys())[0]).to.equal('onChanges');
 
         const record = Array.from<SimpleChange<string>>(changes.values())[0];
-        expect(record).to.be.instanceof(SimpleChange);
+        expect(record).to.be.an.instanceof(SimpleChange);
         expect(record.currentValue).to.equal('bar');
         expect(record.previousValue).to.equal('foo');
 
@@ -232,7 +232,7 @@ describe('Cookies', () => {
         expect(Array.from(changes.keys())[0]).to.equal('onChanges');
 
         const record = Array.from<SimpleChange<string>>(changes.values())[0];
-        expect(record).to.be.instanceof(SimpleChange);
+        expect(record).to.be.an.instanceof(SimpleChange);
         expect(record.currentValue).to.be.undefined;
         expect(record.previousValue).to.equal('bar');
 
@@ -255,13 +255,13 @@ describe('Cookies', () => {
 
         let records = entries.filter(entry => entry[0] == 'onChanges1').map(entry => entry[1]);
         expect(records).to.have.lengthOf(1);
-        expect(records[0]).to.be.instanceof(SimpleChange);
+        expect(records[0]).to.be.an.instanceof(SimpleChange);
         expect(records[0].currentValue).to.be.undefined;
         expect(records[0].previousValue).to.equal('foo');
 
         records = entries.filter(entry => entry[0] == 'onChanges2').map(entry => entry[1]);
         expect(records).to.have.lengthOf(1);
-        expect(records[0]).to.be.instanceof(SimpleChange);
+        expect(records[0]).to.be.an.instanceof(SimpleChange);
         expect(records[0].currentValue).to.be.undefined;
         expect(records[0].previousValue).to.equal('bar');
 
