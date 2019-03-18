@@ -52,6 +52,7 @@ export class Cookies extends EventEmitter<string> {
 
   /**
    * Returns a new iterator that allows iterating the cookies associated with the current document.
+   * @return An iterator for the cookies of the current document.
    */
   *[Symbol.iterator](): IterableIterator<[string, string | undefined]> {
     for (const key of this.keys) yield [key, this.get(key)];
