@@ -16,11 +16,6 @@ export class Cookies extends EventEmitter<string> {
   static readonly eventChanges: string = 'changes';
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Cookies';
-
-  /**
    * The default cookie options.
    */
   readonly defaults: CookieOptions;

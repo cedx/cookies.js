@@ -6,11 +6,6 @@ import {JsonMap} from './map';
 export class CookieOptions {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'CookieOptions';
-
-  /**
    * The domain for which the cookie is valid.
    */
   domain: string;
