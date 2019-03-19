@@ -161,8 +161,7 @@ export class Cookies extends EventEmitter<string> {
    * @return This instance.
    */
   setObject(key: string, value: any, options: Partial<CookieOptions> = {}): this {
-    this.set(key, JSON.stringify(value), options);
-    return this;
+    return this.set(key, JSON.stringify(value), options);
   }
 
   /**
