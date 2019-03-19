@@ -97,7 +97,7 @@ export class Cookies extends EventEmitter<string> {
    * @param defaultValue The default cookie value if it does not exist.
    * @return The deserialized cookie value, or the default value if the item is not found.
    */
-  getObject<T>(key: string, defaultValue?: T): T | undefined {
+  getObject(key: string, defaultValue?: any): any {
     try {
       const value = this.get(key);
       return typeof value == 'string' ? JSON.parse(value) : defaultValue;

@@ -104,7 +104,7 @@ function main(): void {
 
 Returns `undefined` or the given default value if the key is not found.
 
-## **#getObject&lt;T&gt;**(key: string, defaultValue?: T): T | undefined
+## **#getObject**(key: string, defaultValue?: any): any
 Deserializes and returns the value associated to the specified key:
 
 ```ts
