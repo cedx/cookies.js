@@ -6,11 +6,6 @@ import {JsonMap, StringMap} from './map';
 export class SimpleChange<T = string> {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'SimpleChange';
-
-  /**
    * Creates a new simple change.
    * @param previousValue The previous value, or `undefined` if added.
    * @param currentValue The current value, or `undefined` if removed.
@@ -38,13 +33,5 @@ export class SimpleChange<T = string> {
       currentValue: this.currentValue,
       previousValue: this.previousValue
     };
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return The string representation of this object.
-   */
-  toString(): string {
-    return `${this[Symbol.toStringTag]} ${JSON.stringify(this)}`;
   }
 }
