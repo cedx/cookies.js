@@ -42,19 +42,4 @@ describe('SimpleChange', () => {
       });
     });
   });
-
-  /**
-   * Tests the `SimpleChange#toString()` method.
-   */
-  describe('#toString()', () => {
-    const data = new SimpleChange<number>(456, 123).toString();
-
-    it('should start with the class name', () => {
-      expect(data.startsWith('SimpleChange {')).to.be.true;
-    });
-
-    it('should contain the instance properties', () => {
-      expect(data).to.contain('"currentValue":123').and.contain('"previousValue":456');
-    });
-  });
 });
