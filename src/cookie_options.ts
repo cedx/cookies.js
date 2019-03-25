@@ -43,7 +43,7 @@ export class CookieOptions {
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonMap): CookieOptions {
-    return new this({
+    return new CookieOptions({
       domain: typeof map.domain == 'string' ? map.domain : '',
       expires: typeof map.expires == 'string' ? new Date(map.expires) : null,
       path: typeof map.path == 'string' ? map.path : '',

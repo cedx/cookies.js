@@ -18,7 +18,7 @@ export class SimpleChange<T = string> {
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson<T = string>(map: StringMap<T | undefined>): SimpleChange<T> {
-    return new this<T>(
+    return new SimpleChange<T>(
       'previousValue' in map ? map.previousValue : undefined,
       'currentValue' in map ? map.currentValue : undefined
     );
