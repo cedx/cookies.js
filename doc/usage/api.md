@@ -140,7 +140,7 @@ function main(): void {
 }
 ```
 
-## **#remove**(key: string, options: Partial&lt;CookieOptions&gt; = {}): string
+## **#remove**(key: string, options: Partial&lt;CookieOptions&gt; = {}): string | undefined
 Removes the value associated to the specified key:
 
 ```ts
