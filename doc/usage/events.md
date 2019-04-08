@@ -11,7 +11,7 @@ import {Cookies} from '@cedx/cookies';
 
 function main(): void {
   new Cookies().on(Cookies.eventChanges, changes => {
-    for (const [key, value] of changes.entries()) console.log(`${key}: ${value}`);
+    for (const [key, value] of changes.entries()) console.log(`${key}: ${JSON.stringify(value)}`);
   });
 }
 ```
