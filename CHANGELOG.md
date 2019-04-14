@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [3.3.0](https://github.com/cedx/cookies.js/compare/v3.2.0...v3.3.0)
+- Modified the package layout.
+- Updated the package dependencies.
+
 ## Version [3.2.0](https://github.com/cedx/cookies.js/compare/v3.1.0...v3.2.0)
 - Replaced [Webpack](https://webpack.js.org) bundler by [Rollup](https://rollupjs.org) and [Babel Minify](https://github.com/babel/minify).
 - Updated the package dependencies.
