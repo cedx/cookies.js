@@ -22,7 +22,7 @@ const sources = ['*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.ts'];
  */
 task('build', async () => {
   await _exec('tsc', ['--project', 'src/tsconfig.json']);
-  await _exec('rollup', ['--config']);
+  await _exec('rollup', ['--config=src/rollup.config.js']);
   return _exec('minify', ['build/cookies.js', '--out-file=build/cookies.min.js']);
 });
 
@@ -42,10 +42,10 @@ task('coverage', series('coverage:fix', 'coverage:upload'));
  * Builds the documentation.
  */
 task('doc', async () => {
-  await promises.copyFile('CHANGELOG.md', 'doc/about/changelog.md');
-  await promises.copyFile('LICENSE.md', 'doc/about/license.md');
-  await _exec('typedoc');
-  return _exec('mkdocs', ['build']);
+  for (const path of ['CHANGELOG.md', 'LICENSE.md']) await promises.copyFile(path, `doc/about/${path.toLowerCase()}`);
+  await _exec('typedoc', ['--options', 'doc/typedoc.js']);
+  await _exec('mkdocs', ['build', '--config-file=doc/mkdocs.yml']);
+  return del(['doc/about/changelog.md', 'doc/about/license.md', 'web/mkdocs.yml', 'web/typedoc.js']);
 });
 
 /**
@@ -66,7 +66,7 @@ task('serve', () => _exec('http-server', ['example', '-o']));
 /**
  * Runs the test suites.
  */
-task('test', () => _exec('karma', ['start']));
+task('test', () => _exec('karma', ['start', 'test/karma.conf.js']));
 
 /**
  * Upgrades the project to the latest revision.
