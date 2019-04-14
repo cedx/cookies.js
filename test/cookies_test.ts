@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import {Cookies, SimpleChange} from '../src';
 
 /**
- * Tests the features of the `Cookies` class.
+ * Tests the features of the [[Cookies]] class.
  */
 describe('Cookies', () => {
   const getNativeCookies = (): Map<string, string> => {

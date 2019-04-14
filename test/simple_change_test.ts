@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import {SimpleChange} from '../src';
 
 /**
- * Tests the features of the `SimpleChange` class.
+ * Tests the features of the [[SimpleChange]] class.
  */
 describe('SimpleChange', () => {
 

@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import {CookieOptions} from '../src';
 
 /**
- * Tests the features of the `CookieOptions` class.
+ * Tests the features of the [[CookieOptions]] class.
  */
 describe('CookieOptions', () => {
   const options = new CookieOptions({
