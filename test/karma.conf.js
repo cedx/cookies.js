@@ -10,9 +10,7 @@ module.exports = config => config.set({
   frameworks: ['mocha', 'karma-typescript'],
   karmaTypescriptConfig: {
     include: [sources.test],
-    reports: {
-      lcovonly: {directory: join(__dirname, '../var'), filename: 'lcov.info', subdirectory: () => ''}
-    },
+    reports: {lcovonly: {directory: join(__dirname, '../var'), filename: 'lcov.info', subdirectory: () => ''}},
     tsconfig: '../tsconfig.json'
   },
   plugins: [
