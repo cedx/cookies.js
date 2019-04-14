@@ -16,6 +16,7 @@ module.exports = config => config.set({
     tsconfig: '../tsconfig.json'
   },
   plugins: [
+    require('karma-coverage'),
     require('karma-firefox-launcher'),
     require('karma-mocha'),
     require('karma-typescript')
