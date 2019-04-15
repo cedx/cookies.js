@@ -66,7 +66,12 @@ task('serve', () => _exec('http-server', ['example', '-o']));
 /**
  * Runs the test suites.
  */
-task('test', () => _exec('karma', ['start', 'test/karma.conf.js']));
+task('test', async () => {
+  if (process.platform == 'win32') process.env.FIREFOX_BIN = 'C:\\Program Files\\Mozilla\\Firefox\\firefox.exe';
+  await _exec('karma', ['start', 'test/karma.conf.js']);
+  return del('test/coverage');
+});
+
 
 /**
  * Upgrades the project to the latest revision.
