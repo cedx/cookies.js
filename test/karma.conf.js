@@ -6,11 +6,15 @@ const sources = {
 
 module.exports = config => config.set({
   browsers: ['FirefoxHeadless'],
+  coverageReporter: {
+    dir: join(__dirname, '../var'),
+    subdir: '.',
+    type: 'lcovonly'
+  },
   files: [sources.lib, sources.test],
   frameworks: ['mocha', 'karma-typescript'],
   karmaTypescriptConfig: {
     include: [sources.test],
-    reports: {lcovonly: {directory: join(__dirname, '../var'), filename: 'lcov.info', subdirectory: () => ''}},
     tsconfig: '../tsconfig.json'
   },
   plugins: [
@@ -20,7 +24,7 @@ module.exports = config => config.set({
     require('karma-typescript')
   ],
   preprocessors: {
-    [sources.lib]: ['karma-typescript'],
+    [sources.lib]: ['karma-typescript', 'coverage'],
     [sources.test]: ['karma-typescript']
   },
   reporters: ['progress', 'coverage'],
