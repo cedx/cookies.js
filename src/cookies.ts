@@ -15,9 +15,7 @@ export class Cookies extends EventEmitter<string> {
    */
   static readonly eventChanges: string = 'changes';
 
-  /**
-   * The default cookie options.
-   */
+  /** The default cookie options. */
   readonly defaults: CookieOptions;
 
   /**
@@ -30,17 +28,13 @@ export class Cookies extends EventEmitter<string> {
     this.defaults = defaults instanceof CookieOptions ? defaults : new CookieOptions(defaults);
   }
 
-  /**
-   * The keys of the cookies associated with the current document.
-   */
+  /** The keys of the cookies associated with the current document. */
   get keys(): string[] {
     const keys = this._document.cookie.replace(/((?:^|\s*;)[^=]+)(?=;|$)|^\s*|\s*(?:=[^;]*)?(?:\1|$)/g, '');
     return keys.length ? keys.split(/\s*(?:=[^;]*)?;\s*/).map(decodeURIComponent) : [];
   }
 
-  /**
-   * The number of cookies associated with the current document.
-   */
+  /** The number of cookies associated with the current document. */
   get length(): number {
     return this.keys.length;
   }
@@ -53,9 +47,7 @@ export class Cookies extends EventEmitter<string> {
     for (const key of this.keys) yield [key, this.get(key)];
   }
 
-  /**
-   * Removes all cookies associated with the current document.
-   */
+  /** Removes all cookies associated with the current document. */
   clear(): void {
     const changes = new Map<string, SimpleChange>();
     for (const [key, value] of this) {

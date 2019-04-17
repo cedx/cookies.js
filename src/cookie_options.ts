@@ -1,28 +1,18 @@
 import {JsonMap} from './map';
 
-/**
- * Defines the attributes of a HTTP cookie.
- */
+/** Defines the attributes of a HTTP cookie. */
 export class CookieOptions {
 
-  /**
-   * The domain for which the cookie is valid.
-   */
+  /** The domain for which the cookie is valid. */
   domain: string;
 
-  /**
-   * The expiration date and time for the cookie.
-   */
+  /** The expiration date and time for the cookie. */
   expires: Date | null;
 
-  /**
-   * The path to which the cookie applies.
-   */
+  /** The path to which the cookie applies. */
   path: string;
 
-  /**
-   * Value indicating whether to transmit the cookie over HTTPS only.
-   */
+  /** Value indicating whether to transmit the cookie over HTTPS only. */
   secure: boolean;
 
   /**

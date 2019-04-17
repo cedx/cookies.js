@@ -2,9 +2,7 @@
 import {expect} from 'chai';
 import {CookieOptions} from '../src';
 
-/**
- * Tests the features of the [[CookieOptions]] class.
- */
+/** Tests the features of the [[CookieOptions]] class. */
 describe('CookieOptions', () => {
   const options = new CookieOptions({
     domain: 'domain.com',
@@ -13,9 +11,7 @@ describe('CookieOptions', () => {
     secure: true
   });
 
-  /**
-   * Tests the `CookieOptions.fromJson()` method.
-   */
+  /** Tests the `CookieOptions.fromJson()` method. */
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const cookieOptions = CookieOptions.fromJson({});
@@ -34,9 +30,7 @@ describe('CookieOptions', () => {
     });
   });
 
-  /**
-   * Tests the `CookieOptions#toJSON()` method.
-   */
+  /** Tests the `CookieOptions#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       expect((new CookieOptions).toJSON()).to.deep.equal({
@@ -57,9 +51,7 @@ describe('CookieOptions', () => {
     });
   });
 
-  /**
-   * Tests the `CookieOptions#toString()` method.
-   */
+  /** Tests the `CookieOptions#toString()` method. */
   describe('#toString()', () => {
     it('should return an empty string for a newly created instance', () => {
       expect(String(new CookieOptions)).to.be.empty;

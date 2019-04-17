@@ -2,14 +2,10 @@
 import {expect} from 'chai';
 import {SimpleChange} from '../src';
 
-/**
- * Tests the features of the [[SimpleChange]] class.
- */
+/** Tests the features of the [[SimpleChange]] class. */
 describe('SimpleChange', () => {
 
-  /**
-   * Tests the `SimpleChange.fromJson()` method.
-   */
+  /** Tests the `SimpleChange.fromJson()` method. */
   describe('.fromJson()', () => {
     it('should return an empty instance with an empty map', () => {
       const change = SimpleChange.fromJson<string>({});
@@ -24,9 +20,7 @@ describe('SimpleChange', () => {
     });
   });
 
-  /**
-   * Tests the `SimpleChange#toJSON()` method.
-   */
+  /** Tests the `SimpleChange#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       expect(new SimpleChange<string>().toJSON()).to.be.an('object').that.deep.equal({

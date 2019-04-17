@@ -1,8 +1,6 @@
 import {JsonMap, StringMap} from './map';
 
-/**
- * Represents the event parameter used for a change event.
- */
+/** Represents the event parameter used for a change event. */
 export class SimpleChange<T = string> {
 
   /**
