@@ -55,7 +55,6 @@ task('test', async () => {
   return _exec('karma', ['start', 'etc/karma.js']);
 });
 
-
 /** Upgrades the project to the latest revision. */
 task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
