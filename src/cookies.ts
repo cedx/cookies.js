@@ -3,10 +3,7 @@ import {CookieOptions} from './cookie_options';
 import {JsonMap} from './map';
 import {SimpleChange} from './simple_change';
 
-/**
- * Provides access to the HTTP cookies.
- * See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
- */
+/** Provides access to the {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies|HTTP cookies}. */
 export class Cookies extends EventEmitter<string> {
 
   /**
