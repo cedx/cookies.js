@@ -38,6 +38,7 @@
     "cookie",
     "document",
     "dom",
+    "esm",
     "events",
     "html",
     "service"
