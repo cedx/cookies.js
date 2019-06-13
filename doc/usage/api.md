@@ -1,13 +1,13 @@
 path: blob/master
-source: src/cookies.ts
+source: lib/cookies.js
 
 # Programming interface
 This package provides a service dedicated to the cookie management: the `Cookies` class.
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
 
   cookies.set('foo', 'bar');
@@ -23,10 +23,10 @@ The `Cookies` class has the following API:
 ## **#defaults**: CookieOptions
 Returns the default [options](options.md) to pass when setting cookies:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(JSON.stringify(cookies.defaults));
   // {"domain": "", "expires": null, "path": "", "secure": false}
@@ -43,10 +43,10 @@ function main(): void {
 ## **#keys**: string[]
 Returns the keys of the cookies associated with the current document:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(cookies.keys); // []
 
@@ -58,10 +58,10 @@ function main(): void {
 ## **#length**: number
 Returns the number of cookies associated with the current document:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(cookies.length); // 0
 
@@ -70,13 +70,13 @@ function main(): void {
 }
 ```
 
-## **#clear**(): void
+## **#clear**()
 Removes all cookies associated with the current document:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   cookies.set('foo', 'bar');
   console.log(cookies.length); // 1
@@ -89,10 +89,10 @@ function main(): void {
 ## **#get**(key: string, defaultValue?: string): string | undefined
 Returns the value associated to the specified key:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(cookies.get('foo')); // undefined
   console.log(cookies.get('foo', 'qux')); // "qux"
@@ -107,10 +107,10 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#getObject**(key: string, defaultValue?: any): any
 Deserializes and returns the value associated to the specified key:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(cookies.getObject('foo')); // undefined
   console.log(cookies.getObject('foo', 'qux')); // "qux"
@@ -128,10 +128,10 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#has**(key: string): boolean
 Returns a boolean value indicating whether the current document has a cookie with the specified key:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(cookies.has('foo')); // false
 
@@ -143,10 +143,10 @@ function main(): void {
 ## **#remove**(key: string, options: Partial&lt;CookieOptions&gt; = {}): string | undefined
 Removes the value associated to the specified key:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
 
   cookies.set('foo', 'bar');
@@ -160,10 +160,10 @@ function main(): void {
 ## **#set**(key: string, value: string, options: Partial&lt;CookieOptions&gt; = {}): this
 Associates a given value to the specified key:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(cookies.get('foo')); // undefined
 
@@ -175,10 +175,10 @@ function main(): void {
 ## **#setObject**(key: string, value: any, options: Partial&lt;CookieOptions&gt; = {}): this
 Serializes and associates a given value to the specified key:
 
-```ts
+```js
 import {Cookies} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies;
   console.log(cookies.getObject('foo')); // undefined
 

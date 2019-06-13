@@ -5,13 +5,13 @@ Before installing **Cookies for JS**, you need to make sure you have [Node.js](h
 and [npm](https://www.npmjs.com), the Node.js package manager, up and running.
 
 !!! warning
-    Cookies for JS requires Node.js >= **12.0.0**.
+    Cookies for JS requires Node.js >= **12.4.0**.
 
 You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v12.0.0
+# v12.4.0
 
 npm --version
 # 6.9.0
@@ -31,15 +31,11 @@ npm install @cedx/cookies
 ```
 
 ### 2. Import it
-Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) or [TypeScript](https://www.typescriptlang.org) code, you can use:
+Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
 
-```ts
+```js
 import {Cookies, CookieOptions} from '@cedx/cookies';
 ```
-
-!!! info
-    This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html) (`.js` files).  
-    To consume it, you must use a dedicated tool chain, like a build system coupled with a bundler.
 
 ### 3. Use it
 See the [usage information](usage/api.md).
