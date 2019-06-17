@@ -1,6 +1,13 @@
 # Changelog
 
 ## Version [4.0.0](https://github.com/cedx/cookies.js/compare/v3.3.0...v4.0.0)
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: reverted the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+- Breaking change: the `Cookies` service is now an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) instead of an [`EventEmitter`](https://nodejs.org/api/events.html).
+- Added the `CookieOptions#maxAge` property.
+- Replaced [TypeDoc](https://typedoc.org) documentation generator by [JSDoc](https://jsdoc.app).
+- Replaced [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
+- Updated the package dependencies.
 
 ## Version [3.3.0](https://github.com/cedx/cookies.js/compare/v3.2.0...v3.3.0)
 - Modified the package layout.
