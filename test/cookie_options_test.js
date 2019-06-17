@@ -1,9 +1,9 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
-import {CookieOptions} from '../src';
+import chai from 'chai';
+import {CookieOptions} from '../lib/index.js';
 
-/** Tests the features of the [[CookieOptions]] class. */
+/** Tests the features of the {@link CookieOptions} class. */
 describe('CookieOptions', () => {
+  const {expect} = chai;
   const options = new CookieOptions({
     domain: 'domain.com',
     expires: new Date(0),
@@ -11,7 +11,36 @@ describe('CookieOptions', () => {
     secure: true
   });
 
-  /** Tests the `CookieOptions.fromJson()` method. */
+  describe('#maxAge', () => {
+    it('should return zero if the expiration time is not set', () => {
+      expect(new CookieOptions().maxAge).to.equal(0);
+    });
+
+    it('should return zero if the cookie has expired', () => {
+      expect(new CookieOptions({expires: new Date(2000, 0)}).maxAge).to.equal(0);
+    });
+
+    it('should return the difference with now if the cookie has not expired', () => {
+      const duration = 30 * 1000;
+      expect(new CookieOptions({expires: new Date(Date.now() + duration)}).maxAge).to.equal(30);
+    });
+
+    it('should set the expiration date accordingly', () => {
+      const cookieOptions = new CookieOptions();
+      const now = Date.now();
+      cookieOptions.maxAge = 0;
+      expect(cookieOptions.expires.getTime()).to.be.above(now - 1000).and.be.at.most(now);
+
+      const duration = 30 * 1000;
+      const later = Date.now() + duration;
+      cookieOptions.maxAge = 30;
+      expect(cookieOptions.expires.getTime()).to.be.above(later - 1000).and.be.at.most(later);
+
+      cookieOptions.maxAge = null;
+      expect(cookieOptions.expires).to.be.null;
+    });
+  });
+
   describe('.fromJson()', () => {
     it('should return an instance with default values for an empty map', () => {
       const cookieOptions = CookieOptions.fromJson({});
@@ -24,13 +53,12 @@ describe('CookieOptions', () => {
     it('should return an initialized instance for a non-empty map', () => {
       const cookieOptions = CookieOptions.fromJson(options.toJSON());
       expect(cookieOptions.domain).to.equal(options.domain);
-      expect(cookieOptions.expires!.getTime()).to.equal(options.expires!.getTime());
+      expect(cookieOptions.expires.getTime()).to.equal(options.expires.getTime());
       expect(cookieOptions.path).to.equal(options.path);
       expect(cookieOptions.secure).to.equal(options.secure);
     });
   });
 
-  /** Tests the `CookieOptions#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       expect((new CookieOptions).toJSON()).to.deep.equal({
@@ -51,7 +79,6 @@ describe('CookieOptions', () => {
     });
   });
 
-  /** Tests the `CookieOptions#toString()` method. */
   describe('#toString()', () => {
     it('should return an empty string for a newly created instance', () => {
       expect(String(new CookieOptions)).to.be.empty;
