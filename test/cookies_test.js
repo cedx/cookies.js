@@ -1,11 +1,11 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
-import {Cookies, SimpleChange} from '../src';
+import chai from 'chai';
+import {Cookies, SimpleChange} from '../lib/index.js';
 
-/** Tests the features of the [[Cookies]] class. */
+/** Tests the features of the {@link Cookies} class. */
 describe('Cookies', () => {
-  const getNativeCookies = (): Map<string, string> => {
-    const nativeCookies = new Map<string, string>();
+  const {expect} = chai;
+  const getNativeCookies = () => {
+    const nativeCookies = new Map;
     if (document.cookie.length) for (const value of document.cookie.split(';')) {
       const index = value.indexOf('=');
       nativeCookies.set(value.substring(0, index), value.substring(index + 1));
@@ -14,10 +14,9 @@ describe('Cookies', () => {
     return nativeCookies;
   };
 
-  /** Tests the `Cookies#keys` property. */
   describe('#keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
-      expect(new Cookies().keys).to.be.an('array').and.have.lengthOf(Array.from(getNativeCookies().keys()).length);
+      expect(new Cookies().keys).to.be.an('array').and.have.lengthOf([...getNativeCookies().keys()].length);
     });
 
     it('should return the keys of the cookies associated with the current document', () => {
@@ -27,21 +26,19 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#length` property. */
   describe('#length', () => {
     it('should return zero if the current document has no associated cookie', () => {
-      expect(new Cookies).to.have.lengthOf(Array.from(getNativeCookies().entries()).length);
+      expect(new Cookies).to.have.lengthOf([...getNativeCookies().entries()].length);
     });
 
     it('should return the number of cookies associated with the current document', () => {
-      const count = Array.from(getNativeCookies().entries()).length;
+      const count = [...getNativeCookies().entries()].length;
       document.cookie = 'length1=foo';
       document.cookie = 'length2=bar';
       expect(new Cookies).to.have.lengthOf(count + 2);
     });
   });
 
-  /** Tests the `Cookies#[Symbol.iterator]()` method. */
   describe('#[Symbol.iterator]()', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
       const cookies = new Cookies;
@@ -94,7 +91,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#clear()` method. */
   describe('#clear()', () => {
     it('should remove all the cookies associated with the current document', () => {
       document.cookie = 'clear1=foo';
@@ -106,7 +102,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#get()` method. */
   describe('#get()', () => {
     it('should properly get the cookies associated with the current document', () => {
       const cookies = new Cookies;
@@ -121,7 +116,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#getObject()` method. */
   describe('#getObject()', () => {
     it('should properly get the deserialized cookies associated with the current document', () => {
       const cookies = new Cookies;
@@ -145,7 +139,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#has()` method. */
   describe('#has()', () => {
     it('should return `false` if the current document has an associated cookie with the specified key', () => {
       expect(new Cookies().has('foo')).to.be.false;
@@ -163,7 +156,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#on()` method. */
   describe('#on("changes")', () => {
     it('should trigger an event when a cookie is added', done => {
       document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
@@ -171,10 +163,10 @@ describe('Cookies', () => {
       const cookies = new Cookies;
       cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
-        expect(Array.from(changes.entries())).to.have.lengthOf(1);
-        expect(Array.from(changes.keys())[0]).to.equal('onChanges');
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('onChanges');
 
-        const record = Array.from<SimpleChange<string>>(changes.values())[0];
+        const record = [...changes.values()][0];
         expect(record.currentValue).to.equal('foo');
         expect(record.previousValue).to.be.undefined;
 
@@ -190,10 +182,10 @@ describe('Cookies', () => {
       const cookies = new Cookies;
       cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
-        expect(Array.from(changes.entries())).to.have.lengthOf(1);
-        expect(Array.from(changes.keys())[0]).to.equal('onChanges');
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('onChanges');
 
-        const record = Array.from<SimpleChange<string>>(changes.values())[0];
+        const record = [...changes.values()][0];
         expect(record).to.be.an.instanceof(SimpleChange);
         expect(record.currentValue).to.equal('bar');
         expect(record.previousValue).to.equal('foo');
@@ -210,10 +202,10 @@ describe('Cookies', () => {
       const cookies = new Cookies;
       cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
-        expect(Array.from(changes.entries())).to.have.lengthOf(1);
-        expect(Array.from(changes.keys())[0]).to.equal('onChanges');
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('onChanges');
 
-        const record = Array.from<SimpleChange<string>>(changes.values())[0];
+        const record = [...changes.values()][0];
         expect(record).to.be.an.instanceof(SimpleChange);
         expect(record.currentValue).to.be.undefined;
         expect(record.previousValue).to.equal('bar');
@@ -232,7 +224,7 @@ describe('Cookies', () => {
       cookies.on(Cookies.eventChanges, changes => {
         expect(changes).to.be.an.instanceof(Map);
 
-        const entries = Array.from<[string, SimpleChange]>(changes.entries());
+        const entries = [...changes.entries()];
         expect(entries).to.have.lengthOf.at.least(2);
 
         let records = entries.filter(entry => entry[0] == 'onChanges1').map(entry => entry[1]);
@@ -254,7 +246,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#remove()` method. */
   describe('#remove()', () => {
     it('should properly remove the cookies associated with the current document', () => {
       document.cookie = 'remove1=foo';
@@ -270,7 +261,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#set()` method. */
   describe('#set()', () => {
     it('should properly set the cookies associated with the current document', () => {
       const cookies = new Cookies;
@@ -300,7 +290,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#setObject()` method. */
   describe('#setObject()', () => {
     it('should properly serialize and set the cookies associated with the current document', () => {
       const cookies = new Cookies;
@@ -330,7 +319,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#toJSON()` method. */
   describe('#toJSON()', () => {
     it('should return an empty map if the current document has no associated cookie', () => {
       const cookies = new Cookies;
@@ -349,7 +337,6 @@ describe('Cookies', () => {
     });
   });
 
-  /** Tests the `Cookies#toString()` method. */
   describe('#toString()', () => {
     it('should be the same value as `document.cookie` global property', () => {
       expect(String(new Cookies)).to.equal(document.cookie);
