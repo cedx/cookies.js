@@ -7,9 +7,9 @@ describe('SimpleChange', () => {
 
   describe('.fromJson()', () => {
     it('should return an empty instance with an empty map', () => {
-      const change = SimpleChange.fromJson<string>({});
-      expect(change.currentValue).to.be.undefined;
-      expect(change.previousValue).to.be.undefined;
+      const change = SimpleChange.fromJson({});
+      expect(change.currentValue).to.be.null;
+      expect(change.previousValue).to.be.null;
     });
 
     it('should return a non-empty map for an initialized instance', () => {
@@ -22,8 +22,8 @@ describe('SimpleChange', () => {
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       expect(new SimpleChange().toJSON()).to.be.an('object').that.deep.equal({
-        currentValue: undefined,
-        previousValue: undefined
+        currentValue: null,
+        previousValue: null
       });
     });
 

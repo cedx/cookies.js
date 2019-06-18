@@ -8,7 +8,7 @@ import {delimiter, normalize, resolve} from 'path';
  * The file patterns providing the list of source files.
  * @type {string[]}
  */
-const sources = ['*.js', 'example/*.js', 'lib/**/*.js', 'test/**/*.js'];
+const sources = ['*.js', 'lib/**/*.js', 'test/**/*.js'];
 
 // Shortcuts.
 const {task, watch} = gulp;
@@ -88,7 +88,7 @@ function _exec(command, args = [], options = {}) {
  * @property {string} [argv0] Explicitly set the value of `argv[0]` sent to the child process.
  * @property {string} [cwd] Current working directory of the child process.
  * @property {boolean} [detached] Prepare child to run independently of its parent process.
- * @property {object} [env] Environment key-value pairs.
+ * @property {Object<string, string>} [env] Environment key-value pairs.
  * @property {number} [gid] Sets the group identity of the process.
  * @property {boolean|string} [shell] If `true`, runs command inside of a shell. A different shell can be specified as a string.
  * @property {Array|string} [stdio] Child's stdio configuration.
