@@ -1,9 +1,7 @@
-import chai from 'chai';
 import {Cookies, SimpleChange} from '../lib/index.js';
 
 /** Tests the features of the {@link Cookies} class. */
 describe('Cookies', () => {
-  const {expect} = chai;
   const getNativeCookies = () => {
     const nativeCookies = new Map;
     if (document.cookie.length) for (const value of document.cookie.split(';')) {
