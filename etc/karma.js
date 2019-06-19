@@ -1,9 +1,8 @@
-const {normalize, resolve} = require('path');
-
 module.exports = config => config.set({
-  basePath: resolve(__dirname, '..'),
+  basePath: require('path').resolve(__dirname, '..'),
   browsers: ['FirefoxHeadless'],
   files: [
+    {pattern: 'lib/**/*.js', type: 'module'},
     {pattern: 'test/**/*.js', type: 'module'}
   ],
   frameworks: ['mocha', 'chai'],
