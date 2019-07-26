@@ -46,18 +46,14 @@ task('fix', () => _exec('eslint', ['--config=etc/eslint.json', '--fix', ...sourc
 task('lint', () => _exec('eslint', ['--config=etc/eslint.json', ...sources]));
 
 /** Runs the test suites. */
-task('test', () => {
-  if (process.platform == 'win32') process.env.FIREFOX_BIN = 'C:\\Program Files\\Mozilla\\Firefox\\firefox.exe';
-  return _exec('karma', ['start', 'etc/karma.js']);
-});
-
+task('test', () => _exec('karma', ['start', 'etc/karma.js']));
 
 /** Upgrades the project to the latest revision. */
 task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
   await _exec('git', ['fetch', '--all', '--prune']);
   await _exec('git', ['pull', '--rebase']);
-  await _exec('npm', ['install', '--ignore-scripts']));
+  await _exec('npm', ['install', '--ignore-scripts']);
   return _exec('npm', ['update', '--dev']);
 });
 
