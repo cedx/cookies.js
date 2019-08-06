@@ -1,6 +1,6 @@
 import {Cookies, SimpleChange} from '../lib/index.js';
 
-/** Tests the features of the {@link Cookies} class. */
+/** Tests the features of the [[Cookies]] class. */
 describe('Cookies', () => {
   const getNativeCookies = () => {
     const nativeCookies = new Map;
