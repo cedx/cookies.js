@@ -6,13 +6,13 @@ Several methods of the [Cookies](api.md) class accept an `options` parameter in 
 These options are expressed using an instance of the [`CookieOptions`](https://github.com/cedx/cookies.js/blob/master/lib/cookie_options.js) class, which has the following properties:
 
 - **domain**: string = `""`: The domain for which the cookie is valid.
-- **expires**: Date | null = `null`: The expiration date and time for the cookie.
+- **expires**: Date|null = `null`: The expiration date and time for the cookie.
 - **path**: string = `""`: The path to which the cookie applies.
 - **secure**: boolean = `false`: Value indicating whether to transmit the cookie over HTTPS only.
 
 For example:
 
-```js
+```ts
 import {Cookies, CookieOptions} from '@cedx/cookies';
 
 function main() {
@@ -26,7 +26,7 @@ function main() {
 
 For convenience, you can also use a literal object instead of a `CookieOptions` instance:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -40,7 +40,7 @@ function main() {
 
 It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {

@@ -5,8 +5,8 @@
 - Breaking change: reverted the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 - Breaking change: the `Cookies` service is now an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) instead of an [`EventEmitter`](https://nodejs.org/api/events.html).
 - Added the `CookieOptions#maxAge` property.
-- Replaced [TypeDoc](https://typedoc.org) documentation generator by [JSDoc](https://jsdoc.app).
-- Replaced [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
+- Replaced the [TypeDoc](https://typedoc.org) documentation generator by [JSDoc](https://jsdoc.app).
+- Replaced the [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
 - Updated the package dependencies.
 
 ## Version [3.3.0](https://github.com/cedx/cookies.js/compare/v3.2.0...v3.3.0)
@@ -14,7 +14,7 @@
 - Updated the package dependencies.
 
 ## Version [3.2.0](https://github.com/cedx/cookies.js/compare/v3.1.0...v3.2.0)
-- Replaced [Webpack](https://webpack.js.org) bundler by [Rollup](https://rollupjs.org) and [Babel Minify](https://github.com/babel/minify).
+- Replaced the [Webpack](https://webpack.js.org) bundler by [Rollup](https://rollupjs.org) and [Babel Minify](https://github.com/babel/minify).
 - Updated the package dependencies.
 
 ## Version [3.1.0](https://github.com/cedx/cookies.js/compare/v3.0.0...v3.1.0)
@@ -29,8 +29,8 @@
 - Breaking change: changed the signature of the `CookieOptions` constructor.
 - Breaking change: ported the source code to [TypeScript](https://www.typescriptlang.org).
 - Added the `CookieOptions.fromJson()` and `SimpleChange.fromJson()` static methods.
-- Replaced [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
-- Replaced [ESLint](https://eslint.org) static analyzer by [TSLint](https://palantir.github.io/tslint).
+- Replaced the [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
+- Replaced the [ESLint](https://eslint.org) static analyzer by [TSLint](https://palantir.github.io/tslint).
 - Updated the package dependencies.
 
 ## Version [1.0.0](https://github.com/cedx/cookies.js/compare/v0.1.0...v1.0.0)

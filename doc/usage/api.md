@@ -4,7 +4,7 @@ source: lib/cookies.js
 # Programming interface
 This package provides a service dedicated to the cookie management: the `Cookies` class.
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -23,7 +23,7 @@ The `Cookies` class has the following API:
 ## **#defaults**: CookieOptions
 Returns the default [options](options.md) to pass when setting cookies:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -43,7 +43,7 @@ function main() {
 ## **#keys**: string[]
 Returns the keys of the cookies associated with the current document:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -58,7 +58,7 @@ function main() {
 ## **#length**: number
 Returns the number of cookies associated with the current document:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -73,7 +73,7 @@ function main() {
 ## **#clear**()
 Removes all cookies associated with the current document:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -86,10 +86,10 @@ function main() {
 }
 ```
 
-## **#get**(key: string, defaultValue?: string): string | undefined
+## **#get**(key: string, defaultValue?: string): string|undefined
 Returns the value associated to the specified key:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -107,7 +107,7 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#getObject**(key: string, defaultValue?: any): any
 Deserializes and returns the value associated to the specified key:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -128,7 +128,7 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#has**(key: string): boolean
 Returns a boolean value indicating whether the current document has a cookie with the specified key:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -140,10 +140,10 @@ function main() {
 }
 ```
 
-## **#remove**(key: string, options: Partial&lt;CookieOptions&gt; = {}): string | undefined
+## **#remove**(key: string, options: Partial&lt;CookieOptions&gt; = {}): string|undefined
 Removes the value associated to the specified key:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -160,7 +160,7 @@ function main() {
 ## **#set**(key: string, value: string, options: Partial&lt;CookieOptions&gt; = {}): this
 Associates a given value to the specified key:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
@@ -175,7 +175,7 @@ function main() {
 ## **#setObject**(key: string, value: any, options: Partial&lt;CookieOptions&gt; = {}): this
 Serializes and associates a given value to the specified key:
 
-```js
+```ts
 import {Cookies} from '@cedx/cookies';
 
 function main() {
