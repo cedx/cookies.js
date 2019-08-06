@@ -17,15 +17,18 @@
       console.log(cookieService.has('foo')); // false
       console.log(cookieService.has('baz')); // false
       console.log(cookieService.length); // 0
+      console.log(cookieService.keys); // []
 
       // Write the cookies.
       cookieService.set('foo', 'bar');
       console.log(cookieService.has('foo')); // true
       console.log(cookieService.length); // 1
+      console.log(cookieService.keys); // ["foo"]
 
       cookieService.setObject('baz', {qux: 123});
       console.log(cookieService.has('baz')); // true
       console.log(cookieService.length); // 2
+      console.log(cookieService.keys); // ["foo", "baz"]
 
       // Read the cookies.
       console.log(cookieService.get('foo').constructor.name); // "String"
@@ -39,10 +42,12 @@
       cookieService.remove('foo');
       console.log(cookieService.has('foo')); // false
       console.log(cookieService.length); // 1
+      console.log(cookieService.keys); // ["baz"]
 
       cookieService.clear();
       console.log(cookieService.has('baz')); // false
       console.log(cookieService.length); // 0
+      console.log(cookieService.keys); // []
     </script>
   </body>
 </html>
