@@ -1,14 +1,15 @@
 import {spawn, SpawnOptions} from 'child_process';
-import del from 'del';
+import * as del from 'del';
 import {promises} from 'fs';
-import gulp from 'gulp';
+import * as gulp from 'gulp';
+import * as replace from 'gulp-replace';
 import {delimiter, normalize, resolve} from 'path';
 
 /** The file patterns providing the list of source files. */
 const sources: string[] = ['*.js', 'lib/**/*.js', 'test/**/*.js'];
 
 // Shortcuts.
-const {task, watch} = gulp;
+const {dest, series, src, task, watch} = gulp;
 const {copyFile} = promises;
 
 // Initialize the build system.
@@ -17,10 +18,14 @@ const _vendor = resolve('node_modules/.bin');
 if (!_path.includes(_vendor)) process.env.PATH = `${_vendor}${delimiter}${_path}`;
 
 /** Builds the project. */
-task('build', async () => {
+task('build:dist', async () => {
   await _exec('rollup', ['--config=etc/rollup.js']);
   return _exec('minify', ['build/cookies.js', '--out-file=build/cookies.min.js']);
 });
+
+task('build:fix', () => src('lib/**/*.js').pipe(replace(/(export|import)\s+(.+)\s+from\s+'(\.[^']+)'/g, "$1 $2 from '$3.js'")).pipe(dest('lib')));
+task('build:js', () => _exec('tsc', ['--project', 'src/tsconfig.json']));
+task('build', series('build:js', 'build:fix', 'build:dist'));
 
 /** Deletes all generated files and reset any saved state. */
 task('clean', () => del(['build', 'doc/api', 'lib', 'var/**/*', 'web']));
