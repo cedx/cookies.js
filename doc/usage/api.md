@@ -18,6 +18,11 @@ function main(): void {
 }
 ```
 
+!!! warning
+    The `Cookies` class exposed by this package is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).  
+    If you target browsers that do not support the `EventTarget` constructor, you will need
+    a dedicated polyfill.  
+
 The `Cookies` class has the following API:
 
 ## **#defaults**: CookieOptions

@@ -40,11 +40,6 @@ import {Cookies, CookieOptions} from '@cedx/cookies';
 ### 3. Use it
 See the [usage information](usage/api.md).
 
-!!! warning
-    The `Cookies` class exposed by this package is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).  
-    If you target browsers that do not support the `EventTarget` constructor, you will need
-    a dedicated polyfill.  
-
 ## Installing from a content delivery network
 This library is also available as a ready-made bundle.
 To install it, add this code snippet to the `<head>` of your HTML document:
