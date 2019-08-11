@@ -1,9 +1,11 @@
-import {Cookies, SimpleChange} from '../lib/index.js';
+import * as chai from 'chai';
+import {Cookies, SimpleChange} from '../src/index';
 
 /** Tests the features of the [[Cookies]] class. */
 describe('Cookies', () => {
-  const getNativeCookies = () => {
-    const nativeCookies = new Map;
+  const {expect} = chai;
+  const getNativeCookies = (): Map<string, string> => {
+    const nativeCookies = new Map<string, string>();
     if (document.cookie.length) for (const value of document.cookie.split(';')) {
       const index = value.indexOf('=');
       nativeCookies.set(value.substring(0, index), value.substring(index + 1));
@@ -160,7 +162,7 @@ describe('Cookies', () => {
 
       const cookies = new Cookies;
       cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = event.detail;
+        const changes = (event as CustomEvent).detail;
         expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
@@ -180,7 +182,7 @@ describe('Cookies', () => {
 
       const cookies = new Cookies;
       cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = event.detail;
+        const changes = (event as CustomEvent).detail;
         expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
@@ -201,7 +203,7 @@ describe('Cookies', () => {
 
       const cookies = new Cookies;
       cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = event.detail;
+        const changes = (event as CustomEvent).detail;
         expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
@@ -223,7 +225,7 @@ describe('Cookies', () => {
 
       const cookies = new Cookies;
       cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = event.detail;
+        const changes = (event as CustomEvent).detail;
         expect(changes).to.be.an.instanceof(Map);
 
         const entries = [...changes.entries()];

@@ -12,8 +12,8 @@ describe('CookieOptions', () => {
   });
 
   describe('#maxAge', () => {
-    it('should return zero if the expiration time is not set', () => {
-      expect(new CookieOptions().maxAge).to.equal(0);
+    it('should return `-1` if the expiration time is not set', () => {
+      expect(new CookieOptions().maxAge).to.equal(-1);
     });
 
     it('should return zero if the cookie has expired', () => {
@@ -61,7 +61,7 @@ describe('CookieOptions', () => {
 
   describe('#toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
-      expect((new CookieOptions).toJSON()).to.deep.equal({
+      expect(new CookieOptions().toJSON()).to.deep.equal({
         domain: '',
         expires: null,
         path: '',
