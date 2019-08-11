@@ -1,11 +1,20 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 module.exports = config => config.set({
   basePath: require('path').resolve(__dirname, '..'),
   browsers: ['ChromeHeadless'],
   files: [
-    {pattern: 'lib/**/*.js', type: 'module'},
-    {pattern: 'test/**/*.js', type: 'module'}
+    {pattern: 'src/**/*.ts'},
+    {pattern: 'test/**/*.ts'}
   ],
-  frameworks: ['mocha', 'chai'],
-  reporters: ['progress'],
+  frameworks: ['mocha', 'karma-typescript'],
+  karmaTypescriptConfig: {
+    coverageOptions: {instrumentation: false},
+    tsconfig: 'test/tsconfig.json'
+  },
+  preprocessors: {
+    'src/**/*.ts': 'karma-typescript',
+    'test/**/*.ts': 'karma-typescript'
+  },
+  reporters: ['progress', 'karma-typescript'],
   singleRun: true
 });

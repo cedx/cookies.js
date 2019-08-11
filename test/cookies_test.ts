@@ -105,7 +105,7 @@ describe('Cookies', () => {
   describe('#get()', () => {
     it('should properly get the cookies associated with the current document', () => {
       const cookies = new Cookies;
-      expect(cookies.get('foo')).to.be.null;
+      expect(cookies.get('foo')).to.be.undefined;
       expect(cookies.get('foo', '123')).to.equal('123');
 
       document.cookie = 'get1=foo';
@@ -119,7 +119,7 @@ describe('Cookies', () => {
   describe('#getObject()', () => {
     it('should properly get the deserialized cookies associated with the current document', () => {
       const cookies = new Cookies;
-      expect(cookies.getObject('foo')).to.be.null;
+      expect(cookies.getObject('foo')).to.be.undefined;
       expect(cookies.getObject('foo', {key: 'value'})).to.deep.equal({key: 'value'});
 
       document.cookie = 'getObject1=123';
@@ -169,7 +169,7 @@ describe('Cookies', () => {
 
         const [record] = [...changes.values()];
         expect(record.currentValue).to.equal('foo');
-        expect(record.previousValue).to.be.null;
+        expect(record.previousValue).to.be.undefined;
 
         done();
       });
@@ -210,7 +210,7 @@ describe('Cookies', () => {
 
         const [record] = [...changes.values()];
         expect(record).to.be.an.instanceof(SimpleChange);
-        expect(record.currentValue).to.be.null;
+        expect(record.currentValue).to.be.undefined;
         expect(record.previousValue).to.equal('bar');
 
         done();
@@ -234,13 +234,13 @@ describe('Cookies', () => {
         let records = entries.filter(entry => entry[0] == 'onChanges1').map(entry => entry[1]);
         expect(records).to.have.lengthOf(1);
         expect(records[0]).to.be.an.instanceof(SimpleChange);
-        expect(records[0].currentValue).to.be.null;
+        expect(records[0].currentValue).to.be.undefined;
         expect(records[0].previousValue).to.equal('foo');
 
         records = entries.filter(entry => entry[0] == 'onChanges2').map(entry => entry[1]);
         expect(records).to.have.lengthOf(1);
         expect(records[0]).to.be.an.instanceof(SimpleChange);
-        expect(records[0].currentValue).to.be.null;
+        expect(records[0].currentValue).to.be.undefined;
         expect(records[0].previousValue).to.equal('bar');
 
         done();

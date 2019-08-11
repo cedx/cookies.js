@@ -28,8 +28,8 @@ export class SimpleChange {
    */
   toJSON(): JsonMap {
     return {
-      currentValue: this.currentValue,
-      previousValue: this.previousValue
+      currentValue: typeof this.currentValue == 'string' ? this.currentValue : null,
+      previousValue: typeof this.previousValue == 'string' ? this.previousValue : null
     };
   }
 }
