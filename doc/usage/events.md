@@ -2,9 +2,13 @@ path: blob/master
 source: src/simple_change.ts
 
 # Events
-The [`Cookies`](api.md) class is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget): every time one or several values are changed (added, removed or updated) through this class, a `changes` custom event is triggered.
+The [`Cookies`](api.md) class is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget): every time one or several values are changed (added, removed or updated) through this class, a [`CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) is triggered.
 
-You can subscribe to these custom events using the `addEventListener()` method:
+!!! tip
+    If you target browsers that do not support the `EventTarget` constructor, you will need
+    a dedicated polyfill. We recommend using the [`@ungap/event-target`](https://www.npmjs.com/package/@ungap/event-target) package.   
+
+You can subscribe to these `changes` events using the `addEventListener()` method:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
@@ -12,7 +16,7 @@ import {Cookies} from '@cedx/cookies';
 function main(): void {
   new Cookies().addEventListener(Cookies.eventChanges, event => {
     const changes = (event as CustomEvent).detail;
-    for (const [key, value] of changes.entries()) console.log(`${key}: ${JSON.stringify(value)}`);
+    for (const [key, value] of changes.entries()) console.log(`${key}: ${value}`);
   });
 }
 ```

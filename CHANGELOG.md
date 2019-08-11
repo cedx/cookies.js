@@ -1,9 +1,9 @@
 # Changelog
 
 ## Version [4.0.0](https://github.com/cedx/cookies.js/compare/v3.3.0...v4.0.0)
-- Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: the `Cookies` service is now an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) instead of an [`EventEmitter`](https://nodejs.org/api/events.html).
 - Added the `CookieOptions#maxAge` property.
+- Raised the [Node.js](https://nodejs.org) constraint.
 - Replaced the [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
 - Updated the package dependencies.
 
