@@ -1,7 +1,9 @@
-import {CookieOptions} from '../lib/index.js';
+import * as chai from 'chai';
+import {CookieOptions} from '../src/index';
 
 /** Tests the features of the [[CookieOptions]] class. */
 describe('CookieOptions', () => {
+  const {expect} = chai;
   const options = new CookieOptions({
     domain: 'domain.com',
     expires: new Date(0),
@@ -24,18 +26,18 @@ describe('CookieOptions', () => {
     });
 
     it('should set the expiration date accordingly', () => {
-      const cookieOptions = new CookieOptions();
+      const cookieOptions = new CookieOptions;
       const now = Date.now();
       cookieOptions.maxAge = 0;
-      expect(cookieOptions.expires.getTime()).to.be.above(now - 1000).and.be.at.most(now);
+      expect(cookieOptions.expires!.getTime()).to.be.above(now - 1000).and.be.at.most(now);
 
       const duration = 30 * 1000;
       const later = Date.now() + duration;
       cookieOptions.maxAge = 30;
-      expect(cookieOptions.expires.getTime()).to.be.above(later - 1000).and.be.at.most(later);
+      expect(cookieOptions.expires!.getTime()).to.be.above(later - 1000).and.be.at.most(later);
 
-      cookieOptions.maxAge = null;
-      expect(cookieOptions.expires).to.be.null;
+      cookieOptions.maxAge = -1;
+      expect(cookieOptions.expires).to.be.undefined;
     });
   });
 
@@ -43,7 +45,7 @@ describe('CookieOptions', () => {
     it('should return an instance with default values for an empty map', () => {
       const cookieOptions = CookieOptions.fromJson({});
       expect(cookieOptions.domain).to.be.empty;
-      expect(cookieOptions.expires).to.be.null;
+      expect(cookieOptions.expires).to.be.undefined;
       expect(cookieOptions.path).to.be.empty;
       expect(cookieOptions.secure).to.be.false;
     });
@@ -51,7 +53,7 @@ describe('CookieOptions', () => {
     it('should return an initialized instance for a non-empty map', () => {
       const cookieOptions = CookieOptions.fromJson(options.toJSON());
       expect(cookieOptions.domain).to.equal(options.domain);
-      expect(cookieOptions.expires.getTime()).to.equal(options.expires.getTime());
+      expect(cookieOptions.expires!.getTime()).to.equal(options.expires!.getTime());
       expect(cookieOptions.path).to.equal(options.path);
       expect(cookieOptions.secure).to.equal(options.secure);
     });

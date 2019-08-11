@@ -1,66 +1,53 @@
+import {JsonMap} from './json_map';
+
 /** Defines the attributes of a HTTP cookie. */
 export class CookieOptions {
 
+  /** The domain for which the cookie is valid. */
+  domain: string;
+
+  /** The expiration date and time for the cookie. An `undefined` value indicates a session cookie. */
+  expires?: Date;
+
+  /** The path to which the cookie applies. */
+  path: string;
+
+  /** Value indicating whether to transmit the cookie over HTTPS only. */
+  secure: boolean;
+
   /**
    * Creates new cookie options.
-   * @param {Object<string, *>} [options] An object specifying values used to initialize this instance.
+   * @param options An object specifying values used to initialize this instance.
    */
-  constructor(options = {}) {
-    const {domain = '', expires = null, path = '', secure = false} = options;
-
-    /**
-     * The domain for which the cookie is valid.
-     * @type {string}
-     */
+  constructor(options: Partial<CookieOptions> = {}) {
+    const {domain = '', expires, path = '', secure = false} = options;
     this.domain = domain;
-
-    /**
-     * The expiration date and time for the cookie.
-     * @type {?Date}
-     */
     this.expires = expires;
-
-    /**
-     * The path to which the cookie applies.
-     * @type {string}
-     */
     this.path = path;
-
-    /**
-     * Value indicating whether to transmit the cookie over HTTPS only.
-     * @type {boolean}
-     */
     this.secure = secure;
   }
 
-  /**
-   * The maximum duration, in seconds, until the cookie expires.
-   * @type {number}
-   */
-  get maxAge() {
-    if (!this.expires) return 0;
+  /** The maximum duration, in seconds, until the cookie expires. A negative value indicates a session cookie. */
+  get maxAge(): number {
+    if (!this.expires) return -1;
     const now = Date.now();
     const expires = this.expires.getTime();
     return expires > now ? Math.ceil((expires - now) / 1000) : 0;
   }
 
-  /**
-   * Sets the maximum duration, in seconds, until the cookie expires.
-   * @param {?number} value The maximum duration, in seconds, until the cookie expires.
-   */
-  set maxAge(value) {
-    this.expires = value == null ? value : new Date(Date.now() + (value * 1000));
+  set maxAge(value: number) {
+    this.expires = value < 0 ? undefined : new Date(Date.now() + (value * 1000));
   }
 
   /**
    * Creates new cookie options from the specified JSON map.
-   * @param {Object<string, *>} map A JSON map representing cookie options.
-   * @return {CookieOptions} The instance corresponding to the specified JSON map.
+   * @param map A JSON map representing cookie options.
+   * @return The instance corresponding to the specified JSON map.
    */
-  static fromJson(map) {
+  static fromJson(map: JsonMap): CookieOptions {
     return new CookieOptions({
       domain: typeof map.domain == 'string' ? map.domain : '',
-      expires: typeof map.expires == 'string' ? new Date(map.expires) : null,
+      expires: typeof map.expires == 'string' ? new Date(map.expires) : undefined,
       path: typeof map.path == 'string' ? map.path : '',
       secure: typeof map.secure == 'boolean' ? map.secure : false
     });
@@ -68,9 +55,9 @@ export class CookieOptions {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return {Object<string, *>} The map in JSON format corresponding to this object.
+   * @return The map in JSON format corresponding to this object.
    */
-  toJSON() {
+  toJSON(): JsonMap {
     return {
       domain: this.domain,
       expires: this.expires ? this.expires.toISOString() : null,
@@ -81,9 +68,9 @@ export class CookieOptions {
 
   /**
    * Returns a string representation of this object.
-   * @return {string} The string representation of this object.
+   * @return The string representation of this object.
    */
-  toString() {
+  toString(): string {
     const value = [];
     if (this.expires) value.push(`expires=${this.expires.toUTCString()}`);
     if (this.domain.length) value.push(`domain=${this.domain}`);
