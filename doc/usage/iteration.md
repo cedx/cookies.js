@@ -4,7 +4,7 @@ The [`Cookies`](api.md) class is iterable: you can go through all key/value pair
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   cookies.set('foo', 'bar');
   cookies.set('anotherKey', 'anotherValue');

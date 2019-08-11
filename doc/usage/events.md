@@ -1,30 +1,32 @@
 path: blob/master
-source: lib/simple_change.js
+source: src/simple_change.ts
 
 # Events
-The [`Cookies`](api.md) class is an [`EventEmitter`](https://nodejs.org/api/events.html): every time one or several values are changed (added, removed or updated) through this class, a `changes` event is triggered.
+The [`Cookies`](api.md) class is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget): every time one or several values are changed (added, removed or updated) through this class, a `changes` custom event is triggered.
 
-You can subscribe to this event using the `on()` method:
+You can subscribe to these custom events using the `addEventListener()` method:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
-  new Cookies().on(Cookies.eventChanges, changes => {
+function main(): void {
+  new Cookies().addEventListener(Cookies.eventChanges, event => {
+    const changes = (event as CustomEvent).detail;
     for (const [key, value] of changes.entries()) console.log(`${key}: ${JSON.stringify(value)}`);
   });
 }
 ```
 
-The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/lib/simple_change.js) instances, where an `undefined` property indicates an absence of value:
+The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of `SimpleChange` instances, where an `undefined` property indicates an absence of value:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
 
-  cookies.on(Cookies.eventChanges, changes => {
+  cookies.addEventListener(Cookies.eventChanges, event => {
+    const changes = (event as CustomEvent).detail;
     for (const [key, change] of changes.entries()) console.log({
       key,
       current: change.currentValue,
@@ -48,7 +50,7 @@ The values contained in the `currentValue` and `previousValue` properties of the
 ```ts
 import {Cookies} from '@cedx/cookies';
 
-function main() {
+function main(): void {
   const cookies = new Cookies;
   cookies.setObject('foo', {bar: 'baz'});
   // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: undefined}
