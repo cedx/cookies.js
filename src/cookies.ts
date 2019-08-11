@@ -62,7 +62,7 @@ export class Cookies extends EventTarget {
       return decodeURIComponent(this._document.cookie.replace(scanner, '$1'));
     }
 
-    catch {
+    catch (err) {
       return defaultValue;
     }
   }
@@ -79,7 +79,7 @@ export class Cookies extends EventTarget {
       return typeof value == 'string' ? JSON.parse(value) : defaultValue;
     }
 
-    catch {
+    catch (err) {
       return defaultValue;
     }
   }
