@@ -8,7 +8,13 @@ module.exports = config => config.set({
   ],
   frameworks: ['mocha', 'karma-typescript'],
   karmaTypescriptConfig: {
-    coverageOptions: {instrumentation: false},
+    reports: {
+      lcovonly: {
+        directory: '.',
+        filename: 'lcov.info',
+        subdirectory: 'var'
+      }
+    },
     tsconfig: 'test/tsconfig.json'
   },
   preprocessors: {
