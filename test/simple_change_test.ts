@@ -1,7 +1,10 @@
-import {SimpleChange} from '../lib/index.js';
+import * as chai from 'chai';
+import {SimpleChange} from '../src/index';
 
 /** Tests the features of the [[SimpleChange]] class. */
 describe('SimpleChange', () => {
+  const {expect} = chai;
+
   describe('.fromJson()', () => {
     it('should return an empty instance with an empty map', () => {
       const change = SimpleChange.fromJson({});
@@ -10,9 +13,9 @@ describe('SimpleChange', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      const change = SimpleChange.fromJson({currentValue: 123, previousValue: 456});
-      expect(change.currentValue).to.equal(123);
-      expect(change.previousValue).to.equal(456);
+      const change = SimpleChange.fromJson({currentValue: 'foo', previousValue: 'bar'});
+      expect(change.currentValue).to.equal('foo');
+      expect(change.previousValue).to.equal('bar');
     });
   });
 
