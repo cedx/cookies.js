@@ -3,7 +3,7 @@ import {JsonMap} from './json_map';
 import {SimpleChange} from './simple_change';
 
 /** Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). */
-export class Cookies extends EventTarget {
+export class Cookies extends EventTarget implements Iterable<[string, string|undefined]> {
 
   /**
    * An event that is triggered when a cookie is changed (added, modified, or removed).
