@@ -27,13 +27,13 @@ describe('CookieOptions', () => {
 
     it('should set the expiration date accordingly', () => {
       const cookieOptions = new CookieOptions;
-      const now = Date.now();
+
       cookieOptions.maxAge = 0;
+      const now = Date.now();
       expect(cookieOptions.expires!.getTime()).to.be.above(now - 1000).and.be.at.most(now);
 
-      const duration = 30 * 1000;
-      const later = Date.now() + duration;
       cookieOptions.maxAge = 30;
+      const later = Date.now() + (30 * 1000);
       expect(cookieOptions.expires!.getTime()).to.be.above(later - 1000).and.be.at.most(later);
 
       cookieOptions.maxAge = -1;
