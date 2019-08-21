@@ -21,7 +21,8 @@ function main(): void {
 }
 ```
 
-The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of `SimpleChange` instances, where an `undefined` property indicates an absence of value:
+The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
 ```ts
 import {Cookies} from '@cedx/cookies';
