@@ -1,4 +1,4 @@
-import {JsonMap} from './json_map';
+import {JsonObject} from './json_object';
 
 /** Represents the event parameter used for a change event. */
 export class SimpleChange {
@@ -15,7 +15,7 @@ export class SimpleChange {
    * @param map A JSON map representing a simple change.
    * @return The instance corresponding to the specified JSON map.
    */
-  static fromJson(map: JsonMap): SimpleChange {
+  static fromJson(map: JsonObject): SimpleChange {
     return new SimpleChange(
       typeof map.previousValue == 'string' ? map.previousValue : undefined,
       typeof map.currentValue == 'string' ? map.currentValue : undefined
@@ -26,7 +26,7 @@ export class SimpleChange {
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
+  toJSON(): JsonObject {
     return {
       currentValue: typeof this.currentValue == 'string' ? this.currentValue : null,
       previousValue: typeof this.previousValue == 'string' ? this.previousValue : null

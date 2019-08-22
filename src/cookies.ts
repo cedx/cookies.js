@@ -1,5 +1,5 @@
 import {CookieOptions} from './cookie_options';
-import {JsonMap} from './json_map';
+import {JsonObject} from './json_object';
 import {SimpleChange} from './simple_change';
 
 /** Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). */
@@ -152,8 +152,8 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
-  toJSON(): JsonMap {
-    const map: JsonMap = {};
+  toJSON(): JsonObject {
+    const map: JsonObject = {};
     for (const [key, value] of this) map[key] = value;
     return map;
   }
