@@ -11,8 +11,8 @@ export class SimpleChange {
   constructor(readonly previousValue?: string, readonly currentValue?: string) {}
 
   /**
-   * Creates a new simple change from the specified JSON map.
-   * @param map A JSON map representing a simple change.
+   * Creates a new simple change from the specified JSON object.
+   * @param map A JSON object representing a simple change.
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonObject): SimpleChange {

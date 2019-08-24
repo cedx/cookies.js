@@ -40,8 +40,8 @@ export class CookieOptions {
   }
 
   /**
-   * Creates new cookie options from the specified JSON map.
-   * @param map A JSON map representing cookie options.
+   * Creates new cookie options from the specified JSON object.
+   * @param map A JSON object representing cookie options.
    * @return The instance corresponding to the specified JSON map.
    */
   static fromJson(map: JsonObject): CookieOptions {
