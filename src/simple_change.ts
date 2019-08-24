@@ -13,7 +13,7 @@ export class SimpleChange {
   /**
    * Creates a new simple change from the specified JSON object.
    * @param map A JSON object representing a simple change.
-   * @return The instance corresponding to the specified JSON map.
+   * @return The instance corresponding to the specified JSON object.
    */
   static fromJson(map: JsonObject): SimpleChange {
     return new SimpleChange(
