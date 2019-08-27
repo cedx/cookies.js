@@ -4,7 +4,7 @@ source: src/cookies.ts
 # Programming interface
 This package provides a service dedicated to the cookie management: the `Cookies` class.
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -28,7 +28,7 @@ The `Cookies` class has the following API:
 ## **#defaults**: CookieOptions
 Returns the default [options](options.md) to pass when setting cookies:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -48,7 +48,7 @@ function main(): void {
 ## **#keys**: string[]
 Returns the keys of the cookies associated with the current document:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -63,7 +63,7 @@ function main(): void {
 ## **#length**: number
 Returns the number of cookies associated with the current document:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -78,7 +78,7 @@ function main(): void {
 ## **#clear**(): void
 Removes all cookies associated with the current document:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -94,7 +94,7 @@ function main(): void {
 ## **#get**(key: string, defaultValue?: string): string|undefined
 Returns the value associated to the specified key:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -112,7 +112,7 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#getObject**(key: string, defaultValue?: any): any
 Deserializes and returns the value associated to the specified key:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -133,7 +133,7 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#has**(key: string): boolean
 Returns a boolean value indicating whether the current document has a cookie with the specified key:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -148,7 +148,7 @@ function main(): void {
 ## **#remove**(key: string, options?: CookieOptions): string|undefined
 Removes the value associated to the specified key:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -165,7 +165,7 @@ function main(): void {
 ## **#set**(key: string, value: string, options?: CookieOptions): this
 Associates a given value to the specified key:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {
@@ -180,7 +180,7 @@ function main(): void {
 ## **#setObject**(key: string, value: any, options?: CookieOptions): this
 Serializes and associates a given value to the specified key:
 
-```ts
+```typescript
 import {Cookies} from '@cedx/cookies';
 
 function main(): void {

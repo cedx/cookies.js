@@ -13,7 +13,7 @@ These options are expressed using an instance of the `CookieOptions` class, whic
 
 For example:
 
-```ts
+```typescript
 import {Cookies, CookieOptions} from '@cedx/cookies';
 
 function main(): void {
@@ -27,7 +27,7 @@ function main(): void {
 
 It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
 
-```ts
+```typescript
 import {Cookies, CookieOptions} from '@cedx/cookies';
 
 function main(): void {
