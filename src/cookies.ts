@@ -16,7 +16,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    * @param defaults The default cookie options.
    * @param _document The underlying HTML document.
    */
-  constructor(readonly defaults: CookieOptions = new CookieOptions, private _document: Document = window.document) {
+  constructor(readonly defaults: CookieOptions = new CookieOptions, private _document: Document = document) {
     super();
   }
 

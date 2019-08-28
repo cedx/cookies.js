@@ -4,7 +4,9 @@ import {Cookies, SimpleChange} from '../src/index';
 /** Tests the features of the [[Cookies]] class. */
 describe('Cookies', () => {
   const {expect} = chai;
-  const getNativeCookies = (): Map<string, string> => {
+
+  // Returns a map of the native cookies.
+  function getNativeCookies(): Map<string, string> {
     const nativeCookies = new Map<string, string>();
     if (document.cookie.length) for (const value of document.cookie.split(';')) {
       const index = value.indexOf('=');
@@ -12,7 +14,7 @@ describe('Cookies', () => {
     }
 
     return nativeCookies;
-  };
+  }
 
   describe('#keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
