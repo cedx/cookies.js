@@ -30,9 +30,8 @@ export class CookieOptions {
   /** The maximum duration, in seconds, until the cookie expires. A negative value indicates a session cookie. */
   get maxAge(): number {
     if (!this.expires) return -1;
-    const now = Date.now();
-    const expires = this.expires.getTime();
-    return expires > now ? Math.ceil((expires - now) / 1000) : 0;
+    const now = new Date;
+    return this.expires > now ? Math.ceil((this.expires.getTime() - now.getTime()) / 1000) : 0;
   }
 
   set maxAge(value: number) {
