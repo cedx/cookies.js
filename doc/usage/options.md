@@ -11,6 +11,9 @@ These options are expressed using an instance of the `CookieOptions` class, whic
 - **path**: `string`: The path to which the cookie applies.
 - **secure**: `boolean`: Value indicating whether to transmit the cookie over HTTPS only.
 
+!!! info
+    The `expires` property has precedence over the `maxAge` one.
+
 For example:
 
 ```typescript
@@ -24,7 +27,8 @@ function main(): void {
   }));
 }
 ```
-
+    
+## Configuring defaults
 It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
 
 ```typescript
