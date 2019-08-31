@@ -26,8 +26,8 @@ export class CookieOptions {
     this.path = path;
     this.secure = secure;
 
-    if (expires) this.expires = expires;
-    else this.maxAge = maxAge;
+    if (maxAge >= 0) this.maxAge = maxAge;
+    else this.expires = expires;
   }
 
   /** The maximum duration, in seconds, until the cookie expires. A negative value indicates a session cookie. */
