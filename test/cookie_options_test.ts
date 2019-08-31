@@ -4,12 +4,12 @@ import {CookieOptions} from '../src/index';
 /** Tests the features of the [[CookieOptions]] class. */
 describe('CookieOptions', () => {
   const {expect} = chai;
-  const options = {
+  const options = new CookieOptions({
     domain: 'domain.com',
     expires: new Date(0),
     path: '/path',
     secure: true
-  };
+  });
 
   describe('#maxAge', () => {
     it('should return `-1` if the expiration time is not set', () => {
@@ -52,13 +52,7 @@ describe('CookieOptions', () => {
     });
 
     it('should return an initialized instance for a non-empty map', () => {
-      const cookieOptions = CookieOptions.fromJson({
-        domain: 'domain.com',
-        expires: '1970-01-01T00:00:00.000Z',
-        path: '/path',
-        secure: true
-      });
-
+      const cookieOptions = CookieOptions.fromJson(options.toJSON());
       expect(cookieOptions.domain).to.equal('domain.com');
       expect(cookieOptions.expires!.toISOString()).to.equal('1970-01-01T00:00:00.000Z');
       expect(cookieOptions.maxAge).to.equal(0);
@@ -78,7 +72,7 @@ describe('CookieOptions', () => {
     });
 
     it('should return a non-empty map for an initialized instance', () => {
-      expect(new CookieOptions(options).toJSON()).to.deep.equal({
+      expect(options.toJSON()).to.deep.equal({
         domain: 'domain.com',
         expires: '1970-01-01T00:00:00.000Z',
         path: '/path',
@@ -93,8 +87,7 @@ describe('CookieOptions', () => {
     });
 
     it('should return a format like "expires=<expires>; domain=<domain>; path=<path>; secure" for an initialized instance', () => {
-      expect(String(new CookieOptions(options)))
-        .to.equal('expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=domain.com; path=/path; secure');
+      expect(String(options)).to.equal('expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=domain.com; path=/path; secure');
     });
   });
 });
