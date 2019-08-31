@@ -1,5 +1,7 @@
 # Changelog
 
+## Version [4.0.1](https://github.com/cedx/cookies.js/compare/v4.0.0...v4.0.1)
+
 ## Version [4.0.0](https://github.com/cedx/cookies.js/compare/v3.3.0...v4.0.0)
 - Breaking change: the `Cookies` service is now an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) instead of an [`EventEmitter`](https://nodejs.org/api/events.html).
 - Added the `CookieOptions#maxAge` property.
