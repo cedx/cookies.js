@@ -21,13 +21,11 @@ export class CookieOptions {
    */
   constructor(options: Partial<CookieOptions> = {}) {
     const {domain = '', expires, maxAge = -1, path = '', secure = false} = options;
-
     this.domain = domain;
+    this.expires = expires;
     this.path = path;
     this.secure = secure;
-
     if (maxAge >= 0) this.maxAge = maxAge;
-    else this.expires = expires;
   }
 
   /** The maximum duration, in seconds, until the cookie expires. A negative value indicates a session cookie. */
@@ -50,6 +48,7 @@ export class CookieOptions {
     return new CookieOptions({
       domain: typeof map.domain == 'string' ? map.domain : '',
       expires: typeof map.expires == 'string' ? new Date(map.expires) : undefined,
+      maxAge: Number.isInteger(map.maxAge) ? map.maxAge : -1,
       path: typeof map.path == 'string' ? map.path : '',
       secure: typeof map.secure == 'boolean' ? map.secure : false
     });
