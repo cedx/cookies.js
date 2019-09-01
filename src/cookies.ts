@@ -53,8 +53,8 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
   /**
    * Gets the value associated to the specified key.
    * @param key The cookie name.
-   * @param defaultValue The default cookie value if it does not exist.
-   * @return The cookie value, or the default value if the item is not found.
+   * @param defaultValue The value to return if the cookie does not exist.
+   * @return The cookie value, or the default value if the cookie is not found.
    */
   get(key: string, defaultValue?: string): string|undefined {
     if (!this.has(key)) return defaultValue;
@@ -73,8 +73,8 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
   /**
    * Gets the deserialized value associated to the specified key.
    * @param key The cookie name.
-   * @param defaultValue The default cookie value if it does not exist.
-   * @return The deserialized cookie value, or the default value if the item is not found.
+   * @param defaultValue The value to return if the cookie does not exist.
+   * @return The deserialized cookie value, or the default value if the cookie is not found.
    */
   getObject(key: string, defaultValue?: any): any {
     try {
