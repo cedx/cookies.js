@@ -6,8 +6,8 @@ Several methods of the [Cookies](api.md) class accept an `options` parameter in 
 These options are expressed using an instance of the `CookieOptions` class, which has the following properties:
 
 - **domain**: `string`: The domain for which the cookie is valid.
-- **expires**: `Date`: The expiration date and time for the cookie.
-- **maxAge**: `number`: The maximum duration, in seconds, until the cookie expires.
+- **expires**: `Date`: The expiration date and time for the cookie. An `undefined` value indicates a session cookie.
+- **maxAge**: `number`: The maximum duration, in seconds, until the cookie expires. A negative value indicates a session cookie.
 - **path**: `string`: The path to which the cookie applies.
 - **secure**: `boolean`: Value indicating whether to transmit the cookie over HTTPS only.
 
