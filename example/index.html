@@ -11,8 +11,16 @@
     <p>Open the console provided by the development tools of your browser...</p>
 
     <script>
-      const {Cookies} = window.cookies;
-      const cookieService = new Cookies;
+      const {Cookies, CookieOptions} = window.cookies;
+      const cookieService = new Cookies(new CookieOptions({
+        domain: 'www.domain.com',
+        path: '/',
+        secure: true
+      }));
+
+      // The defaut options used when a cookie is created or removed.
+      console.log(JSON.stringify(cookieService.defaults));
+      // {"domain": "www.domain.com", "expires": null, "path": "/", "secure": true}
 
       // Query the cookies.
       console.log(cookieService.has('foo')); // false
