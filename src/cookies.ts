@@ -122,7 +122,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    * @throws [[TypeError]] The specified key is invalid.
    */
   set(key: string, value: string, options?: CookieOptions): this {
-    if (!key.length || /^(domain|expires|max-age|path|secure)$/i.test(key)) throw new TypeError('Invalid cookie name.');
+    if (!key.length) throw new TypeError('Invalid cookie name.');
 
     const cookieOptions = this._getOptions(options).toString();
     let cookieValue = `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
