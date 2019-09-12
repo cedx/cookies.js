@@ -4,6 +4,7 @@ import {Cookies, SimpleChange} from '../src/index';
 /** Tests the features of the [[Cookies]] class. */
 describe('Cookies', () => {
   const {expect} = chai;
+  beforeEach(() => document.cookie = '');
 
   // Returns a map of the native cookies.
   function getNativeCookies(): Map<string, string> {
