@@ -55,6 +55,31 @@ export class CookieOptions {
   }
 
   /**
+   * Creates new options from the specified cookie string.
+   * @param value A string representing a cookie.
+   * @return The instance corresponding to the specified cookie string.
+   */
+  static fromString(value: string): CookieOptions {
+    const entries = value.split('; ');
+    entries.shift();
+
+    const attributes = ['domain', 'expires', 'max-age', 'path', 'secure'];
+    const map = new Map<string, string>();
+    for (const [optionName, optionValue] of entries.map(part => part.split('='))) {
+      const attribute = optionName.toLowerCase();
+      if (attributes.includes(attribute)) map.set(attribute, optionValue);
+    }
+
+    return new CookieOptions({
+      domain: map.has('domain') ? map.get('domain') : '',
+      expires: map.has('expires') ? new Date(map.get('expires')!) : undefined,
+      maxAge: map.has('max-age') ? Number.parseInt(map.get('max-age')!, 10) : -1,
+      path: map.has('path') ? map.get('path') : '',
+      secure: map.has('secure')
+    });
+  }
+
+  /**
    * Converts this object to a map in JSON format.
    * @return The map in JSON format corresponding to this object.
    */
