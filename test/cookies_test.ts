@@ -286,13 +286,8 @@ describe('Cookies', () => {
       expect(document.cookie).to.contain('set2=bar');
     });
 
-    it('should throw an error if the specified key is a reserved word', () => {
-      const cookies = new Cookies;
-      expect(() => cookies.set('domain', 'foo')).to.throw(TypeError);
-      expect(() => cookies.set('expires', 'foo')).to.throw(TypeError);
-      expect(() => cookies.set('max-age', 'foo')).to.throw(TypeError);
-      expect(() => cookies.set('path', 'foo')).to.throw(TypeError);
-      expect(() => cookies.set('secure', 'foo')).to.throw(TypeError);
+    it('should throw an error if the specified key is empty', () => {
+      expect(() => new Cookies().set('', 'foo')).to.throw(TypeError);
     });
   });
 
@@ -315,13 +310,8 @@ describe('Cookies', () => {
       expect(document.cookie).to.contain('setObject2=%22foo%22');
     });
 
-    it('should throw an error if the specified key is a reserved word', () => {
-      const cookies = new Cookies;
-      expect(() => cookies.setObject('domain', 'foo')).to.throw(TypeError);
-      expect(() => cookies.setObject('expires', 'foo')).to.throw(TypeError);
-      expect(() => cookies.setObject('max-age', 'foo')).to.throw(TypeError);
-      expect(() => cookies.setObject('path', 'foo')).to.throw(TypeError);
-      expect(() => cookies.setObject('secure', 'foo')).to.throw(TypeError);
+    it('should throw an error if the specified key is empty', () => {
+      expect(() => new Cookies().setObject('', 'foo')).to.throw(TypeError);
     });
   });
 
