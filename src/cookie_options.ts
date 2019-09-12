@@ -60,12 +60,9 @@ export class CookieOptions {
    * @return The instance corresponding to the specified cookie string.
    */
   static fromString(value: string): CookieOptions {
-    const entries = value.split('; ');
-    entries.shift();
-
     const attributes = ['domain', 'expires', 'max-age', 'path', 'secure'];
     const map = new Map<string, string>();
-    for (const [optionName, optionValue] of entries.map(part => part.split('='))) {
+    for (const [optionName, optionValue] of value.split('; ').slice(1).map(part => part.split('='))) {
       const attribute = optionName.toLowerCase();
       if (attributes.includes(attribute)) map.set(attribute, optionValue);
     }
