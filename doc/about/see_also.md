@@ -6,7 +6,7 @@
 - [Submit an issue](https://github.com/cedx/cookies.js/issues)
 
 ## Testing
-- [Continuous integration](https://travis-ci.com/cedx/cookies.js)
+- [Continuous integration](https://github.com/cedx/cookies.js/actions)
 - [Code coverage](https://coveralls.io/github/cedx/cookies.js)
 
 ## Other implementations
