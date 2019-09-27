@@ -53,7 +53,7 @@ task('publish:npm', () => _exec('npm', ['publish', '--registry=https://registry.
 task('publish', series('clean', 'publish:github', 'publish:npm'));
 
 /** Runs the test suites. */
-task('test', () => _exec('karma', ['start', 'etc/karma.js']));
+task('test', () => _exec('karma', ['start', 'etc/karma.cjs']));
 
 /** Upgrades the project to the latest revision. */
 task('upgrade', async () => {
