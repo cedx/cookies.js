@@ -98,7 +98,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
       const listener = (event: Event): void => {
-        const changes = (event as CustomEvent).detail;
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
         expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
@@ -120,7 +120,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=foo';
 
       const listener = (event: Event): void => {
-        const changes = (event as CustomEvent).detail;
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
         expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
@@ -143,7 +143,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=bar';
 
       const listener = (event: Event): void => {
-        const changes = (event as CustomEvent).detail;
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
         expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
@@ -167,7 +167,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges2=bar';
 
       const listener = (event: Event): void => {
-        const changes = (event as CustomEvent).detail;
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
         expect(changes).to.be.an.instanceof(Map);
 
         const entries = [...changes.entries()];
