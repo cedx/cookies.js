@@ -93,6 +93,108 @@ describe('Cookies', () => {
     });
   });
 
+  describe('#addEventListener("changes")', () => {
+    it('should trigger an event when a cookie is added', done => {
+      document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent).detail;
+        expect(changes).to.be.an.instanceof(Map);
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('onChanges');
+
+        const [record] = [...changes.values()];
+        expect(record.currentValue).to.equal('foo');
+        expect(record.previousValue).to.be.undefined;
+
+        done();
+      };
+
+      const cookies = new Cookies;
+      cookies.addEventListener(Cookies.eventChanges, listener);
+      cookies.set('onChanges', 'foo');
+      cookies.removeEventListener(Cookies.eventChanges, listener);
+    });
+
+    it('should trigger an event when a cookie is updated', done => {
+      document.cookie = 'onChanges=foo';
+
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent).detail;
+        expect(changes).to.be.an.instanceof(Map);
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('onChanges');
+
+        const [record] = [...changes.values()];
+        expect(record).to.be.an.instanceof(SimpleChange);
+        expect(record.currentValue).to.equal('bar');
+        expect(record.previousValue).to.equal('foo');
+
+        done();
+      };
+
+      const cookies = new Cookies;
+      cookies.addEventListener(Cookies.eventChanges, listener);
+      cookies.set('onChanges', 'bar');
+      cookies.removeEventListener(Cookies.eventChanges, listener);
+    });
+
+    it('should trigger an event when a cookie is removed', done => {
+      document.cookie = 'onChanges=bar';
+
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent).detail;
+        expect(changes).to.be.an.instanceof(Map);
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('onChanges');
+
+        const [record] = [...changes.values()];
+        expect(record).to.be.an.instanceof(SimpleChange);
+        expect(record.currentValue).to.be.undefined;
+        expect(record.previousValue).to.equal('bar');
+
+        done();
+      };
+
+      const cookies = new Cookies;
+      cookies.addEventListener(Cookies.eventChanges, listener);
+      cookies.remove('onChanges');
+      cookies.removeEventListener(Cookies.eventChanges, listener);
+    });
+
+    it('should trigger an event when all the cookies are removed', done => {
+      document.cookie = 'onChanges1=foo';
+      document.cookie = 'onChanges2=bar';
+
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent).detail;
+        expect(changes).to.be.an.instanceof(Map);
+
+        const entries = [...changes.entries()];
+        expect(entries).to.have.lengthOf.at.least(2);
+
+        let records = entries.filter(entry => entry[0] == 'onChanges1').map(entry => entry[1]);
+        expect(records).to.have.lengthOf(1);
+        expect(records[0]).to.be.an.instanceof(SimpleChange);
+        expect(records[0].currentValue).to.be.undefined;
+        expect(records[0].previousValue).to.equal('foo');
+
+        records = entries.filter(entry => entry[0] == 'onChanges2').map(entry => entry[1]);
+        expect(records).to.have.lengthOf(1);
+        expect(records[0]).to.be.an.instanceof(SimpleChange);
+        expect(records[0].currentValue).to.be.undefined;
+        expect(records[0].previousValue).to.equal('bar');
+
+        done();
+      };
+
+      const cookies = new Cookies;
+      cookies.addEventListener(Cookies.eventChanges, listener);
+      cookies.clear();
+      cookies.removeEventListener(Cookies.eventChanges, listener);
+    });
+  });
+
   describe('#clear()', () => {
     it('should remove all the cookies associated with the current document', () => {
       document.cookie = 'clear1=foo';
@@ -155,100 +257,6 @@ describe('Cookies', () => {
       expect(cookies.has('has2')).to.be.true;
       expect(cookies.has('foo')).to.be.false;
       expect(cookies.has('bar')).to.be.false;
-    });
-  });
-
-  describe('#on("changes")', () => {
-    it('should trigger an event when a cookie is added', done => {
-      document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-
-      const cookies = new Cookies;
-      cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = (event as CustomEvent).detail;
-        expect(changes).to.be.an.instanceof(Map);
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('onChanges');
-
-        const [record] = [...changes.values()];
-        expect(record.currentValue).to.equal('foo');
-        expect(record.previousValue).to.be.undefined;
-
-        done();
-      });
-
-      cookies.set('onChanges', 'foo');
-    });
-
-    it('should trigger an event when a cookie is updated', done => {
-      document.cookie = 'onChanges=foo';
-
-      const cookies = new Cookies;
-      cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = (event as CustomEvent).detail;
-        expect(changes).to.be.an.instanceof(Map);
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('onChanges');
-
-        const [record] = [...changes.values()];
-        expect(record).to.be.an.instanceof(SimpleChange);
-        expect(record.currentValue).to.equal('bar');
-        expect(record.previousValue).to.equal('foo');
-
-        done();
-      });
-
-      cookies.set('onChanges', 'bar');
-    });
-
-    it('should trigger an event when a cookie is removed', done => {
-      document.cookie = 'onChanges=bar';
-
-      const cookies = new Cookies;
-      cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = (event as CustomEvent).detail;
-        expect(changes).to.be.an.instanceof(Map);
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('onChanges');
-
-        const [record] = [...changes.values()];
-        expect(record).to.be.an.instanceof(SimpleChange);
-        expect(record.currentValue).to.be.undefined;
-        expect(record.previousValue).to.equal('bar');
-
-        done();
-      });
-
-      cookies.remove('onChanges');
-    });
-
-    it('should trigger an event when all the cookies are removed', done => {
-      document.cookie = 'onChanges1=foo';
-      document.cookie = 'onChanges2=bar';
-
-      const cookies = new Cookies;
-      cookies.addEventListener(Cookies.eventChanges, event => {
-        const changes = (event as CustomEvent).detail;
-        expect(changes).to.be.an.instanceof(Map);
-
-        const entries = [...changes.entries()];
-        expect(entries).to.have.lengthOf.at.least(2);
-
-        let records = entries.filter(entry => entry[0] == 'onChanges1').map(entry => entry[1]);
-        expect(records).to.have.lengthOf(1);
-        expect(records[0]).to.be.an.instanceof(SimpleChange);
-        expect(records[0].currentValue).to.be.undefined;
-        expect(records[0].previousValue).to.equal('foo');
-
-        records = entries.filter(entry => entry[0] == 'onChanges2').map(entry => entry[1]);
-        expect(records).to.have.lengthOf(1);
-        expect(records[0]).to.be.an.instanceof(SimpleChange);
-        expect(records[0].currentValue).to.be.undefined;
-        expect(records[0].previousValue).to.equal('bar');
-
-        done();
-      });
-
-      cookies.clear();
     });
   });
 
@@ -326,10 +334,7 @@ describe('Cookies', () => {
       const cookies = new Cookies;
       cookies.clear();
       cookies.set('foo', 'bar').set('baz', 'qux');
-      expect(cookies.toJSON()).to.be.an('object').that.deep.equal({
-        baz: 'qux',
-        foo: 'bar'
-      });
+      expect(cookies.toJSON()).to.be.an('object').that.deep.equal({baz: 'qux', foo: 'bar'});
     });
   });
 
