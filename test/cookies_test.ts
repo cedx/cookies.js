@@ -99,7 +99,6 @@ describe('Cookies', () => {
 
       const listener = (event: Event): void => {
         const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
-        expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -121,7 +120,6 @@ describe('Cookies', () => {
 
       const listener = (event: Event): void => {
         const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
-        expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -144,7 +142,6 @@ describe('Cookies', () => {
 
       const listener = (event: Event): void => {
         const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
-        expect(changes).to.be.an.instanceof(Map);
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -168,8 +165,6 @@ describe('Cookies', () => {
 
       const listener = (event: Event): void => {
         const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
-        expect(changes).to.be.an.instanceof(Map);
-
         const entries = [...changes.entries()];
         expect(entries).to.have.lengthOf.at.least(2);
 
