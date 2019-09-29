@@ -11,11 +11,11 @@ The [`Cookies`](api.md) class is an [`EventTarget`](https://developer.mozilla.or
 You can subscribe to these `changes` events using the `addEventListener()` method:
 
 ```typescript
-import {Cookies} from '@cedx/cookies';
+import {Cookies, SimpleChange} from '@cedx/cookies';
 
 function main(): void {
-  new Cookies().addEventListener(Cookies.eventChanges, event => {
-    const changes = (event as CustomEvent).detail;
+  new Cookies().addEventListener(Cookies.eventChanges, (event: Event): void => {
+    const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
     for (const [key, value] of changes.entries()) console.log(`${key}: ${value}`);
   });
 }
@@ -25,13 +25,12 @@ The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/
 of [`SimpleChange`](https://github.com/cedx/cookies.js/blob/master/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
 ```typescript
-import {Cookies} from '@cedx/cookies';
+import {Cookies, SimpleChange} from '@cedx/cookies';
 
 function main(): void {
   const cookies = new Cookies;
-
-  cookies.addEventListener(Cookies.eventChanges, event => {
-    const changes = (event as CustomEvent).detail;
+  cookies.addEventListener(Cookies.eventChanges, (event: Event): void => {
+    const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
     for (const [key, change] of changes.entries()) console.log({
       key,
       current: change.currentValue,
@@ -53,11 +52,6 @@ function main(): void {
 The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw cookie values. If you use the `Cookies#setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
 
 ```typescript
-import {Cookies} from '@cedx/cookies';
-
-function main(): void {
-  const cookies = new Cookies;
-  cookies.setObject('foo', {bar: 'baz'});
-  // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: undefined}
-}
+cookies.setObject('foo', {bar: 'baz'});
+// Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: undefined}
 ```
