@@ -1,5 +1,5 @@
 import {CookieOptions} from './cookie_options';
-import {JsonObject} from './json_object';
+import {JsonObject} from './json';
 import {SimpleChange} from './simple_change';
 
 /** Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). */

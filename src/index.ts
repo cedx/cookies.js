@@ -1,4 +1,4 @@
 export * from './cookie_options';
 export * from './cookies';
-export * from './json_object';
+export * from './json';
 export * from './simple_change';
