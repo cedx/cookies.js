@@ -154,7 +154,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    */
   toJSON(): JsonObject {
     const map: JsonObject = {};
-    for (const [key, value] of this) map[key] = value;
+    for (const [key, value] of this) map[key] = value ?? null;
     return map;
   }
 
@@ -174,7 +174,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
   private _getOptions(options: CookieOptions = new CookieOptions): CookieOptions {
     return new CookieOptions({
       domain: options.domain.length ? options.domain : this.defaults.domain,
-      expires: options.expires ? options.expires : this.defaults.expires,
+      expires: options.expires ?? this.defaults.expires,
       path: options.path.length ? options.path : this.defaults.path,
       secure: options.secure ? options.secure : this.defaults.secure
     });
