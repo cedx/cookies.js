@@ -1,5 +1,7 @@
 # Changelog
 
+- Replaced [`babel-minify`](https://github.com/babel/minify) by [`terser`](https://terser.org) for minification.
+
 ## Version [4.1.0](https://github.com/cedx/cookies.js/compare/v4.0.1...v4.1.0)
 - Added the `CookieOptions.fromString()` method.
 - Improved the [TypeScript](https://www.typescriptlang.org) typings.
