@@ -11,6 +11,7 @@ Yet another service for interacting with the [HTTP cookies](https://developer.mo
 
 ## Development
 - [Git repository](https://github.com/cedx/cookies.js)
+- [GitHub package](https://github.com/cedx/cookies.js/packages)
 - [npm package](https://www.npmjs.com/package/@cedx/cookies)
 - [Submit an issue](https://github.com/cedx/cookies.js/issues)
 
