@@ -16,10 +16,10 @@ These options are expressed using an instance of the `CookieOptions` class, whic
 
 For example:
 
-```typescript
+```js
 import {Cookies, CookieOptions} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   new Cookies().set('foo', 'bar', new CookieOptions({
     domain: 'www.domain.com',
     maxAge: 3600, // One hour.
@@ -31,10 +31,10 @@ function main(): void {
 ## Configuring defaults
 It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
 
-```typescript
+```js
 import {Cookies, CookieOptions} from '@cedx/cookies';
 
-function main(): void {
+function main() {
   const cookies = new Cookies(new CookieOptions({
     domain: 'www.domain.com',
     path: '/',
