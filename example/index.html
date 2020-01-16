@@ -13,14 +13,15 @@
     <script>
       const {Cookies, CookieOptions} = window.cookies;
       const cookieService = new Cookies(new CookieOptions({
-        domain: 'www.domain.com',
-        path: '/',
-        secure: true
+        // Set the defaut options used when a cookie is created or removed.
+        // domain: 'www.domain.com',
+        // path: '/',
+        // secure: true
       }));
 
-      // The defaut options used when a cookie is created or removed.
+      // Read the default cookie options.
       console.log(JSON.stringify(cookieService.defaults));
-      // {"domain": "www.domain.com", "expires": null, "path": "/", "secure": true}
+      // {"domain": "", "expires": null, "path": "", "secure": false}
 
       // Query the cookies.
       console.log(cookieService.has('foo')); // false
