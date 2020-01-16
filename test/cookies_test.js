@@ -1,13 +1,13 @@
-import * as chai from 'chai';
-import {Cookies, SimpleChange} from '../src/index';
+import chai from 'chai';
+import {Cookies, SimpleChange} from '../lib/index.js';
 
-/** Tests the features of the [[Cookies]] class. */
+/** Tests the features of the {@link Cookies} class. */
 describe('Cookies', () => {
   const {expect} = chai;
 
   // Returns a map of the native cookies.
-  function getNativeCookies(): Map<string, string> {
-    const nativeCookies = new Map<string, string>();
+  function getNativeCookies() {
+    const nativeCookies = new Map;
     if (document.cookie.length) for (const value of document.cookie.split(';')) {
       const index = value.indexOf('=');
       nativeCookies.set(value.substring(0, index), value.substring(index + 1));
@@ -97,8 +97,8 @@ describe('Cookies', () => {
     it('should trigger an event when a cookie is added', done => {
       document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -118,8 +118,8 @@ describe('Cookies', () => {
     it('should trigger an event when a cookie is updated', done => {
       document.cookie = 'onChanges=foo';
 
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -139,8 +139,8 @@ describe('Cookies', () => {
     it('should trigger an event when a cookie is removed', done => {
       document.cookie = 'onChanges=bar';
 
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -161,8 +161,8 @@ describe('Cookies', () => {
       document.cookie = 'onChanges1=foo';
       document.cookie = 'onChanges2=bar';
 
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail.detail;
         const entries = [...changes.entries()];
         expect(entries).to.have.lengthOf.at.least(2);
 

@@ -1,7 +1,7 @@
-import * as chai from 'chai';
-import {CookieOptions} from '../src/index';
+import chai from 'chai';
+import {CookieOptions} from '../lib/index.js';
 
-/** Tests the features of the [[CookieOptions]] class. */
+/** Tests the features of the {@link CookieOptions} class. */
 describe('CookieOptions', () => {
   const {expect} = chai;
   const options = new CookieOptions({
@@ -30,11 +30,11 @@ describe('CookieOptions', () => {
 
       cookieOptions.maxAge = 0;
       const now = Date.now();
-      expect(cookieOptions.expires!.getTime()).to.be.above(now - 1000).and.be.at.most(now);
+      expect(cookieOptions.expires.getTime()).to.be.above(now - 1000).and.be.at.most(now);
 
       cookieOptions.maxAge = 30;
       const later = Date.now() + (30 * 1000);
-      expect(cookieOptions.expires!.getTime()).to.be.above(later - 1000).and.be.at.most(later);
+      expect(cookieOptions.expires.getTime()).to.be.above(later - 1000).and.be.at.most(later);
 
       cookieOptions.maxAge = -1;
       expect(cookieOptions.expires).to.be.undefined;
@@ -54,7 +54,7 @@ describe('CookieOptions', () => {
     it('should return an initialized instance for a non-empty map', () => {
       const cookieOptions = CookieOptions.fromJson(options.toJSON());
       expect(cookieOptions.domain).to.equal('domain.com');
-      expect(cookieOptions.expires!.toISOString()).to.equal('1970-01-01T00:00:00.000Z');
+      expect(cookieOptions.expires.toISOString()).to.equal('1970-01-01T00:00:00.000Z');
       expect(cookieOptions.maxAge).to.equal(0);
       expect(cookieOptions.path).to.equal('/path');
       expect(cookieOptions.secure).to.be.true;
@@ -74,7 +74,7 @@ describe('CookieOptions', () => {
     it('should return an initialized instance for a cookie string', () => {
       const cookieOptions = CookieOptions.fromString(`foo=bar; ${options}`);
       expect(cookieOptions.domain).to.equal('domain.com');
-      expect(cookieOptions.expires!.toISOString()).to.equal('1970-01-01T00:00:00.000Z');
+      expect(cookieOptions.expires.toISOString()).to.equal('1970-01-01T00:00:00.000Z');
       expect(cookieOptions.maxAge).to.equal(0);
       expect(cookieOptions.path).to.equal('/path');
       expect(cookieOptions.secure).to.be.true;
