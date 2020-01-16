@@ -1,4 +1,3 @@
-import chai from 'chai';
 import {Cookies, SimpleChange} from '../lib/index.js';
 
 /** Tests the features of the {@link Cookies} class. */
@@ -98,7 +97,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
       const listener = event => {
-        const changes = event.detail.detail;
+        const changes = event.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -119,7 +118,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=foo';
 
       const listener = event => {
-        const changes = event.detail.detail;
+        const changes = event.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -140,7 +139,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=bar';
 
       const listener = event => {
-        const changes = event.detail.detail;
+        const changes = event.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('onChanges');
 
@@ -162,7 +161,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges2=bar';
 
       const listener = event => {
-        const changes = event.detail.detail;
+        const changes = event.detail;
         const entries = [...changes.entries()];
         expect(entries).to.have.lengthOf.at.least(2);
 

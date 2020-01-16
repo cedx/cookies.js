@@ -1,4 +1,3 @@
-import chai from 'chai';
 import {CookieOptions} from '../lib/index.js';
 
 /** Tests the features of the {@link CookieOptions} class. */

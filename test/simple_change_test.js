@@ -1,4 +1,3 @@
-import chai from 'chai';
 import {SimpleChange} from '../lib/index.js';
 
 /** Tests the features of the {@link SimpleChange} class. */
