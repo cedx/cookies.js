@@ -2,6 +2,7 @@
   "excludePrivate": true,
   "gaSite": "auto",
   "gitRevision": "master",
+  "hideGenerator": true,
   "mode": "file",
   "name": "Cookies for JS",
   "out": "doc/api",
