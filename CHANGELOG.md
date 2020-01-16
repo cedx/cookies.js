@@ -1,5 +1,6 @@
 # Changelog
 
+## Version [4.2.0](https://github.com/cedx/cookies.js/compare/v4.1.0...v4.2.0)
 - Replaced [`babel-minify`](https://github.com/babel/minify) by [`terser`](https://terser.org) for minification.
 
 ## Version [4.1.0](https://github.com/cedx/cookies.js/compare/v4.0.1...v4.1.0)
