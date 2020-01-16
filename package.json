@@ -16,8 +16,6 @@
   },
   "devDependencies": {
     "@cedx/coveralls": "^9.4.0",
-    "@types/chai": "^4.2.7",
-    "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.7",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
@@ -35,7 +33,6 @@
     "mocha": "^7.0.0",
     "rollup": "^1.29.0",
     "terser": "^4.6.3",
-    "ts-node": "^8.6.2",
     "typedoc": "^0.16.4",
     "typescript": "^3.7.4"
   },
