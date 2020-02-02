@@ -250,6 +250,38 @@ describe('Cookies', () => {
     });
   });
 
+  describe('#putIfAbsent()', () => {
+    it('should add a new entry if it does not exist', () => {
+      const cookies = new Cookies;
+      expect(document.cookie).to.not.contain('putIfAbsent1');
+      expect(cookies.putIfAbsent('putIfAbsent1', () => 'foo')).to.equal('foo');
+      expect(document.cookie).to.contain('putIfAbsent1=foo');
+    });
+
+    it('should not add a new entry if it already exists', () => {
+      const cookies = new Cookies;
+      document.cookie = 'putIfAbsent2=foo';
+      expect(cookies.putIfAbsent('putIfAbsent2', () => 'bar')).to.equal('foo');
+      expect(document.cookie).to.contain('putIfAbsent2=foo');
+    });
+  });
+
+  describe('#putObjectIfAbsent()', () => {
+    it('should add a new entry if it does not exist', () => {
+      const cookies = new Cookies;
+      expect(document.cookie).to.not.contain('putObjectIfAbsent1');
+      expect(cookies.putObjectIfAbsent('putObjectIfAbsent1', () => 123)).to.equal(123);
+      expect(document.cookie).to.contain('putObjectIfAbsent1=123');
+    });
+
+    it('should not add a new entry if it already exists', () => {
+      const cookies = new Cookies;
+      document.cookie = 'putObjectIfAbsent2=123';
+      expect(cookies.putObjectIfAbsent('putObjectIfAbsent2', () => 456)).to.equal(123);
+      expect(document.cookie).to.contain('putObjectIfAbsent2=123');
+    });
+  });
+
   describe('#remove()', () => {
     it('should properly remove the cookies associated with the current document', () => {
       document.cookie = 'remove1=foo';

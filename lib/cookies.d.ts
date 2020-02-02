@@ -47,6 +47,30 @@ export declare class Cookies extends EventTarget implements Iterable<[string, st
      */
     has(key: string): boolean;
     /**
+     * Looks up the cookie with the specified key, or add a new cookie if it isn't there.
+     *
+     * Returns the value associated to `key`, if there is one. Otherwise calls `ifAbsent` to get a new value,
+     * associates `key` to that value, and then returns the new value.
+     *
+     * @param key The key to seek for.
+     * @param ifAbsent The function called to get a new value.
+     * @param options The cookie options.
+     * @return The value associated with the specified key.
+     */
+    putIfAbsent(key: string, ifAbsent: () => string, options?: CookieOptions): string;
+    /**
+     * Looks up the cookie with the specified key, or add a new cookie if it isn't there.
+     *
+     * Returns the deserialized value associated to `key`, if there is one. Otherwise calls `ifAbsent` to get a new value,
+     * serializes and associates `key` to that value, and then returns the new value.
+     *
+     * @param key The key to seek for.
+     * @param ifAbsent The function called to get a new value.
+     * @param options The cookie options.
+     * @return The deserialized value associated with the specified key.
+     */
+    putObjectIfAbsent(key: string, ifAbsent: () => any, options?: CookieOptions): any;
+    /**
      * Removes the cookie with the specified key and its associated value.
      * @param key The cookie name.
      * @param options The cookie options.
