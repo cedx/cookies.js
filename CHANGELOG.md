@@ -2,6 +2,7 @@
 
 ## Version [4.3.0](https://github.com/cedx/cookies.js/compare/v4.2.0...v4.3.0)
 - Added the `putIfAbsent()` and `putObjectIfAbsent()` methods to the `Cookies` class.
+- Updated the package dependencies.
 
 ## Version [4.2.0](https://github.com/cedx/cookies.js/compare/v4.1.0...v4.2.0)
 - Replaced [`babel-minify`](https://github.com/babel/minify) by [`terser`](https://terser.org) for minification.
