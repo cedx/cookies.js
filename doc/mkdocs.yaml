@@ -3,7 +3,7 @@ site_description: Service for interacting with the HTTP cookies, in JavaScript.
 site_author: Cédric Belin - cedric@belin.io
 site_url: https://dev.belin.io/cookies.js
 
-docs_dir: ../doc
+docs_dir: .
 site_dir: ../web
 
 repo_name: GitHub
