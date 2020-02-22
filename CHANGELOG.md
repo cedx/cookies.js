@@ -13,11 +13,11 @@
 - Removed the restriction on allowed cookie names.
 
 ## Version [4.0.1](https://github.com/cedx/cookies.js/compare/v4.0.0...v4.0.1)
-- Fixed the [issue #4](https://github.com/cedx/cookies.js/issues/4): the `CookieOptions#maxAge` property is ignored by the constructor.
+- Fixed the [issue #4](https://github.com/cedx/cookies.js/issues/4): the `CookieOptions.maxAge` property is ignored by the constructor.
 
 ## Version [4.0.0](https://github.com/cedx/cookies.js/compare/v3.3.0...v4.0.0)
 - Breaking change: the `Cookies` service is now an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) instead of an [`EventEmitter`](https://nodejs.org/api/events.html).
-- Added the `CookieOptions#maxAge` property.
+- Added the `CookieOptions.maxAge` property.
 - Raised the [Node.js](https://nodejs.org) constraint.
 - Replaced the [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
 - Updated the package dependencies.
@@ -51,7 +51,7 @@
 - Breaking change: dropped the support of [CommonJS modules](https://nodejs.org/api/modules.html).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: replaced the `ChangeEvent` class by the `SimpleChange` one.
-- Added the `Cookies#toJSON()` method.
+- Added the `Cookies.toJSON()` method.
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added new unit tests.
 - Replaced the `events` module by `eventemitter3`.

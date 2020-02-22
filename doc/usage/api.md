@@ -25,7 +25,7 @@ function main() {
 
 The `Cookies` class has the following API:
 
-## **#defaults**: CookieOptions
+## **defaults**: CookieOptions
 Returns the default [options](options.md) to pass when setting cookies:
 
 ```js
@@ -45,7 +45,7 @@ function main() {
 }
 ```
 
-## **#keys**: string[]
+## **keys**: string[]
 Returns the keys of the cookies associated with the current document:
 
 ```js
@@ -60,7 +60,7 @@ function main() {
 }
 ```
 
-## **#length**: number
+## **length**: number
 Returns the number of cookies associated with the current document:
 
 ```js
@@ -75,7 +75,7 @@ function main() {
 }
 ```
 
-## **#clear**(): void
+## **clear**(): void
 Removes all cookies associated with the current document:
 
 ```js
@@ -91,7 +91,7 @@ function main() {
 }
 ```
 
-## **#get**(key: string, defaultValue?: string): string|undefined
+## **get**(key: string, defaultValue?: string): string|undefined
 Returns the value associated to the specified key:
 
 ```js
@@ -109,7 +109,7 @@ function main() {
 
 Returns `undefined` or the given default value if the key is not found.
 
-## **#getObject**(key: string, defaultValue?: any): any
+## **getObject**(key: string, defaultValue?: any): any
 Deserializes and returns the value associated to the specified key:
 
 ```js
@@ -130,7 +130,7 @@ function main() {
 
 Returns `undefined` or the given default value if the key is not found.
 
-## **#has**(key: string): boolean
+## **has**(key: string): boolean
 Returns a boolean value indicating whether the current document has a cookie with the specified key:
 
 ```js
@@ -145,7 +145,7 @@ function main() {
 }
 ```
 
-## **#putIfAbsent**(key: string, ifAbsent: () => string, options?: CookieOptions): string
+## **putIfAbsent**(key: string, ifAbsent: () => string, options?: CookieOptions): string
 Looks up the cookie with the specified key, or add a new cookie if it isn't there.
 
 Returns the value associated to the key, if there is one. Otherwise calls `ifAbsent` to get a new value, associates the key to that value, and then returns the new value:
@@ -166,7 +166,7 @@ function main() {
 }
 ```
 
-## **#putObjectIfAbsent**(key: string, ifAbsent: () => any, options?: CookieOptions): any
+## **putObjectIfAbsent**(key: string, ifAbsent: () => any, options?: CookieOptions): any
 Looks up the cookie with the specified key, or add a new cookie if it isn't there.
 
 Returns the deserialized value associated to the key, if there is one. Otherwise calls `ifAbsent` to get a new value, serializes and associates the key to that value, and then returns the new value:
@@ -190,7 +190,7 @@ function main() {
 !!! info
     The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method, and deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
 
-## **#remove**(key: string, options?: CookieOptions): string|undefined
+## **remove**(key: string, options?: CookieOptions): string|undefined
 Removes the value associated to the specified key:
 
 ```js
@@ -207,7 +207,7 @@ function main() {
 }
 ```
 
-## **#set**(key: string, value: string, options?: CookieOptions): this
+## **set**(key: string, value: string, options?: CookieOptions): this
 Associates a given value to the specified key:
 
 ```js
@@ -222,7 +222,7 @@ function main() {
 }
 ```
 
-## **#setObject**(key: string, value: any, options?: CookieOptions): this
+## **setObject**(key: string, value: any, options?: CookieOptions): this
 Serializes and associates a given value to the specified key:
 
 ```js

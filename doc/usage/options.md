@@ -47,4 +47,4 @@ function main() {
 ```
 
 !!! tip
-    The [`Cookies#defaults`](api.md) property let you override the default cookie options at runtime.
+    The [`Cookies.defaults`](api.md) property let you override the default cookie options at runtime.
