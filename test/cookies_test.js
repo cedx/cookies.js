@@ -15,7 +15,7 @@ describe('Cookies', () => {
     return nativeCookies;
   }
 
-  describe('#keys', () => {
+  describe('.keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
       expect(new Cookies().keys).to.be.an('array').and.have.lengthOf([...getNativeCookies().keys()].length);
     });
@@ -27,7 +27,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#length', () => {
+  describe('.length', () => {
     it('should return zero if the current document has no associated cookie', () => {
       expect(new Cookies).to.have.lengthOf([...getNativeCookies().entries()].length);
     });
@@ -40,7 +40,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#[Symbol.iterator]()', () => {
+  describe('.[Symbol.iterator]()', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
       const cookies = new Cookies;
       cookies.clear();
@@ -92,7 +92,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#addEventListener("changes")', () => {
+  describe('.addEventListener("changes")', () => {
     it('should trigger an event when a cookie is added', done => {
       document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
@@ -185,7 +185,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#clear()', () => {
+  describe('.clear()', () => {
     it('should remove all the cookies associated with the current document', () => {
       document.cookie = 'clear1=foo';
       document.cookie = 'clear2=bar';
@@ -196,7 +196,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#get()', () => {
+  describe('.get()', () => {
     it('should properly get the cookies associated with the current document', () => {
       const cookies = new Cookies;
       expect(cookies.get('foo')).to.be.undefined;
@@ -210,7 +210,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#getObject()', () => {
+  describe('.getObject()', () => {
     it('should properly get the deserialized cookies associated with the current document', () => {
       const cookies = new Cookies;
       expect(cookies.getObject('foo')).to.be.undefined;
@@ -233,7 +233,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#has()', () => {
+  describe('.has()', () => {
     it('should return `false` if the current document has an associated cookie with the specified key', () => {
       expect(new Cookies().has('foo')).to.be.false;
     });
@@ -250,7 +250,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#putIfAbsent()', () => {
+  describe('.putIfAbsent()', () => {
     it('should add a new entry if it does not exist', () => {
       const cookies = new Cookies;
       expect(document.cookie).to.not.contain('putIfAbsent1');
@@ -266,7 +266,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#putObjectIfAbsent()', () => {
+  describe('.putObjectIfAbsent()', () => {
     it('should add a new entry if it does not exist', () => {
       const cookies = new Cookies;
       expect(document.cookie).to.not.contain('putObjectIfAbsent1');
@@ -282,7 +282,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#remove()', () => {
+  describe('.remove()', () => {
     it('should properly remove the cookies associated with the current document', () => {
       document.cookie = 'remove1=foo';
       document.cookie = 'remove2=bar';
@@ -297,7 +297,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#set()', () => {
+  describe('.set()', () => {
     it('should properly set the cookies associated with the current document', () => {
       const cookies = new Cookies;
       expect(document.cookie).to.not.contain('set1');
@@ -321,7 +321,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#setObject()', () => {
+  describe('.setObject()', () => {
     it('should properly serialize and set the cookies associated with the current document', () => {
       const cookies = new Cookies;
       expect(document.cookie).to.not.contain('setObject1');
@@ -345,7 +345,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#toJSON()', () => {
+  describe('.toJSON()', () => {
     it('should return an empty map if the current document has no associated cookie', () => {
       const cookies = new Cookies;
       cookies.clear();
@@ -360,7 +360,7 @@ describe('Cookies', () => {
     });
   });
 
-  describe('#toString()', () => {
+  describe('.toString()', () => {
     it('should be the same value as `document.cookie` global property', () => {
       expect(String(new Cookies)).to.equal(document.cookie);
     });
