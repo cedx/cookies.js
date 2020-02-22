@@ -11,18 +11,22 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    */
   static readonly eventChanges: string = 'changes';
 
+  /** The underlying HTML document. */
+  readonly #document: Document;
+
   /**
    * Creates a new cookie service.
    * @param defaults The default cookie options.
-   * @param _document The underlying HTML document.
+   * @param document The underlying HTML document.
    */
-  constructor(readonly defaults: CookieOptions = new CookieOptions, private _document: Document = document) {
+  constructor(readonly defaults: CookieOptions = new CookieOptions, document: Document = window.document) {
     super();
+    this.#document = document;
   }
 
   /** The keys of the cookies associated with the current document. */
   get keys(): string[] {
-    const keys = this._document.cookie.replace(/((?:^|\s*;)[^=]+)(?=;|$)|^\s*|\s*(?:=[^;]*)?(?:\1|$)/g, '');
+    const keys = this.#document.cookie.replace(/((?:^|\s*;)[^=]+)(?=;|$)|^\s*|\s*(?:=[^;]*)?(?:\1|$)/g, '');
     return keys.length ? keys.split(/\s*(?:=[^;]*)?;\s*/).map(decodeURIComponent) : [];
   }
 
@@ -62,7 +66,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
     try {
       const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
       const scanner = new RegExp(`(?:(?:^|.*;)\\s*${token}\\s*=\\s*([^;]*).*$)|^.*$`);
-      return decodeURIComponent(this._document.cookie.replace(scanner, '$1'));
+      return decodeURIComponent(this.#document.cookie.replace(scanner, '$1'));
     }
 
     catch (err) {
@@ -94,7 +98,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    */
   has(key: string): boolean {
     const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
-    return new RegExp(`(?:^|;\\s*)${token}\\s*=`).test(this._document.cookie);
+    return new RegExp(`(?:^|;\\s*)${token}\\s*=`).test(this.#document.cookie);
   }
 
   /**
@@ -161,7 +165,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
     if (cookieOptions.length) cookieValue += `; ${cookieOptions}`;
 
     const previousValue = this.get(key);
-    this._document.cookie = cookieValue;
+    this.#document.cookie = cookieValue;
     this.dispatchEvent(new CustomEvent(Cookies.eventChanges, {detail: new Map<string, SimpleChange>([
       [key, new SimpleChange(previousValue, value)]
     ])}));
@@ -195,7 +199,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    * @return The string representation of this object.
    */
   toString(): string {
-    return this._document.cookie;
+    return this.#document.cookie;
   }
 
   /**
@@ -221,6 +225,6 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
     if (!this.has(key)) return;
     const cookieOptions = this._getOptions(options);
     cookieOptions.expires = new Date(0);
-    this._document.cookie = `${encodeURIComponent(key)}=; ${cookieOptions}`;
+    this.#document.cookie = `${encodeURIComponent(key)}=; ${cookieOptions}`;
   }
 }

@@ -2,8 +2,8 @@ import { CookieOptions } from './cookie_options';
 import { JsonObject } from './json';
 /** Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). */
 export declare class Cookies extends EventTarget implements Iterable<[string, string | undefined]> {
+    #private;
     readonly defaults: CookieOptions;
-    private _document;
     /**
      * An event that is triggered when a cookie is changed (added, modified, or removed).
      * @event changes
@@ -12,9 +12,9 @@ export declare class Cookies extends EventTarget implements Iterable<[string, st
     /**
      * Creates a new cookie service.
      * @param defaults The default cookie options.
-     * @param _document The underlying HTML document.
+     * @param document The underlying HTML document.
      */
-    constructor(defaults?: CookieOptions, _document?: Document);
+    constructor(defaults?: CookieOptions, document?: Document);
     /** The keys of the cookies associated with the current document. */
     get keys(): string[];
     /** The number of cookies associated with the current document. */
