@@ -83,7 +83,7 @@ export class CookieOptions {
   toJSON(): JsonObject {
     return {
       domain: this.domain,
-      expires: this.expires ? this.expires.toISOString() : null,
+      expires: this.expires ? this.expires.toJSON() : null,
       path: this.path,
       secure: this.secure
     };
