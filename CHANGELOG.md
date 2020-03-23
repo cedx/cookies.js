@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [4.4.0](https://github.com/cedx/cookies.js/compare/v4.3.0...v4.4.0)
+- Updated the package dependencies.
+
 ## Version [4.3.0](https://github.com/cedx/cookies.js/compare/v4.2.0...v4.3.0)
 - Added the `putIfAbsent()` and `putObjectIfAbsent()` methods to the `Cookies` class.
 - Updated the package dependencies.
