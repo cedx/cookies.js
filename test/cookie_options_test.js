@@ -2,7 +2,6 @@ import {CookieOptions} from '../lib/index.js';
 
 /** Tests the features of the {@link CookieOptions} class. */
 describe('CookieOptions', () => {
-  const {expect} = chai;
   const options = new CookieOptions({
     domain: 'domain.com',
     expires: new Date(0),

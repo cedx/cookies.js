@@ -2,8 +2,6 @@ import {Cookies, SimpleChange} from '../lib/index.js';
 
 /** Tests the features of the {@link Cookies} class. */
 describe('Cookies', () => {
-  const {expect} = chai;
-
   // Returns a map of the native cookies.
   function getNativeCookies() {
     const nativeCookies = new Map;
