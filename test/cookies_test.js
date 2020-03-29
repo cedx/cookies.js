@@ -15,7 +15,7 @@ describe('Cookies', () => {
 
   describe('.keys', () => {
     it('should return an empty array if the current document has no associated cookie', () => {
-      expect(new Cookies().keys).to.be.an('array').and.have.lengthOf([...getNativeCookies().keys()].length);
+      expect(new Cookies().keys).to.be.an('array').and.have.lengthOf(getNativeCookies().size);
     });
 
     it('should return the keys of the cookies associated with the current document', () => {
@@ -27,11 +27,11 @@ describe('Cookies', () => {
 
   describe('.length', () => {
     it('should return zero if the current document has no associated cookie', () => {
-      expect(new Cookies).to.have.lengthOf([...getNativeCookies().entries()].length);
+      expect(new Cookies).to.have.lengthOf(getNativeCookies().size);
     });
 
     it('should return the number of cookies associated with the current document', () => {
-      const count = [...getNativeCookies().entries()].length;
+      const count = getNativeCookies().size;
       document.cookie = 'length1=foo';
       document.cookie = 'length2=bar';
       expect(new Cookies).to.have.lengthOf(count + 2);
