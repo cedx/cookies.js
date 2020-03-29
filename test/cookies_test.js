@@ -1,4 +1,4 @@
-import {Cookies, SimpleChange} from '../lib/index.js';
+import {Cookies} from '../lib/index.js';
 
 /** Tests the features of the {@link Cookies} class. */
 describe('Cookies', () => {
