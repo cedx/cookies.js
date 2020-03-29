@@ -158,8 +158,7 @@ describe('Cookies', () => {
       document.cookie = 'onChanges2=bar';
 
       const listener = event => {
-        const changes = event.detail;
-        const entries = [...changes.entries()];
+        const entries = [...event.detail.entries()];
         expect(entries).to.have.lengthOf.at.least(2);
 
         let records = entries.filter(entry => entry[0] == 'onChanges1').map(entry => entry[1]);
