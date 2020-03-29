@@ -219,7 +219,7 @@ describe('Cookies', () => {
       expect(cookies.getObject('getObject2')).to.equal('bar');
 
       document.cookie = 'getObject3=%7B%22key%22%3A%22value%22%7D';
-      expect(cookies.getObject('getObject3')).to.be.an('object').and.have.property('key').that.equal('value');
+      expect(cookies.getObject('getObject3')).to.be.an('object').that.deep.equal({key: 'value'});
     });
 
     it('should return the default value if the value can\'t be deserialized', () => {
