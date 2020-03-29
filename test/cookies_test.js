@@ -94,11 +94,11 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
       const listener = event => {
-        const changes = event.detail;
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('onChanges');
+        const entries = [...event.detail.entries()];
+        expect(entries).to.have.lengthOf(1);
 
-        const [record] = [...changes.values()];
+        const [key, record] = entries[0];
+        expect(key).to.equal('onChanges');
         expect(record.currentValue).to.equal('foo');
         expect(record.previousValue).to.be.undefined;
 
@@ -115,11 +115,11 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=foo';
 
       const listener = event => {
-        const changes = event.detail;
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('onChanges');
+        const entries = [...event.detail.entries()];
+        expect(entries).to.have.lengthOf(1);
 
-        const [record] = [...changes.values()];
+        const [key, record] = entries[0];
+        expect(key).to.equal('onChanges');
         expect(record.currentValue).to.equal('bar');
         expect(record.previousValue).to.equal('foo');
 
@@ -136,11 +136,11 @@ describe('Cookies', () => {
       document.cookie = 'onChanges=bar';
 
       const listener = event => {
-        const changes = event.detail;
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('onChanges');
+        const entries = [...event.detail.entries()];
+        expect(entries).to.have.lengthOf(1);
 
-        const [record] = [...changes.values()];
+        const [key, record] = entries[0];
+        expect(key).to.equal('onChanges');
         expect(record.currentValue).to.be.undefined;
         expect(record.previousValue).to.equal('bar');
 
