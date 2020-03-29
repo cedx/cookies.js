@@ -42,7 +42,6 @@ describe('Cookies', () => {
     it('should return a done iterator if the current document has no associated cookie', () => {
       const cookies = new Cookies;
       cookies.clear();
-
       const iterator = cookies[Symbol.iterator]();
       expect(iterator.next().done).to.be.true;
     });
@@ -221,8 +220,7 @@ describe('Cookies', () => {
       expect(cookies.getObject('getObject2')).to.equal('bar');
 
       document.cookie = 'getObject3=%7B%22key%22%3A%22value%22%7D';
-      expect(cookies.getObject('getObject3')).to.be.an('object')
-        .and.have.property('key').that.equal('value');
+      expect(cookies.getObject('getObject3')).to.be.an('object').and.have.property('key').that.equal('value');
     });
 
     it('should return the default value if the value can\'t be deserialized', () => {
@@ -282,10 +280,10 @@ describe('Cookies', () => {
 
   describe('.remove()', () => {
     it('should properly remove the cookies associated with the current document', () => {
+      const cookies = new Cookies;
       document.cookie = 'remove1=foo';
       document.cookie = 'remove2=bar';
 
-      const cookies = new Cookies;
       cookies.remove('remove1');
       expect(document.cookie).to.not.contain('remove1');
       expect(document.cookie).to.contain('remove2=bar');
