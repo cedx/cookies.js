@@ -64,8 +64,8 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
     if (!this.has(key)) return defaultValue;
 
     try {
-      const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
-      const scanner = new RegExp(`(?:(?:^|.*;)\\s*${token}\\s*=\\s*([^;]*).*$)|^.*$`);
+      const token = encodeURIComponent(key).replace(/[-.+*]/g, String.raw`\$&`);
+      const scanner = new RegExp(String.raw`(?:(?:^|.*;)\s*${token}\s*=\s*([^;]*).*$)|^.*$`);
       return decodeURIComponent(this.#document.cookie.replace(scanner, '$1'));
     }
 
@@ -97,8 +97,8 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    * @return `true` if the current document has a cookie with the specified key, otherwise `false`.
    */
   has(key: string): boolean {
-    const token = encodeURIComponent(key).replace(/[-.+*]/g, '\\$&');
-    return new RegExp(`(?:^|;\\s*)${token}\\s*=`).test(this.#document.cookie);
+    const token = encodeURIComponent(key).replace(/[-.+*]/g, String.raw`\$&`);
+    return new RegExp(String.raw`(?:^|;\s*)${token}\s*=`).test(this.#document.cookie);
   }
 
   /**
