@@ -69,7 +69,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
       return decodeURIComponent(this.#document.cookie.replace(scanner, '$1'));
     }
 
-    catch (err) {
+    catch {
       return defaultValue;
     }
   }
@@ -86,7 +86,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
       return value != undefined ? JSON.parse(value) : defaultValue;
     }
 
-    catch (err) {
+    catch {
       return defaultValue;
     }
   }
