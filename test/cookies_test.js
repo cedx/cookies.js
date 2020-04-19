@@ -7,7 +7,7 @@ describe('Cookies', () => {
     const nativeCookies = new Map;
     if (document.cookie.length) for (const value of document.cookie.split(';')) {
       const index = value.indexOf('=');
-      nativeCookies.set(value.substring(0, index), value.substring(index + 1));
+      nativeCookies.set(value.slice(0, index), value.slice(index + 1));
     }
 
     return nativeCookies;
