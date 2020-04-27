@@ -1,11 +1,10 @@
 {
-  "bugs": "https://github.com/cedx/cookies.js/issues",
+  "bugs": "https://git.belin.io/cedx/cookies.js/issues",
   "description": "Service for interacting with the HTTP cookies. A simple and event-based API for handling cookies.",
-  "homepage": "https://dev.belin.io/cookies.js",
+  "homepage": "https://docs.belin.io/cookies.js",
   "license": "MIT",
   "main": "lib/index.js",
   "name": "@cedx/cookies",
-  "repository": "github:cedx/cookies.js",
   "type": "module",
   "types": "lib/index.d.ts",
   "version": "4.4.0",
@@ -57,6 +56,10 @@
     "html",
     "service"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.belin.io/cedx/cookies.js.git"
+  },
   "scripts": {
     "coverage": "gulp coverage",
     "prepack": "gulp",

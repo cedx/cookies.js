@@ -6,14 +6,13 @@ Yet another service for interacting with the [HTTP cookies](https://developer.mo
 > This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
 
 ## Documentation
-- [User guide](https://dev.belin.io/cookies.js)
-- [API reference](https://dev.belin.io/cookies.js/api)
+- [User guide](https://docs.belin.io/cookies.js)
+- [API reference](https://api.belin.io/cookies.js)
 
 ## Development
-- [Git repository](https://github.com/cedx/cookies.js)
-- [GitHub package](https://github.com/cedx/cookies.js/packages)
+- [Git repository](https://git.belin.io/cedx/cookies.js)
 - [npm package](https://www.npmjs.com/package/@cedx/cookies)
-- [Submit an issue](https://github.com/cedx/cookies.js/issues)
+- [Submit an issue](https://git.belin.io/cedx/cookies.js/issues)
 
 ## License
-[Cookies for JS](https://dev.belin.io/cookies.js) is distributed under the MIT License.
+[Cookies for JS](https://docs.belin.io/cookies.js) is distributed under the MIT License.
