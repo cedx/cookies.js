@@ -1,6 +1,6 @@
-import {CookieOptions} from './cookie_options';
-import {JsonObject} from './json';
-import {SimpleChange} from './simple_change';
+import {CookieOptions} from './cookie_options.js';
+import {JsonObject} from './json.js';
+import {SimpleChange} from './simple_change.js';
 
 /** Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). */
 export class Cookies extends EventTarget implements Iterable<[string, string|undefined]> {
