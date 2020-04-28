@@ -1,5 +1,5 @@
 site_name: Cookies for JS
-site_description: Service for interacting with the HTTP cookies, in JavaScript.
+site_description: Service for interacting with the HTTP cookies, in JavaScript. A simple and event-based API for handling cookies.
 site_author: Cédric Belin - cedric@belin.io
 site_url: https://docs.belin.io/cookies.js
 
