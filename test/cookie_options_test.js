@@ -1,6 +1,6 @@
 import {CookieOptions} from '../lib/index.js';
 
-/** Tests the features of the {@link CookieOptions} class. */
+/** Tests the features of the `CookieOptions` class. */
 describe('CookieOptions', () => {
   const options = new CookieOptions({
     domain: 'domain.com',

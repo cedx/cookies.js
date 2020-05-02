@@ -1,6 +1,6 @@
 import {Cookies} from '../lib/index.js';
 
-/** Tests the features of the {@link Cookies} class. */
+/** Tests the features of the `Cookies` class. */
 describe('Cookies', () => {
   // Returns a map of the native cookies.
   function getNativeCookies() {

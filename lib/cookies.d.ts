@@ -1,5 +1,5 @@
-import { CookieOptions } from './cookie_options';
-import { JsonObject } from './json';
+import { CookieOptions } from './cookie_options.js';
+import { JsonObject } from './json.js';
 /** Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). */
 export declare class Cookies extends EventTarget implements Iterable<[string, string | undefined]> {
     #private;
@@ -83,7 +83,7 @@ export declare class Cookies extends EventTarget implements Iterable<[string, st
      * @param value The cookie value.
      * @param options The cookie options.
      * @return This instance.
-     * @throws [[TypeError]] The specified key is invalid.
+     * @throws `TypeError` The specified key is invalid.
      */
     set(key: string, value: string, options?: CookieOptions): this;
     /**

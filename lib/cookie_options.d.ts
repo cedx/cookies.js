@@ -1,4 +1,4 @@
-import { JsonObject } from './json';
+import { JsonObject } from './json.js';
 /** Defines the attributes of a HTTP cookie. */
 export declare class CookieOptions {
     /** The domain for which the cookie is valid. */

@@ -155,7 +155,7 @@ export class Cookies extends EventTarget implements Iterable<[string, string|und
    * @param value The cookie value.
    * @param options The cookie options.
    * @return This instance.
-   * @throws [[TypeError]] The specified key is invalid.
+   * @throws `TypeError` The specified key is invalid.
    */
   set(key: string, value: string, options?: CookieOptions): this {
     if (!key.length) throw new TypeError('Invalid cookie name.');
