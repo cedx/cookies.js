@@ -1,5 +1,5 @@
 # Cookies <small>for JS</small>
-![Runtime](https://img.shields.io/node/v/@cedx/cookies.svg) ![Release](https://img.shields.io/npm/v/@cedx/cookies.svg) ![License](https://img.shields.io/npm/l/@cedx/cookies.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/cookies.svg) ![Dependencies](https://david-dm.org/cedx/cookies.js.svg) ![Coverage](https://coveralls.io/repos/github/cedx/cookies.js/badge.svg) ![Build](https://github.com/cedx/cookies.js/workflows/build/badge.svg)
+![Runtime](https://badgen.net/npm/node/@cedx/cookies) ![Release](https://badgen.net/npm/v/@cedx/cookies) ![License](https://badgen.net/npm/license/@cedx/cookies) ![Downloads](https://badgen.net/npm/dt/@cedx/cookies) ![Dependencies](https://badgen.net/david/dep/cedx/cookies.js) ![Coverage](https://badgen.net/coveralls/c/github/cedx/cookies.js) ![Build](https://badgen.net/github/checks/cedx/cookies.js)
 
 Yet another service for interacting with the [HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
