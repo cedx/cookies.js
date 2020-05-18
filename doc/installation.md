@@ -15,8 +15,8 @@ npm --version
 ```
 
 !!! info
-    If you plan to play with the package sources, you will also need
-    [PowerShell](https://docs.microsoft.com/en-us/powershell) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
+		If you plan to play with the package sources, you will also need
+		[PowerShell](https://docs.microsoft.com/en-us/powershell) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
 
 ## Installing with npm package manager
 
@@ -31,7 +31,7 @@ npm install @cedx/cookies
 Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
 
 ```js
-import {Cookies, CookieOptions} from '@cedx/cookies';
+import {Cookies, CookieOptions} from "@cedx/cookies";
 ```
 
 ## Installing from a content delivery network
@@ -50,6 +50,6 @@ The classes of this library are exposed as `cookies` property on the `window` gl
 
 ```html
 <script>
-  const {Cookies, CookieOptions} = window.cookies;
+	const {Cookies, CookieOptions} = window.cookies;
 </script>
 ```

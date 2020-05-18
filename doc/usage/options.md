@@ -14,39 +14,39 @@ These options are expressed using an instance of the `CookieOptions` class, whic
 - **secure**: `boolean`: Value indicating whether to transmit the cookie over HTTPS only.
 
 !!! info
-    The `maxAge` property has precedence over the `expires` one.
+		The `maxAge` property has precedence over the `expires` one.
 
 For example:
 
 ```js
-import {Cookies, CookieOptions} from '@cedx/cookies';
+import {Cookies, CookieOptions} from "@cedx/cookies";
 
 function main() {
-  new Cookies().set('foo', 'bar', new CookieOptions({
-    domain: 'www.domain.com',
-    maxAge: 3600, // One hour.
-    path: '/'
-  }));
+	new Cookies().set("foo", "bar", new CookieOptions({
+		domain: "www.domain.com",
+		maxAge: 3600, // One hour.
+		path: "/"
+	}));
 }
 ```
-    
+		
 ## Configuring defaults
 It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
 
 ```js
-import {Cookies, CookieOptions} from '@cedx/cookies';
+import {Cookies, CookieOptions} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies(new CookieOptions({
-    domain: 'www.domain.com',
-    path: '/',
-    secure: true
-  }));
+	const cookies = new Cookies(new CookieOptions({
+		domain: "www.domain.com",
+		path: "/",
+		secure: true
+	}));
 
-  console.log(JSON.stringify(cookies.defaults));
-  // {"domain": "www.domain.com", "expires": null, "path": "/", "secure": true}
+	console.log(JSON.stringify(cookies.defaults));
+	// {"domain": "www.domain.com", "expires": null, "path": "/", "secure": true}
 }
 ```
 
 !!! tip
-    The [`Cookies.defaults`](api.md) property let you override the default cookie options at runtime.
+		The [`Cookies.defaults`](api.md) property let you override the default cookie options at runtime.

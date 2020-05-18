@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Cookies for JS</title>
-    <script src="https://cdn.jsdelivr.net/npm/@ungap/event-target/min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@cedx/cookies/build/cookies.min.js"></script>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Cookies for JS</title>
+		<script src="https://cdn.jsdelivr.net/npm/@ungap/event-target/min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@cedx/cookies/build/cookies.min.js"></script>
+	</head>
 
-  <body>
-    <p>Open the console provided by the development tools of your browser...</p>
+	<body>
+		<p>Open the console provided by the development tools of your browser...</p>
 
-    <script>
-      const {Cookies, CookieOptions} = window.cookies;
-      const cookieService = new Cookies(new CookieOptions({
-        // Set the defaut options used when a cookie is created or removed.
-        // domain: 'www.domain.com',
-        // path: '/',
-        // secure: true
-      }));
+		<script>
+			const {Cookies, CookieOptions} = window.cookies;
+			const cookieService = new Cookies(new CookieOptions({
+				// Set the defaut options used when a cookie is created or removed.
+				// domain: "www.domain.com",
+				// path: "/",
+				// secure: true
+			}));
 
-      // Read the default cookie options.
-      console.log(JSON.stringify(cookieService.defaults));
-      // {"domain": "", "expires": null, "path": "", "secure": false}
+			// Read the default cookie options.
+			console.log(JSON.stringify(cookieService.defaults));
+			// {"domain": "", "expires": null, "path": "", "secure": false}
 
-      // Query the cookies.
-      console.log(cookieService.has('foo')); // false
-      console.log(cookieService.has('baz')); // false
-      console.log(cookieService.length); // 0
-      console.log(cookieService.keys); // []
+			// Query the cookies.
+			console.log(cookieService.has("foo")); // false
+			console.log(cookieService.has("baz")); // false
+			console.log(cookieService.length); // 0
+			console.log(cookieService.keys); // []
 
-      // Write the cookies.
-      cookieService.set('foo', 'bar');
-      console.log(cookieService.has('foo')); // true
-      console.log(cookieService.length); // 1
-      console.log(cookieService.keys); // ["foo"]
+			// Write the cookies.
+			cookieService.set("foo", "bar");
+			console.log(cookieService.has("foo")); // true
+			console.log(cookieService.length); // 1
+			console.log(cookieService.keys); // ["foo"]
 
-      cookieService.setObject('baz', {qux: 123});
-      console.log(cookieService.has('baz')); // true
-      console.log(cookieService.length); // 2
-      console.log(cookieService.keys); // ["foo", "baz"]
+			cookieService.setObject("baz", {qux: 123});
+			console.log(cookieService.has("baz")); // true
+			console.log(cookieService.length); // 2
+			console.log(cookieService.keys); // ["foo", "baz"]
 
-      // Read the cookies.
-      console.log(cookieService.get('foo').constructor.name); // "String"
-      console.log(cookieService.get('foo')); // "bar"
+			// Read the cookies.
+			console.log(cookieService.get("foo").constructor.name); // "String"
+			console.log(cookieService.get("foo")); // "bar"
 
-      console.log(cookieService.getObject('baz').constructor.name); // "Object"
-      console.log(cookieService.getObject('baz')); // {qux: 123}
-      console.log(cookieService.getObject('baz').qux); // 123
+			console.log(cookieService.getObject("baz").constructor.name); // "Object"
+			console.log(cookieService.getObject("baz")); // {qux: 123}
+			console.log(cookieService.getObject("baz").qux); // 123
 
-      // Delete the cookies.
-      cookieService.remove('foo');
-      console.log(cookieService.has('foo')); // false
-      console.log(cookieService.length); // 1
-      console.log(cookieService.keys); // ["baz"]
+			// Delete the cookies.
+			cookieService.remove("foo");
+			console.log(cookieService.has("foo")); // false
+			console.log(cookieService.length); // 1
+			console.log(cookieService.keys); // ["baz"]
 
-      cookieService.clear();
-      console.log(cookieService.has('baz')); // false
-      console.log(cookieService.length); // 0
-      console.log(cookieService.keys); // []
-    </script>
-  </body>
+			cookieService.clear();
+			console.log(cookieService.has("baz")); // false
+			console.log(cookieService.length); // 0
+			console.log(cookieService.keys); // []
+		</script>
+	</body>
 </html>

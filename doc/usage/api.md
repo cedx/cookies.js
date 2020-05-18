@@ -7,23 +7,23 @@ source: src/cookies.ts
 This package provides a service dedicated to the cookie management: the `Cookies` class.
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
+	const cookies = new Cookies;
 
-  cookies.set('foo', 'bar');
-  console.log(cookies.get('foo')); // "bar"
+	cookies.set("foo", "bar");
+	console.log(cookies.get("foo")); // "bar"
 
-  cookies.setObject('foo', {baz: 'qux'});
-  console.log(cookies.getObject('foo')); // {baz: "qux"}
+	cookies.setObject("foo", {baz: "qux"});
+	console.log(cookies.getObject("foo")); // {baz: "qux"}
 }
 ```
 
 !!! warning
-    The `Cookies` class exposed by this package is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).  
-    If you target browsers that do not support the `EventTarget` constructor, you will need
-    a dedicated polyfill.  
+		The `Cookies` class exposed by this package is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).  
+		If you target browsers that do not support the `EventTarget` constructor, you will need
+		a dedicated polyfill.  
 
 The `Cookies` class has the following API:
 
@@ -31,19 +31,19 @@ The `Cookies` class has the following API:
 Returns the default [options](options.md) to pass when setting cookies:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(JSON.stringify(cookies.defaults));
-  // {"domain": "", "expires": null, "path": "", "secure": false}
+	const cookies = new Cookies;
+	console.log(JSON.stringify(cookies.defaults));
+	// {"domain": "", "expires": null, "path": "", "secure": false}
 
-  cookies.defaults.domain = 'domain.com';
-  cookies.defaults.path = '/www';
-  cookies.defaults.secure = true;
+	cookies.defaults.domain = "domain.com";
+	cookies.defaults.path = "/www";
+	cookies.defaults.secure = true;
 
-  console.log(JSON.stringify(cookies.defaults));
-  // {"domain": "domain.com", "expires": null, "path": "/www", "secure": true}
+	console.log(JSON.stringify(cookies.defaults));
+	// {"domain": "domain.com", "expires": null, "path": "/www", "secure": true}
 }
 ```
 
@@ -51,14 +51,14 @@ function main() {
 Returns the keys of the cookies associated with the current document:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.keys); // []
+	const cookies = new Cookies;
+	console.log(cookies.keys); // []
 
-  cookies.set('foo', 'bar');
-  console.log(cookies.keys); // ["foo"]
+	cookies.set("foo", "bar");
+	console.log(cookies.keys); // ["foo"]
 }
 ```
 
@@ -66,14 +66,14 @@ function main() {
 Returns the number of cookies associated with the current document:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.length); // 0
+	const cookies = new Cookies;
+	console.log(cookies.length); // 0
 
-  cookies.set('foo', 'bar');
-  console.log(cookies.length); // 1
+	cookies.set("foo", "bar");
+	console.log(cookies.length); // 1
 }
 ```
 
@@ -81,15 +81,15 @@ function main() {
 Removes all cookies associated with the current document:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  cookies.set('foo', 'bar');
-  console.log(cookies.length); // 1
+	const cookies = new Cookies;
+	cookies.set("foo", "bar");
+	console.log(cookies.length); // 1
 
-  cookies.clear();
-  console.log(cookies.length); // 0
+	cookies.clear();
+	console.log(cookies.length); // 0
 }
 ```
 
@@ -97,15 +97,15 @@ function main() {
 Returns the value associated to the specified key:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.get('foo')); // undefined
-  console.log(cookies.get('foo', 'qux')); // "qux"
+	const cookies = new Cookies;
+	console.log(cookies.get("foo")); // undefined
+	console.log(cookies.get("foo", "qux")); // "qux"
 
-  cookies.set('foo', 'bar');
-  console.log(cookies.get('foo')); // "bar"
+	cookies.set("foo", "bar");
+	console.log(cookies.get("foo")); // "bar"
 }
 ```
 
@@ -115,20 +115,20 @@ Returns `undefined` or the given default value if the key is not found.
 Deserializes and returns the value associated to the specified key:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.getObject('foo')); // undefined
-  console.log(cookies.getObject('foo', 'qux')); // "qux"
-  
-  cookies.setObject('foo', {bar: 'baz'});
-  console.log(cookies.getObject('foo')); // {bar: "baz"}
+	const cookies = new Cookies;
+	console.log(cookies.getObject("foo")); // undefined
+	console.log(cookies.getObject("foo", "qux")); // "qux"
+	
+	cookies.setObject("foo", {bar: "baz"});
+	console.log(cookies.getObject("foo")); // {bar: "baz"}
 }
 ```
 
 !!! info
-    The value is deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
+		The value is deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
 
 Returns `undefined` or the given default value if the key is not found.
 
@@ -136,14 +136,14 @@ Returns `undefined` or the given default value if the key is not found.
 Returns a boolean value indicating whether the current document has a cookie with the specified key:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.has('foo')); // false
+	const cookies = new Cookies;
+	console.log(cookies.has("foo")); // false
 
-  cookies.set('foo', 'bar');
-  console.log(cookies.has('foo')); // true
+	cookies.set("foo", "bar");
+	console.log(cookies.has("foo")); // true
 }
 ```
 
@@ -153,18 +153,18 @@ Looks up the cookie with the specified key, or add a new cookie if it isn't ther
 Returns the value associated to the key, if there is one. Otherwise calls `ifAbsent` to get a new value, associates the key to that value, and then returns the new value:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.has('foo')); // false
+	const cookies = new Cookies;
+	console.log(cookies.has("foo")); // false
 
-  let value = cookies.putIfAbsent('foo', () => 'bar');
-  console.log(cookies.has('foo')); // true
-  console.log(value); // "bar"
+	let value = cookies.putIfAbsent("foo", () => "bar");
+	console.log(cookies.has("foo")); // true
+	console.log(value); // "bar"
 
-  value = cookies.putIfAbsent('foo', () => 'qux');
-  console.log(value); // "bar"
+	value = cookies.putIfAbsent("foo", () => "qux");
+	console.log(value); // "bar"
 }
 ```
 
@@ -174,38 +174,38 @@ Looks up the cookie with the specified key, or add a new cookie if it isn't ther
 Returns the deserialized value associated to the key, if there is one. Otherwise calls `ifAbsent` to get a new value, serializes and associates the key to that value, and then returns the new value:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.has('foo')); // false
+	const cookies = new Cookies;
+	console.log(cookies.has("foo")); // false
 
-  let value = cookies.putObjectIfAbsent('foo', () => 123);
-  console.log(cookies.has('foo')); // true
-  console.log(value); // 123
+	let value = cookies.putObjectIfAbsent("foo", () => 123);
+	console.log(cookies.has("foo")); // true
+	console.log(value); // 123
 
-  value = cookies.putObjectIfAbsent('foo', () => 456);
-  console.log(value); // 123
+	value = cookies.putObjectIfAbsent("foo", () => 456);
+	console.log(value); // 123
 }
 ```
 
 !!! info
-    The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method, and deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
+		The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method, and deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
 
 ## **remove**(key: string, options?: CookieOptions): string|undefined
 Removes the value associated to the specified key:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
+	const cookies = new Cookies;
 
-  cookies.set('foo', 'bar');
-  console.log(cookies.has('foo')); // true
+	cookies.set("foo", "bar");
+	console.log(cookies.has("foo")); // true
 
-  console.log(cookies.remove('foo')); // "bar"
-  console.log(cookies.has('foo')); // false
+	console.log(cookies.remove("foo")); // "bar"
+	console.log(cookies.has("foo")); // false
 }
 ```
 
@@ -213,14 +213,14 @@ function main() {
 Associates a given value to the specified key:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.get('foo')); // undefined
+	const cookies = new Cookies;
+	console.log(cookies.get("foo")); // undefined
 
-  cookies.set('foo', 'bar');
-  console.log(cookies.get('foo')); // "bar"
+	cookies.set("foo", "bar");
+	console.log(cookies.get("foo")); // "bar"
 }
 ```
 
@@ -228,16 +228,16 @@ function main() {
 Serializes and associates a given value to the specified key:
 
 ```js
-import {Cookies} from '@cedx/cookies';
+import {Cookies} from "@cedx/cookies";
 
 function main() {
-  const cookies = new Cookies;
-  console.log(cookies.getObject('foo')); // undefined
+	const cookies = new Cookies;
+	console.log(cookies.getObject("foo")); // undefined
 
-  cookies.setObject('foo', {bar: 'baz'});
-  console.log(cookies.getObject('foo')); // {bar: "baz"}
+	cookies.setObject("foo", {bar: "baz"});
+	console.log(cookies.getObject("foo")); // {bar: "baz"}
 }
 ```
 
 !!! info
-    The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method.
+		The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method.

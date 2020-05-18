@@ -1,5 +1,5 @@
-import { CookieOptions } from './cookie_options.js';
-import { JsonObject } from './json.js';
+import { CookieOptions } from "./cookie_options.js";
+import { JsonObject } from "./json.js";
 /** Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). */
 export declare class Cookies extends EventTarget implements Iterable<[string, string | undefined]> {
     #private;
