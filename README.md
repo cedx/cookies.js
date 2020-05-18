@@ -3,16 +3,18 @@
 
 Yet another service for interacting with the [HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
-> This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
+> WARNING:  
+> This package has been renamed to `@cedx/cookies.hx`, and its version number resetted.  
+> Please update your `package.json` file.
 
 ## Documentation
-- [User guide](https://docs.belin.io/cookies.js)
-- [API reference](https://api.belin.io/cookies.js)
+- [User guide](https://docs.belin.io/cookies.hx)
+- [API reference](https://api.belin.io/cookies.hx)
 
 ## Development
-- [Git repository](https://git.belin.io/cedx/cookies.js)
-- [npm package](https://www.npmjs.com/package/@cedx/cookies)
-- [Submit an issue](https://git.belin.io/cedx/cookies.js/issues)
+- [Git repository](https://git.belin.io/cedx/cookies.hx)
+- [npm package](https://www.npmjs.com/package/@cedx/cookies.hx)
+- [Submit an issue](https://git.belin.io/cedx/cookies.hx/issues)
 
 ## License
-[Cookies for JS](https://docs.belin.io/cookies.js) is distributed under the MIT License.
+[Cookies for JS](https://docs.belin.io/cookies.hx) is distributed under the MIT License.
