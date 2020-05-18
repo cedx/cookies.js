@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [4.6.0](https://git.belin.io/cedx/cookies.js/compare/v4.5.0...v4.6.0)
+- Replaced the build system based on [Gulp](https://gulpjs.com) by [PowerShell](https://docs.microsoft.com/en-us/powershell) scripts.
+- Updated the package dependencies.
+
 ## Version [4.5.0](https://git.belin.io/cedx/cookies.js/compare/v4.4.0...v4.5.0)
 - Dropped support for [GitHub Packages](https://github.com/features/packages).
 - Raised the [Node.js](https://nodejs.org) constraint.
