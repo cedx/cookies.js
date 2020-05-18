@@ -21,9 +21,8 @@ function main() {
 ```
 
 !!! warning
-		The `Cookies` class exposed by this package is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).  
-		If you target browsers that do not support the `EventTarget` constructor, you will need
-		a dedicated polyfill.  
+	The `Cookies` class exposed by this package is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).  
+	If you target browsers that do not support the `EventTarget` constructor, you will need a dedicated polyfill.  
 
 The `Cookies` class has the following API:
 
@@ -128,7 +127,7 @@ function main() {
 ```
 
 !!! info
-		The value is deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
+	The value is deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
 
 Returns `undefined` or the given default value if the key is not found.
 
@@ -190,7 +189,7 @@ function main() {
 ```
 
 !!! info
-		The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method, and deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
+	The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method, and deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
 
 ## **remove**(key: string, options?: CookieOptions): string|undefined
 Removes the value associated to the specified key:
@@ -240,4 +239,4 @@ function main() {
 ```
 
 !!! info
-		The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method.
+	The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method.

@@ -14,7 +14,7 @@ These options are expressed using an instance of the `CookieOptions` class, whic
 - **secure**: `boolean`: Value indicating whether to transmit the cookie over HTTPS only.
 
 !!! info
-		The `maxAge` property has precedence over the `expires` one.
+	The `maxAge` property has precedence over the `expires` one.
 
 For example:
 
@@ -49,4 +49,4 @@ function main() {
 ```
 
 !!! tip
-		The [`Cookies.defaults`](api.md) property let you override the default cookie options at runtime.
+	The [`Cookies.defaults`](api.md) property let you override the default cookie options at runtime.

@@ -15,8 +15,8 @@ npm --version
 ```
 
 !!! info
-		If you plan to play with the package sources, you will also need
-		[PowerShell](https://docs.microsoft.com/en-us/powershell) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
+	If you plan to play with the package sources, you will also need
+	[PowerShell](https://docs.microsoft.com/en-us/powershell) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material).
 
 ## Installing with npm package manager
 

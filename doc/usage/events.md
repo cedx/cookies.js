@@ -7,8 +7,8 @@ source: src/simple_change.ts
 The [`Cookies`](api.md) class is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget): every time one or several values are changed (added, removed or updated) through this class, a [`CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) is triggered.
 
 !!! tip
-		If you target browsers that do not support the `EventTarget` constructor, you will need
-		a dedicated polyfill. We recommend using the [`@ungap/event-target`](https://www.npmjs.com/package/@ungap/event-target) package.   
+	If you target browsers that do not support the `EventTarget` constructor, you will need
+	a dedicated polyfill. We recommend using the [`@ungap/event-target`](https://www.npmjs.com/package/@ungap/event-target) package.   
 
 You can subscribe to these `changes` events using the `addEventListener()` method:
 
