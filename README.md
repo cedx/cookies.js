@@ -4,7 +4,7 @@
 Yet another service for interacting with the [HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
 > WARNING:  
-> This package has been renamed to `@cedx/cookies.hx`, and its version number resetted.  
+> This package has been renamed to `@cedx/cookies.hx`, and its version number resetted.
 > Please update your `package.json` file.
 
 ## Documentation

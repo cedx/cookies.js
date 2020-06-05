@@ -12,7 +12,7 @@ The [`Cookies`](api.md) class is an [`EventTarget`](https://developer.mozilla.or
 
 You can subscribe to these `changes` events using the `addEventListener()` method:
 
-```js
+``` js
 import {Cookies} from "@cedx/cookies";
 
 function main() {
@@ -26,7 +26,7 @@ function main() {
 The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 of [`SimpleChange`](https://git.belin.io/cedx/cookies.js/src/branch/master/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
-```js
+``` js
 import {Cookies} from "@cedx/cookies";
 
 function main() {
@@ -53,7 +53,7 @@ function main() {
 
 The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw cookie values. If you use the `Cookies.setObject()` method to set a cookie, you will get the serialized string value, not the original value passed to the method:
 
-```js
+``` js
 cookies.setObject("foo", {bar: "baz"});
 // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: undefined}
 ```

@@ -6,7 +6,7 @@ Yet another service for interacting with the [HTTP cookies](https://developer.mo
 ## Quick start
 Install the latest version of **Cookies for JS** with [npm](https://www.npmjs.com):
 
-```shell
+``` shell
 npm install @cedx/cookies
 ```
 

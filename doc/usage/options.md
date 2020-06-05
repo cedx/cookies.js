@@ -18,7 +18,7 @@ These options are expressed using an instance of the `CookieOptions` class, whic
 
 For example:
 
-```js
+``` js
 import {Cookies, CookieOptions} from "@cedx/cookies";
 
 function main() {
@@ -33,7 +33,7 @@ function main() {
 ## Configuring defaults
 It is possible to provide default values for the cookie options when instantiating the `Cookies` service:
 
-```js
+``` js
 import {Cookies, CookieOptions} from "@cedx/cookies";
 
 function main() {

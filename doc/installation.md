@@ -6,12 +6,12 @@ and [npm](https://www.npmjs.com), the Node.js package manager, up and running.
 
 You can verify if you're already good to go with the following commands:
 
-```shell
+``` shell
 node --version
-# v14.2.0
+# v14.4.0
 
 npm --version
-# 6.14.4
+# 6.14.5
 ```
 
 !!! info
@@ -23,14 +23,14 @@ npm --version
 ### 1. Install it
 From a command prompt, run:
 
-```shell
+``` shell
 npm install @cedx/cookies
 ```
 
 ### 2. Import it
 Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
 
-```js
+``` js
 import {Cookies, CookieOptions} from "@cedx/cookies";
 ```
 
@@ -38,7 +38,7 @@ import {Cookies, CookieOptions} from "@cedx/cookies";
 This library is also available as a ready-made bundle.
 To install it, add this code snippet to the `<head>` of your HTML document:
 
-```html
+``` html
 <!-- jsDelivr -->
 <script src="https://cdn.jsdelivr.net/npm/@cedx/cookies/build/cookies.min.js"></script>
 
@@ -48,7 +48,7 @@ To install it, add this code snippet to the `<head>` of your HTML document:
 
 The classes of this library are exposed as `cookies` property on the `window` global object:
 
-```html
+``` html
 <script>
 	const {Cookies, CookieOptions} = window.cookies;
 </script>
