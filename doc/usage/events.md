@@ -24,7 +24,7 @@ function main() {
 ```
 
 The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
-of [`SimpleChange`](https://git.belin.io/cedx/cookies.js/src/branch/main/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
+of [`SimpleChange`](https://github.com/cedx/cookies.js/src/branch/main/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
 ``` js
 import {Cookies} from "@cedx/cookies";
