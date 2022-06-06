@@ -1,47 +1,48 @@
 {
-	"bugs": "https://git.belin.io/cedx/cookies.js/issues",
-	"description": "Service for interacting with the HTTP cookies. A simple and event-based API for handling cookies.",
-	"homepage": "https://docs.belin.io/cookies.js",
+	"bugs": "https://github.com/cedx/cookies.js/issues",
+	"description": "Service for interacting with the HTTP cookies.",
+	"exports": "./lib/index.js",
+	"homepage": "https://github.com/cedx/cookies.js",
 	"license": "MIT",
-	"main": "./lib/index.js",
 	"name": "@cedx/cookies",
+	"repository": "github:cedx/cookies.js",
 	"type": "module",
 	"types": "./lib/index.d.ts",
-	"version": "4.6.0",
+	"version": "5.0.0",
 	"author": {
 		"email": "cedric@belin.io",
 		"name": "Cédric Belin",
 		"url": "https://belin.io"
 	},
 	"devDependencies": {
-		"@cedx/coveralls": "^10.1.0",
-		"@types/node": "^14.0.14",
-		"@typescript-eslint/eslint-plugin": "^4.6.0",
-		"@typescript-eslint/parser": "^4.6.0",
-		"chai": "^4.2.0",
-		"eslint": "^7.3.1",
-		"karma": "^5.1.0",
+		"@types/gulp": "^4.0.9",
+		"@types/mocha": "^9.1.1",
+		"@types/node": "^17.0.40",
+		"chai": "^4.3.6",
+		"del": "^6.1.1",
+		"eslint": "^8.17.0",
+		"execa": "^6.1.0",
+		"gulp": "^4.0.2",
+		"karma": "^6.3.20",
 		"karma-chai": "^0.1.0",
-		"karma-coverage-istanbul-instrumenter": "^1.0.3",
+		"karma-chrome-launcher": "^3.1.1",
+		"karma-coverage-istanbul-instrumenter": "^1.0.4",
 		"karma-coverage-istanbul-reporter": "^3.0.3",
-		"karma-firefox-launcher": "^2.0.0",
 		"karma-mocha": "^2.0.1",
-		"mocha": "^8.2.0",
-		"rollup": "^2.18.1",
-		"terser": "^5.3.8",
-		"typedoc": "^0.19.2",
-		"typescript": "^4.0.5"
+		"mocha": "^10.0.0",
+		"typedoc": "^0.22.17",
+		"typescript": "^4.7.3"
 	},
 	"engines": {
-		"node": ">=14.15.0"
+		"node": ">=18.0.0"
 	},
 	"files": [
-		"build/",
-		"lib/"
+		"lib/",
+		"share/"
 	],
 	"funding": {
-		"type": "patreon",
-		"url": "https://www.patreon.com/cedx"
+		"type": "github",
+		"url": "https://github.com/sponsors/cedx"
 	},
 	"keywords": [
 		"browser",
@@ -52,17 +53,8 @@
 		"html",
 		"service"
 	],
-	"repository": {
-		"type": "git",
-		"url": "https://git.belin.io/cedx/cookies.js.git"
-	},
 	"scripts": {
-		"build": "tsc --project src/tsconfig.json",
-		"coverage": "coveralls var/lcov.info",
-		"doc": "typedoc --options etc/typedoc.json",
-		"lint": "eslint --config=etc/eslint.yaml src/**/*.ts",
-		"prepack": "pwsh tool/dist.ps1",
-		"prepublishOnly": "npm run clean",
-		"test": "karma start etc/karma.cjs"
+		"prepack": "gulp",
+		"test": "c8 --all --include=lib/**/*.js --report-dir=var --reporter=lcovonly node_modules/.bin/mocha --recursive"
 	}
 }
