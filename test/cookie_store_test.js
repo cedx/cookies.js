@@ -35,19 +35,19 @@ describe("CookieStore", () => {
 
 	describe(".keys", () => {
 		it("should return an empty array for an empty cookie store", () => {
-			expect(new CookieStore().keys).to.be.an("array").and.be.empty;
+			expect(new CookieStore().keys).to.be.empty;
 		});
 
 		it("should return the list of keys for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			expect(new CookieStore().keys).to.be.an("array").and.have.members(["foo", "prefix:baz"]);
+			expect(new CookieStore().keys).to.have.members(["foo", "prefix:baz"]);
 		});
 
 		it("should handle the key prefix", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			expect(new CookieStore({keyPrefix: "prefix:"}).keys).to.be.an("array").and.have.members(["baz"]);
+			expect(new CookieStore({keyPrefix: "prefix:"}).keys).to.have.members(["baz"]);
 		});
 	});
 
@@ -82,10 +82,10 @@ describe("CookieStore", () => {
 
 			let next = iterator.next();
 			expect(next.done).to.be.false;
-			expect(next.value).to.be.an("array").and.have.ordered.members(["foo", "bar"]);
+			expect(next.value).to.have.ordered.members(["foo", "bar"]);
 			next = iterator.next();
 			expect(next.done).to.be.false;
-			expect(next.value).to.be.an("array").and.have.ordered.members(["prefix:baz", "qux"]);
+			expect(next.value).to.have.ordered.members(["prefix:baz", "qux"]);
 			expect(iterator.next().done).to.be.true;
 		});
 
@@ -96,7 +96,7 @@ describe("CookieStore", () => {
 
 			const next = iterator.next();
 			expect(next.done).to.be.false;
-			expect(next.value).to.be.an("array").and.have.ordered.members(["baz", "qux"]);
+			expect(next.value).to.have.ordered.members(["baz", "qux"]);
 			expect(iterator.next().done).to.be.true;
 		});
 	});
@@ -199,7 +199,7 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			new CookieStore().clear();
-			expect(document.cookie).to.have.lengthOf(0);
+			expect(document.cookie).to.be.empty;
 		});
 
 		it("should handle the key prefix", () => {
@@ -227,46 +227,84 @@ describe("CookieStore", () => {
 		});
 
 		it("should handle the key prefix", () => {
-			// TODO
+			const service = new CookieStore({keyPrefix: "prefix:"});
+			expect(service.get("baz")).to.be.null;
+
+			setCookie("prefix:baz", "qux");
+			expect(service.get("baz")).to.equal("qux");
+
+			setCookie("prefix:baz", "456");
+			expect(service.get("baz")).to.equal("456");
+
+			removeCookie("prefix:baz");
+			expect(service.get("baz")).to.be.null;
 		});
 	});
 
 	describe(".getObject()", () => {
-		it("should properly get the deserialized cookies associated with the current document", () => {
+		it("should properly get the deserialized cookies", () => {
 			const service = new CookieStore;
-			expect(service.getObject("foo")).to.be.undefined;
-			expect(service.getObject("foo", {key: "value"})).to.deep.equal({key: "value"});
+			expect(service.getObject("foo")).to.be.null;
 
-			document.cookie = "getObject1=123";
-			expect(service.getObject("getObject1")).to.equal(123);
+			setCookie("foo", '"bar"');
+			expect(service.getObject("foo")).to.equal("bar");
 
-			document.cookie = "getObject2=%22bar%22";
-			expect(service.getObject("getObject2")).to.equal("bar");
+			setCookie("foo", "123");
+			expect(service.getObject("foo")).to.equal(123);
 
-			document.cookie = "getObject3=%7B%22key%22%3A%22value%22%7D";
-			expect(service.getObject("getObject3")).to.be.an("object").that.deep.equal({key: "value"});
+			setCookie("foo", '{"key": "value"}');
+			expect(service.getObject("foo")).to.deep.equal({key: "value"});
+
+			setCookie("foo", "{bar[123]}");
+			expect(service.getObject("foo")).to.be.null;
+
+			removeCookie("foo");
+			expect(service.getObject("foo")).to.be.null;
 		});
 
-		it("should return the default value if the value can't be deserialized", () => {
-			document.cookie = "getObject4=bar";
-			expect(new CookieStore().getObject("getObject4", "defaultValue")).to.equal("defaultValue");
+		it("should handle the key prefix", () => {
+			const service = new CookieStore({keyPrefix: "prefix:"});
+			expect(service.getObject("baz")).to.be.null;
+
+			setCookie("prefix:baz", '"qux"');
+			expect(service.getObject("baz")).to.equal("qux");
+
+			setCookie("prefix:baz", "456");
+			expect(service.getObject("baz")).to.equal(456);
+
+			setCookie("prefix:baz", '{"key": "value"}');
+			expect(service.getObject("baz")).to.deep.equal({key: "value"});
+
+			setCookie("prefix:baz", "{qux[456]}");
+			expect(service.getObject("baz")).to.be.null;
+
+			removeCookie("prefix:baz");
+			expect(service.getObject("baz")).to.be.null;
 		});
 	});
 
 	describe(".has()", () => {
-		it("should return `false` if the current document has an associated cookie with the specified key", () => {
+		it("should return `false` if the specified key is not contained", () => {
 			expect(new CookieStore().has("foo")).to.be.false;
 		});
 
-		it("should return `true` if the current document does not have an associated cookie with the specified key", () => {
-			document.cookie = "has1=foo";
-			document.cookie = "has2=bar";
+		it("should return `true` if the specified key is contained", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
 
 			const service = new CookieStore;
-			expect(service.has("has1")).to.be.true;
-			expect(service.has("has2")).to.be.true;
+			expect(service.has("foo:bar")).to.be.false;
+			expect(service.has("foo")).to.be.true;
+			expect(service.has("prefix:baz")).to.be.true;
+		});
+
+		it("should handle the key prefix", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+
+			const service = new CookieStore({keyPrefix: "prefix:"});
 			expect(service.has("foo")).to.be.false;
-			expect(service.has("bar")).to.be.false;
+			expect(service.has("baz")).to.be.true;
 		});
 	});
 
@@ -366,23 +404,44 @@ describe("CookieStore", () => {
 	});
 
 	describe(".toJSON()", () => {
-		it("should return an empty map if the current document has no associated cookie", () => {
-			const service = new CookieStore;
-			service.clear();
-			expect(service.toJSON()).to.be.an("object").that.is.empty;
+		it("should return an empty array for an empty cookie store", () => {
+			expect(JSON.stringify(new CookieStore)).to.equal("[]");
 		});
 
-		it("should return a non-empty map if the current document has associated cookies", () => {
-			const service = new CookieStore;
-			service.clear();
-			service.set("toJSON1", "foo").set("toJSON2", "bar");
-			expect(service.toJSON()).to.deep.equal({toJSON1: "foo", toJSON2: "bar"});
+		it("should return a non-empty array for a non-empty cookie store", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+
+			const json = JSON.stringify(new CookieStore);
+			expect(json).to.contain('["foo","bar"]');
+			expect(json).to.contain('["prefix:baz","qux"]');
+		});
+
+		it("should handle the key prefix", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+
+			const json = JSON.stringify(new CookieStore({keyPrefix: "prefix:"}));
+			expect(json).to.not.contain('["foo","bar"]');
+			expect(json).to.contain('["baz","qux"]');
 		});
 	});
 
 	describe(".toString()", () => {
-		it("should be the same value as `document.cookie` global property", () => {
-			expect(String(new CookieStore)).to.equal(document.cookie);
+		it("should return an empty string for an empty cookie store", () => {
+			expect(String(new CookieStore)).to.be.empty;
+		});
+
+		it("should return a non-empty string for a non-empty cookie store", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+			expect(String(new CookieStore)).to.equal("foo=bar; prefix:baz=qux");
+		});
+
+		it("should handle the key prefix", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+			expect(String(new CookieStore({keyPrefix: "prefix:"}))).to.equal("baz=qux");
 		});
 	});
 });
