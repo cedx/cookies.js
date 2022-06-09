@@ -1,8 +1,10 @@
+/* eslint-disable max-lines-per-function, no-unused-expressions */
 import {CookieStore} from "../lib/index.js";
 
 /**
  * Gets the value of the cookie with the specified name.
  * @param {string} name The cookie name.
+ * @returns {string|undefined} The cookie value.
  */
 function getCookie(name) {
 	return CookieStore.all.get(name);
@@ -90,7 +92,7 @@ describe("CookieStore", () => {
 		});
 
 		it("should handle the key prefix", () => {
-			const iterator = new CookieStore()[Symbol.iterator]();
+			const iterator = new CookieStore({keyPrefix: "prefix:"})[Symbol.iterator]();
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
 
@@ -98,98 +100,6 @@ describe("CookieStore", () => {
 			expect(next.done).to.be.false;
 			expect(next.value).to.have.ordered.members(["baz", "qux"]);
 			expect(iterator.next().done).to.be.true;
-		});
-	});
-
-	describe(".addEventListener('changes')", () => {
-		it("should trigger an event when a cookie is added", function(done) {
-			document.cookie = "onChanges=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-
-			const listener = event => {
-				const entries = [...event.detail.entries()];
-				expect(entries).to.have.lengthOf(1);
-
-				const [key, record] = entries[0];
-				expect(key).to.equal("onChanges");
-				expect(record.currentValue).to.equal("foo");
-				expect(record.previousValue).to.be.undefined;
-
-				done();
-			};
-
-			const service = new CookieStore;
-			service.addEventListener(Cookies.eventChanges, listener);
-			service.set("onChanges", "foo");
-			service.removeEventListener(Cookies.eventChanges, listener);
-		});
-
-		it("should trigger an event when a cookie is updated", function(done) {
-			document.cookie = "onChanges=foo";
-
-			const listener = event => {
-				const entries = [...event.detail.entries()];
-				expect(entries).to.have.lengthOf(1);
-
-				const [key, record] = entries[0];
-				expect(key).to.equal("onChanges");
-				expect(record.currentValue).to.equal("bar");
-				expect(record.previousValue).to.equal("foo");
-
-				done();
-			};
-
-			const service = new CookieStore;
-			service.addEventListener(Cookies.eventChanges, listener);
-			service.set("onChanges", "bar");
-			service.removeEventListener(Cookies.eventChanges, listener);
-		});
-
-		it("should trigger an event when a cookie is removed", function(done) {
-			document.cookie = "onChanges=bar";
-
-			const listener = event => {
-				const entries = [...event.detail.entries()];
-				expect(entries).to.have.lengthOf(1);
-
-				const [key, record] = entries[0];
-				expect(key).to.equal("onChanges");
-				expect(record.currentValue).to.be.undefined;
-				expect(record.previousValue).to.equal("bar");
-
-				done();
-			};
-
-			const service = new CookieStore;
-			service.addEventListener(Cookies.eventChanges, listener);
-			service.remove("onChanges");
-			service.removeEventListener(Cookies.eventChanges, listener);
-		});
-
-		it("should trigger an event when all the cookies are removed", function(done) {
-			document.cookie = "onChanges1=foo";
-			document.cookie = "onChanges2=bar";
-
-			const listener = event => {
-				const entries = [...event.detail.entries()];
-				expect(entries).to.have.lengthOf.at.least(2);
-
-				let records = entries.filter(entry => entry[0] == "onChanges1").map(entry => entry[1]);
-				expect(records).to.have.lengthOf(1);
-				expect(records[0].currentValue).to.be.undefined;
-				expect(records[0].previousValue).to.equal("foo");
-
-				records = entries.filter(entry => entry[0] == "onChanges2").map(entry => entry[1]);
-				expect(records).to.have.lengthOf(1);
-				expect(records[0].currentValue).to.be.undefined;
-				expect(records[0].previousValue).to.equal("bar");
-
-				done();
-			};
-
-			const service = new CookieStore;
-			service.addEventListener(Cookies.eventChanges, listener);
-			service.clear();
-			service.removeEventListener(Cookies.eventChanges, listener);
 		});
 	});
 
@@ -308,98 +218,188 @@ describe("CookieStore", () => {
 		});
 	});
 
+	describe(".onChange()", () => {
+		it("should trigger an event when a cookie is added", done => {
+			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.be.null;
+				expect(event.newValue).to.equal("bar");
+				done();
+			};
+
+			new CookieStore()
+				.onChange(listener)
+				.set("foo", "bar")
+				.removeEventListener("change", /** @type {EventListener} */ (listener));
+		});
+
+		it("should trigger an event when a cookie is updated", done => {
+			setCookie("foo", "bar");
+			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.equal("bar");
+				expect(event.newValue).to.equal("baz");
+				done();
+			};
+
+			new CookieStore()
+				.onChange(listener)
+				.set("foo", "baz")
+				.removeEventListener("change", /** @type {EventListener} */ (listener));
+		});
+
+		it("should trigger an event when a cookie is removed", done => {
+			setCookie("foo", "bar");
+			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.equal("bar");
+				expect(event.newValue).to.be.null;
+				done();
+			};
+
+			const service = new CookieStore().onChange(listener);
+			service.remove("foo");
+			service.removeEventListener("change", /** @type {EventListener} */ (listener));
+		});
+
+		it("should handle the key prefix", done => {
+			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+				expect(event.key).to.equal("baz");
+				expect(event.oldValue).to.be.null;
+				expect(event.newValue).to.equal("qux");
+				done();
+			};
+
+			new CookieStore({keyPrefix: "prefix:"})
+				.onChange(listener)
+				.set("baz", "qux")
+				.removeEventListener("change", /** @type {EventListener} */ (listener));
+		});
+	});
+
 	describe(".putIfAbsent()", () => {
-		it("should add a new entry if it does not exist", () => {
-			const service = new CookieStore;
-			expect(document.cookie).to.not.contain("putIfAbsent1");
-			expect(service.putIfAbsent("putIfAbsent1", () => "foo")).to.equal("foo");
-			expect(document.cookie).to.contain("putIfAbsent1=foo");
+		it("should add a new entry if it does not exis", () => {
+			expect(getCookie("foo")).to.be.undefined;
+			expect(new CookieStore().putIfAbsent("foo", () => "bar")).to.equal("bar");
+			expect(getCookie("foo")).to.equal("bar");
 		});
 
 		it("should not add a new entry if it already exists", () => {
-			const service = new CookieStore;
-			document.cookie = "putIfAbsent2=foo";
-			expect(service.putIfAbsent("putIfAbsent2", () => "bar")).to.equal("foo");
-			expect(document.cookie).to.contain("putIfAbsent2=foo");
+			setCookie("foo", "123");
+			expect(new CookieStore().putIfAbsent("foo", () => "XYZ")).to.equal("123");
+			expect(getCookie("foo")).to.equal("123");
+		});
+
+		it("should handle the key prefix", () => {
+			const service = new CookieStore({keyPrefix: "prefix:"});
+
+			expect(getCookie("prefix:baz")).to.be.undefined;
+			expect(service.putIfAbsent("baz", () => "qux")).to.equal("qux");
+			expect(getCookie("prefix:baz")).to.equal("qux");
+
+			setCookie("prefix:baz", "456");
+			expect(service.putIfAbsent("baz", () => "XYZ")).to.equal("456");
+			expect(getCookie("prefix:baz")).to.equal("456");
 		});
 	});
 
 	describe(".putObjectIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
-			const service = new CookieStore;
-			expect(document.cookie).to.not.contain("putObjectIfAbsent1");
-			expect(service.putObjectIfAbsent("putObjectIfAbsent1", () => 123)).to.equal(123);
-			expect(document.cookie).to.contain("putObjectIfAbsent1=123");
+			expect(getCookie("foo")).to.be.undefined;
+			expect(new CookieStore().putObjectIfAbsent("foo", () => "bar")).to.equal("bar");
+			expect(getCookie("foo")).to.equal('"bar"');
 		});
 
 		it("should not add a new entry if it already exists", () => {
-			const service = new CookieStore;
-			document.cookie = "putObjectIfAbsent2=123";
-			expect(service.putObjectIfAbsent("putObjectIfAbsent2", () => 456)).to.equal(123);
-			expect(document.cookie).to.contain("putObjectIfAbsent2=123");
+			setCookie("foo", "123");
+			expect(new CookieStore().putObjectIfAbsent("foo", () => 999)).to.equal(123);
+			expect(getCookie("foo")).to.equal("123");
+		});
+
+		it("should handle the key prefix", () => {
+			const service = new CookieStore({keyPrefix: "prefix:"});
+
+			expect(getCookie("prefix:baz")).to.be.undefined;
+			expect(service.putObjectIfAbsent("baz", () => "qux")).to.equal("qux");
+			expect(getCookie("prefix:baz")).to.equal('"qux"');
+
+			setCookie("prefix:baz", "456");
+			expect(service.putObjectIfAbsent("baz", () => 999)).to.equal(456);
+			expect(getCookie("prefix:baz")).to.equal("456");
 		});
 	});
 
 	describe(".remove()", () => {
-		it("should properly remove the cookies associated with the current document", () => {
-			const service = new CookieStore;
-			document.cookie = "remove1=foo";
-			document.cookie = "remove2=bar";
+		it("should properly remove the cookies", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
 
-			service.remove("remove1");
-			expect(document.cookie).to.not.contain("remove1");
-			expect(document.cookie).to.contain("remove2=bar");
+			new CookieStore().remove("foo");
+			expect(document.cookie).to.equal("prefix:baz=qux");
+			expect(getCookie("foo")).to.be.undefined;
+		});
 
-			service.remove("remove2");
-			expect(document.cookie).to.not.contain("remove2");
+		it("should handle the key prefix", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+
+			new CookieStore({keyPrefix: "prefix:"}).remove("baz");
+			expect(document.cookie).to.equal("foo=bar");
+			expect(getCookie("prefix:baz")).to.be.undefined;
 		});
 	});
 
 	describe(".set()", () => {
-		it("should properly set the cookies associated with the current document", () => {
+		it("should properly set the cookies", () => {
 			const service = new CookieStore;
-			expect(document.cookie).to.not.contain("set1");
-			expect(document.cookie).to.not.contain("set2");
+			expect(getCookie("foo")).to.be.undefined;
 
-			service.set("set1", "foo");
-			expect(document.cookie).to.contain("set1=foo");
-			expect(document.cookie).to.not.contain("set2");
+			service.set("foo", "bar");
+			expect(getCookie("foo")).to.equal("bar");
 
-			service.set("set2", "bar");
-			expect(document.cookie).to.contain("set1=foo");
-			expect(document.cookie).to.contain("set2=bar");
-
-			service.set("set1", "123");
-			expect(document.cookie).to.contain("set1=123");
-			expect(document.cookie).to.contain("set2=bar");
+			service.set("foo", "123");
+			expect(getCookie("foo")).to.equal("123");
 		});
 
-		it("should throw an error if the specified key is empty", () => {
-			expect(() => new CookieStore().set("", "foo")).to.throw(TypeError);
+		it("should handle the key prefix", () => {
+			const service = new CookieStore({keyPrefix: "prefix:"});
+			expect(getCookie("prefix:baz")).to.be.undefined;
+
+			service.set("baz", "qux");
+			expect(getCookie("prefix:baz")).to.equal("qux");
+
+			service.set("baz", "456");
+			expect(getCookie("prefix:baz")).to.equal("456");
 		});
 	});
 
 	describe(".setObject()", () => {
-		it("should properly serialize and set the cookies associated with the current document", () => {
+		it("should properly serialize and set the cookies", () => {
 			const service = new CookieStore;
-			expect(document.cookie).to.not.contain("setObject1");
-			expect(document.cookie).to.not.contain("setObject2");
+			expect(getCookie("foo")).to.be.undefined;
 
-			service.setObject("setObject1", 123);
-			expect(document.cookie).to.contain("setObject1=123");
-			expect(document.cookie).to.not.contain("setObject2");
+			service.setObject("foo", "bar");
+			expect(getCookie("foo")).to.equal('"bar"');
 
-			service.setObject("setObject2", "foo");
-			expect(document.cookie).to.contain("setObject1=123");
-			expect(document.cookie).to.contain("setObject2=%22foo%22");
+			service.setObject("foo", 123);
+			expect(getCookie("foo")).to.equal("123");
 
-			service.setObject("setObject1", {key: "value"});
-			expect(document.cookie).to.contain("setObject1=%7B%22key%22%3A%22value%22%7D");
-			expect(document.cookie).to.contain("setObject2=%22foo%22");
+			service.setObject("foo", {key: "value"});
+			expect(getCookie("foo")).to.equal('{"key":"value"}');
 		});
 
-		it("should throw an error if the specified key is empty", () => {
-			expect(() => new CookieStore().setObject("", "foo")).to.throw(TypeError);
+		it("should handle the key prefix", () => {
+			const service = new CookieStore({keyPrefix: "prefix:"});
+			expect(getCookie("prefix:baz")).to.be.undefined;
+
+			service.setObject("baz", "qux");
+			expect(getCookie("prefix:baz")).to.equal('"qux"');
+
+			service.setObject("baz", 456);
+			expect(getCookie("prefix:baz")).to.equal("456");
+
+			service.setObject("baz", {key: "value"});
+			expect(getCookie("prefix:baz")).to.equal('{"key":"value"}');
 		});
 	});
 
