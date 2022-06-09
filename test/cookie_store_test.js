@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function, no-unused-expressions */
-import {CookieStore} from "../lib/index.js";
+import {CookieEvent, CookieStore} from "../lib/index.js";
 
 /**
  * Gets the value of the cookie with the specified name.
@@ -220,7 +220,7 @@ describe("CookieStore", () => {
 
 	describe(".onChange()", () => {
 		it("should trigger an event when a cookie is added", done => {
-			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+			const listener = (/** @type {CookieEvent} */ event) => {
 				expect(event.key).to.equal("foo");
 				expect(event.oldValue).to.be.null;
 				expect(event.newValue).to.equal("bar");
@@ -228,13 +228,13 @@ describe("CookieStore", () => {
 
 			const service = new CookieStore;
 			service.onChange(listener);
-			service.set("foo", "bar").removeEventListener("change", /** @type {EventListener} */ (listener));
+			service.set("foo", "bar").removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
 			done();
 		});
 
 		it("should trigger an event when a cookie is updated", done => {
 			setCookie("foo", "bar");
-			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+			const listener = (/** @type {CookieEvent} */ event) => {
 				expect(event.key).to.equal("foo");
 				expect(event.oldValue).to.equal("bar");
 				expect(event.newValue).to.equal("baz");
@@ -242,13 +242,13 @@ describe("CookieStore", () => {
 
 			const service = new CookieStore;
 			service.onChange(listener);
-			service.set("foo", "baz").removeEventListener("change", /** @type {EventListener} */ (listener));
+			service.set("foo", "baz").removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
 			done();
 		});
 
 		it("should trigger an event when a cookie is removed", done => {
 			setCookie("foo", "bar");
-			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+			const listener = (/** @type {CookieEvent} */ event) => {
 				expect(event.key).to.equal("foo");
 				expect(event.oldValue).to.equal("bar");
 				expect(event.newValue).to.be.null;
@@ -257,12 +257,12 @@ describe("CookieStore", () => {
 			const service = new CookieStore;
 			service.onChange(listener);
 			service.remove("foo");
-			service.removeEventListener("change", /** @type {EventListener} */ (listener));
+			service.removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
 			done();
 		});
 
 		it("should handle the key prefix", done => {
-			const listener = (/** @type {import("../lib/index.js").CookieEvent} */ event) => {
+			const listener = (/** @type {CookieEvent} */ event) => {
 				expect(event.key).to.equal("baz");
 				expect(event.oldValue).to.be.null;
 				expect(event.newValue).to.equal("qux");
@@ -270,7 +270,7 @@ describe("CookieStore", () => {
 
 			const service = new CookieStore({keyPrefix: "prefix:"});
 			service.onChange(listener);
-			service.set("baz", "qux").removeEventListener("change", /** @type {EventListener} */ (listener));
+			service.set("baz", "qux").removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
 			done();
 		});
 	});
