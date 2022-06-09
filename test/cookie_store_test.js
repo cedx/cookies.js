@@ -224,13 +224,12 @@ describe("CookieStore", () => {
 				expect(event.key).to.equal("foo");
 				expect(event.oldValue).to.be.null;
 				expect(event.newValue).to.equal("bar");
-				done();
 			};
 
-			new CookieStore()
-				.onChange(listener)
-				.set("foo", "bar")
-				.removeEventListener("change", /** @type {EventListener} */ (listener));
+			const service = new CookieStore;
+			service.onChange(listener);
+			service.set("foo", "bar").removeEventListener("change", /** @type {EventListener} */ (listener));
+			done();
 		});
 
 		it("should trigger an event when a cookie is updated", done => {
@@ -239,13 +238,12 @@ describe("CookieStore", () => {
 				expect(event.key).to.equal("foo");
 				expect(event.oldValue).to.equal("bar");
 				expect(event.newValue).to.equal("baz");
-				done();
 			};
 
-			new CookieStore()
-				.onChange(listener)
-				.set("foo", "baz")
-				.removeEventListener("change", /** @type {EventListener} */ (listener));
+			const service = new CookieStore;
+			service.onChange(listener);
+			service.set("foo", "baz").removeEventListener("change", /** @type {EventListener} */ (listener));
+			done();
 		});
 
 		it("should trigger an event when a cookie is removed", done => {
@@ -254,12 +252,13 @@ describe("CookieStore", () => {
 				expect(event.key).to.equal("foo");
 				expect(event.oldValue).to.equal("bar");
 				expect(event.newValue).to.be.null;
-				done();
 			};
 
-			const service = new CookieStore().onChange(listener);
+			const service = new CookieStore;
+			service.onChange(listener);
 			service.remove("foo");
 			service.removeEventListener("change", /** @type {EventListener} */ (listener));
+			done();
 		});
 
 		it("should handle the key prefix", done => {
@@ -267,13 +266,12 @@ describe("CookieStore", () => {
 				expect(event.key).to.equal("baz");
 				expect(event.oldValue).to.be.null;
 				expect(event.newValue).to.equal("qux");
-				done();
 			};
 
-			new CookieStore({keyPrefix: "prefix:"})
-				.onChange(listener)
-				.set("baz", "qux")
-				.removeEventListener("change", /** @type {EventListener} */ (listener));
+			const service = new CookieStore({keyPrefix: "prefix:"});
+			service.onChange(listener);
+			service.set("baz", "qux").removeEventListener("change", /** @type {EventListener} */ (listener));
+			done();
 		});
 	});
 
