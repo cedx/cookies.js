@@ -1,8 +1,16 @@
 # Changelog
 
-## Version [4.6.0](https://github.com/cedx/cookies.js/compare/v4.5.0...v4.6.0)
-- Replaced the build system based on [Gulp](https://gulpjs.com) by [PowerShell](https://docs.microsoft.com/en-us/powershell) scripts.
-- Updated the package dependencies.
+## Version [5.0.0](https://github.com/cedx/cookies.js/compare/v4.5.0...v5.0.0)
+- Breaking change: removed the `defaultValue` parameter from the getter methods.
+- Breaking change: removed the `fromJson()`, `fromString()` and `toJSON()` methods from the `CookieOptions` class.
+- Breaking change: renamed the `Cookies` class to `CookieStore`.
+- Breaking change: replaced the `SimpleChange` class by the `CookieEvent` one.
+- Added support for key prefix.
+- Added support for the `samesite` cookie attribute.
+- Added the `CookieStore.all` static property.
+- Added the `CookieStore.onChange()` instance method.
+- Ported the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+- Restored support for [GitHub Packages](https://github.com/features/packages).
 
 ## Version [4.5.0](https://github.com/cedx/cookies.js/compare/v4.4.0...v4.5.0)
 - Dropped support for [GitHub Packages](https://github.com/features/packages).
