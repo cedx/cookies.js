@@ -21,10 +21,10 @@ cookieStore
 	.set("foo", "bar")
 	.set("prefix:bar", "baz");
 
-const prefixedCookieStore = new CookieStore({keyPrefix: "prefix:"})
+const prefixedStore = new CookieStore({keyPrefix: "prefix:"})
 	.set("baz", "qux");
 
-for (const [key, value] of prefixedCookieStore) {
+for (const [key, value] of prefixedStore) {
 	console.log(`${key} => ${value}`);
 	// Round 1: "bar => baz"
 	// Round 2: "baz => qux"
