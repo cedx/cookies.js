@@ -1,4 +1,5 @@
 /* eslint-disable max-lines-per-function, no-unused-expressions */
+import {expect} from "@esm-bundle/chai";
 import {CookieEvent, CookieStore} from "../lib/index.js";
 
 /**

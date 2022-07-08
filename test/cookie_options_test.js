@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-expressions */
+import {expect} from "@esm-bundle/chai";
 import {CookieOptions, SameSite} from "../lib/index.js";
 
 /**
