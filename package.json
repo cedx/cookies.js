@@ -1,7 +1,7 @@
 {
 	"bugs": "https://github.com/cedx/cookies.js/issues",
 	"description": "Service for interacting with the HTTP cookies.",
-	"exports": "./lib/index.js",
+	"exports": "./src/index.js",
 	"homepage": "https://github.com/cedx/cookies.js",
 	"license": "MIT",
 	"name": "@cedx/cookies",
@@ -34,7 +34,7 @@
 	},
 	"files": [
 		"lib/",
-		"share/"
+		"src/"
 	],
 	"funding": {
 		"type": "github",
