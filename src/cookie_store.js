@@ -86,8 +86,9 @@ export class CookieStore extends EventTarget {
 
 	/**
 	 * Gets the deserialized value associated with the specified key.
+	 * @template T
 	 * @param {string} key The cookie name.
-	 * @returns {any} The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
+	 * @returns {T|null} The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
 	getObject(key) {
 		try { return JSON.parse(this.get(key) ?? ""); }
@@ -173,7 +174,7 @@ export class CookieStore extends EventTarget {
 	/**
 	 * Serializes and associates a given `value` with the specified `key`.
 	 * @param {string} key The cookie name.
-	 * @param {unknown} value The cookie value.
+	 * @param {any} value The cookie value.
 	 * @param {import("./cookie_options.js").CookieOptionsParams} [options] The cookie options.
 	 * @returns {this} This instance.
 	 */
