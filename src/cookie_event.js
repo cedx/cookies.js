@@ -1,5 +1,5 @@
 /**
- * An event triggered when the cookie store has been changed.
+ * An event dispatched when the cookie store has been changed.
  */
 export class CookieEvent extends Event {
 
