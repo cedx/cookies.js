@@ -5,11 +5,11 @@
 export const SameSite = Object.freeze({
 
 	/** Only send cookies for top level navigation requests. */
-	lax: "lax",
+	lax: "Lax",
 
 	/** No restrictions on cross-site requests. */
-	none: "none",
+	none: "None",
 
 	/** Prevents the cookie from being sent to the target site in all cross-site browsing context. */
-	strict: "strict"
+	strict: "Strict"
 });
