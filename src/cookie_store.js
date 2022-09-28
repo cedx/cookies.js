@@ -2,7 +2,7 @@ import {CookieEvent} from "./cookie_event.js";
 import {CookieOptions} from "./cookie_options.js";
 
 /**
- * Provides access to the [HTTP Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
+ * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
  */
 export class CookieStore extends EventTarget {
 

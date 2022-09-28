@@ -9,7 +9,7 @@
 - Added support for the `samesite` cookie attribute.
 - Added the `CookieStore.all` static property.
 - Added the `CookieStore.onChange()` instance method.
-- Ported the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+- Ported the source code to [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 - Restored support for [GitHub Packages](https://github.com/features/packages).
 
 ## Version [4.5.0](https://github.com/cedx/cookies.js/compare/v4.4.0...v4.5.0)
@@ -37,7 +37,7 @@
 - Fixed the [issue #4](https://github.com/cedx/cookies.js/issues/4): the `CookieOptions.maxAge` property is ignored by the constructor.
 
 ## Version [4.0.0](https://github.com/cedx/cookies.js/compare/v3.3.0...v4.0.0)
-- Breaking change: the `Cookies` service is now an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) instead of an [`EventEmitter`](https://nodejs.org/api/events.html).
+- Breaking change: the `Cookies` service is now an [`EventTarget`](https://developer.mozilla.org/docs/Web/API/EventTarget) instead of an [`EventEmitter`](https://nodejs.org/api/events.html).
 - Added the `CookieOptions.maxAge` property.
 - Raised the [Node.js](https://nodejs.org) constraint.
 - Replaced the [TSLint](https://palantir.github.io/tslint) static analyzer by [ESLint](https://eslint.org).
