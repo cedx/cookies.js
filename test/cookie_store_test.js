@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import {assert} from "@esm-bundle/chai";
+import {expect} from "@esm-bundle/chai";
 import {CookieEvent, CookieStore} from "../src/index.js";
 
 /**
@@ -36,44 +36,44 @@ describe("CookieStore", () => {
 
 	describe(".keys", () => {
 		it("should return an empty array for an empty cookie store", () => {
-			assert.isEmpty(new CookieStore().keys);
+			expect(new CookieStore().keys).to.be.empty;
 		});
 
 		it("should return the list of keys for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.sameMembers(new CookieStore().keys, ["foo", "prefix:baz"]);
+			expect(new CookieStore().keys).to.have.members(["foo", "prefix:baz"]);
 		});
 
 		it("should handle the key prefix", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.sameMembers(new CookieStore({keyPrefix: "prefix:"}).keys, ["baz"]);
+			expect(new CookieStore({keyPrefix: "prefix:"}).keys).to.have.members(["baz"]);
 		});
 	});
 
 	describe(".length", () => {
 		it("should return zero for an empty cookie store", () => {
-			assert.lengthOf(new CookieStore, 0);
+			expect(new CookieStore).to.have.lengthOf(0);
 		});
 
 		it("should return the number of entries for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.lengthOf(new CookieStore, 2);
+			expect(new CookieStore).to.have.lengthOf(2);
 		});
 
 		it("should handle the key prefix", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.lengthOf(new CookieStore({keyPrefix: "prefix:"}), 1);
+			expect(new CookieStore({keyPrefix: "prefix:"})).to.have.lengthOf(1);
 		});
 	});
 
 	describe(".[Symbol.iterator]()", () => {
 		it("should end iteration immediately if the cookie store is empty", () => {
 			const iterator = new CookieStore()[Symbol.iterator]();
-			assert.isTrue(iterator.next().done);
+			expect(iterator.next().done).to.be.true;
 		});
 
 		it("should iterate over the values if the cookie store is not empty", () => {
@@ -82,12 +82,12 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			let next = iterator.next();
-			assert.isFalse(next.done);
-			assert.sameOrderedMembers(next.value, ["foo", "bar"]);
+			expect(next.done).to.be.false;
+			expect(next.value).to.have.ordered.members(["foo", "bar"]);
 			next = iterator.next();
-			assert.isFalse(next.done);
-			assert.sameOrderedMembers(next.value, ["prefix:baz", "qux"]);
-			assert.isTrue(iterator.next().done);
+			expect(next.done).to.be.false;
+			expect(next.value).to.have.ordered.members(["prefix:baz", "qux"]);
+			expect(iterator.next().done).to.be.true;
 		});
 
 		it("should handle the key prefix", () => {
@@ -96,9 +96,9 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			const next = iterator.next();
-			assert.isFalse(next.done);
-			assert.sameOrderedMembers(next.value, ["baz", "qux"]);
-			assert.isTrue(iterator.next().done);
+			expect(next.done).to.be.false;
+			expect(next.value).to.have.ordered.members(["baz", "qux"]);
+			expect(iterator.next().done).to.be.true;
 		});
 	});
 
@@ -108,7 +108,7 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			new CookieStore().clear();
-			assert.isEmpty(document.cookie);
+			expect(document.cookie).to.be.empty;
 		});
 
 		it("should handle the key prefix", () => {
@@ -116,85 +116,85 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			new CookieStore({keyPrefix: "prefix:"}).clear();
-			assert.equal(document.cookie, "foo=bar");
+			expect(document.cookie).to.equal("foo=bar");
 		});
 	});
 
 	describe(".get()", () => {
 		it("should properly get the cookies", () => {
 			const service = new CookieStore;
-			assert.isNull(service.get("foo"));
+			expect(service.get("foo")).to.be.null;
 
 			setCookie("foo", "bar");
-			assert.equal(service.get("foo"), "bar");
+			expect(service.get("foo")).to.equal("bar");
 
 			setCookie("foo", "123");
-			assert.equal(service.get("foo"), "123");
+			expect(service.get("foo")).to.equal("123");
 
 			removeCookie("foo");
-			assert.isNull(service.get("foo"));
+			expect(service.get("foo")).to.be.null;
 		});
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isNull(service.get("baz"));
+			expect(service.get("baz")).to.be.null;
 
 			setCookie("prefix:baz", "qux");
-			assert.equal(service.get("baz"), "qux");
+			expect(service.get("baz")).to.equal("qux");
 
 			setCookie("prefix:baz", "456");
-			assert.equal(service.get("baz"), "456");
+			expect(service.get("baz")).to.equal("456");
 
 			removeCookie("prefix:baz");
-			assert.isNull(service.get("baz"));
+			expect(service.get("baz")).to.be.null;
 		});
 	});
 
 	describe(".getObject()", () => {
 		it("should properly get the deserialized cookies", () => {
 			const service = new CookieStore;
-			assert.isNull(service.getObject("foo"));
+			expect(service.getObject("foo")).to.be.null;
 
 			setCookie("foo", '"bar"');
-			assert.equal(service.getObject("foo"), "bar");
+			expect(service.getObject("foo")).to.equal("bar");
 
 			setCookie("foo", "123");
-			assert.equal(service.getObject("foo"), 123);
+			expect(service.getObject("foo")).to.equal(123);
 
 			setCookie("foo", '{"key": "value"}');
-			assert.deepEqual(service.getObject("foo"), {key: "value"});
+			expect(service.getObject("foo")).to.deep.equal({key: "value"});
 
 			setCookie("foo", "{bar[123]}");
-			assert.isNull(service.getObject("foo"));
+			expect(service.getObject("foo")).to.be.null;
 
 			removeCookie("foo");
-			assert.isNull(service.getObject("foo"));
+			expect(service.getObject("foo")).to.be.null;
 		});
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isNull(service.getObject("baz"));
+			expect(service.getObject("baz")).to.be.null;
 
 			setCookie("prefix:baz", '"qux"');
-			assert.equal(service.getObject("baz"), "qux");
+			expect(service.getObject("baz")).to.equal("qux");
 
 			setCookie("prefix:baz", "456");
-			assert.equal(service.getObject("baz"), 456);
+			expect(service.getObject("baz")).to.equal(456);
 
 			setCookie("prefix:baz", '{"key": "value"}');
-			assert.deepEqual(service.getObject("baz"), {key: "value"});
+			expect(service.getObject("baz")).to.deep.equal({key: "value"});
 
 			setCookie("prefix:baz", "{qux[456]}");
-			assert.isNull(service.getObject("baz"));
+			expect(service.getObject("baz")).to.be.null;
 
 			removeCookie("prefix:baz");
-			assert.isNull(service.getObject("baz"));
+			expect(service.getObject("baz")).to.be.null;
 		});
 	});
 
 	describe(".has()", () => {
 		it("should return `false` if the specified key is not contained", () => {
-			assert.isFalse(new CookieStore().has("foo"));
+			expect(new CookieStore().has("foo")).to.be.false;
 		});
 
 		it("should return `true` if the specified key is contained", () => {
@@ -202,9 +202,9 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			const service = new CookieStore;
-			assert.isFalse(service.has("foo:bar"));
-			assert.isTrue(service.has("foo"));
-			assert.isTrue(service.has("prefix:baz"));
+			expect(service.has("foo:bar")).to.be.false;
+			expect(service.has("foo")).to.be.true;
+			expect(service.has("prefix:baz")).to.be.true;
 		});
 
 		it("should handle the key prefix", () => {
@@ -212,17 +212,17 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isFalse(service.has("foo"));
-			assert.isTrue(service.has("baz"));
+			expect(service.has("foo")).to.be.false;
+			expect(service.has("baz")).to.be.true;
 		});
 	});
 
 	describe(".onChange()", () => {
 		it("should trigger an event when a cookie is added", done => {
 			const listener = (/** @type {CookieEvent} */ event) => {
-				assert.equal(event.key, "foo");
-				assert.isNull(event.oldValue);
-				assert.equal(event.newValue, "bar");
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.be.null;
+				expect(event.newValue).to.equal("bar");
 			};
 
 			const service = new CookieStore;
@@ -234,9 +234,9 @@ describe("CookieStore", () => {
 		it("should trigger an event when a cookie is updated", done => {
 			setCookie("foo", "bar");
 			const listener = (/** @type {CookieEvent} */ event) => {
-				assert.equal(event.key, "foo");
-				assert.equal(event.oldValue, "bar");
-				assert.equal(event.newValue, "baz");
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.equal("bar");
+				expect(event.newValue).to.equal("baz");
 			};
 
 			const service = new CookieStore;
@@ -248,9 +248,9 @@ describe("CookieStore", () => {
 		it("should trigger an event when a cookie is removed", done => {
 			setCookie("foo", "bar");
 			const listener = (/** @type {CookieEvent} */ event) => {
-				assert.equal(event.key, "foo");
-				assert.equal(event.oldValue, "bar");
-				assert.isNull(event.newValue);
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.equal("bar");
+				expect(event.newValue).to.be.null;
 			};
 
 			const service = new CookieStore;
@@ -262,9 +262,9 @@ describe("CookieStore", () => {
 
 		it("should handle the key prefix", done => {
 			const listener = (/** @type {CookieEvent} */ event) => {
-				assert.equal(event.key, "baz");
-				assert.isNull(event.oldValue);
-				assert.equal(event.newValue, "qux");
+				expect(event.key).to.equal("baz");
+				expect(event.oldValue).to.be.null;
+				expect(event.newValue).to.equal("qux");
 			};
 
 			const service = new CookieStore({keyPrefix: "prefix:"});
@@ -276,53 +276,53 @@ describe("CookieStore", () => {
 
 	describe(".putIfAbsent()", () => {
 		it("should add a new entry if it does not exis", () => {
-			assert.isUndefined(getCookie("foo"));
-			assert.equal(new CookieStore().putIfAbsent("foo", () => "bar"), "bar");
-			assert.equal(getCookie("foo"), "bar");
+			expect(getCookie("foo")).to.be.undefined;
+			expect(new CookieStore().putIfAbsent("foo", () => "bar")).to.equal("bar");
+			expect(getCookie("foo")).to.equal("bar");
 		});
 
 		it("should not add a new entry if it already exists", () => {
 			setCookie("foo", "123");
-			assert.equal(new CookieStore().putIfAbsent("foo", () => "XYZ"), "123");
-			assert.equal(getCookie("foo"), "123");
+			expect(new CookieStore().putIfAbsent("foo", () => "XYZ")).to.equal("123");
+			expect(getCookie("foo")).to.equal("123");
 		});
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
 
-			assert.isUndefined(getCookie("prefix:baz"));
-			assert.equal(service.putIfAbsent("baz", () => "qux"), "qux");
-			assert.equal(getCookie("prefix:baz"), "qux");
+			expect(getCookie("prefix:baz")).to.be.undefined;
+			expect(service.putIfAbsent("baz", () => "qux")).to.equal("qux");
+			expect(getCookie("prefix:baz")).to.equal("qux");
 
 			setCookie("prefix:baz", "456");
-			assert.equal(service.putIfAbsent("baz", () => "XYZ"), "456");
-			assert.equal(getCookie("prefix:baz"), "456");
+			expect(service.putIfAbsent("baz", () => "XYZ")).to.equal("456");
+			expect(getCookie("prefix:baz"), "456");
 		});
 	});
 
 	describe(".putObjectIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
-			assert.isUndefined(getCookie("foo"));
-			assert.equal(new CookieStore().putObjectIfAbsent("foo", () => "bar"), "bar");
-			assert.equal(getCookie("foo"), '"bar"');
+			expect(getCookie("foo")).to.be.undefined;
+			expect(new CookieStore().putObjectIfAbsent("foo", () => "bar")).to.equal("bar");
+			expect(getCookie("foo")).to.equal('"bar"');
 		});
 
 		it("should not add a new entry if it already exists", () => {
 			setCookie("foo", "123");
-			assert.equal(new CookieStore().putObjectIfAbsent("foo", () => 999), 123);
-			assert.equal(getCookie("foo"), "123");
+			expect(new CookieStore().putObjectIfAbsent("foo", () => 999)).to.equal(123);
+			expect(getCookie("foo")).to.equal("123");
 		});
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
 
-			assert.isUndefined(getCookie("prefix:baz"));
-			assert.equal(service.putObjectIfAbsent("baz", () => "qux"), "qux");
-			assert.equal(getCookie("prefix:baz"), '"qux"');
+			expect(getCookie("prefix:baz")).to.be.undefined;
+			expect(service.putObjectIfAbsent("baz", () => "qux")).to.equal("qux");
+			expect(getCookie("prefix:baz")).to.equal('"qux"');
 
 			setCookie("prefix:baz", "456");
-			assert.equal(service.putObjectIfAbsent("baz", () => 999), 456);
-			assert.equal(getCookie("prefix:baz"), "456");
+			expect(service.putObjectIfAbsent("baz", () => 999)).to.equal(456);
+			expect(getCookie("prefix:baz")).to.equal("456");
 		});
 	});
 
@@ -332,8 +332,8 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			new CookieStore().remove("foo");
-			assert.equal(document.cookie, "prefix:baz=qux");
-			assert.isUndefined(getCookie("foo"));
+			expect(document.cookie).to.equal("prefix:baz=qux");
+			expect(getCookie("foo")).to.be.undefined;
 		});
 
 		it("should handle the key prefix", () => {
@@ -341,68 +341,68 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			new CookieStore({keyPrefix: "prefix:"}).remove("baz");
-			assert.equal(document.cookie, "foo=bar");
-			assert.isUndefined(getCookie("prefix:baz"));
+			expect(document.cookie).to.equal("foo=bar");
+			expect(getCookie("prefix:baz")).to.be.undefined;
 		});
 	});
 
 	describe(".set()", () => {
 		it("should properly set the cookies", () => {
 			const service = new CookieStore;
-			assert.isUndefined(getCookie("foo"));
+			expect(getCookie("foo")).to.be.undefined;
 
 			service.set("foo", "bar");
-			assert.equal(getCookie("foo"), "bar");
+			expect(getCookie("foo")).to.equal("bar");
 
 			service.set("foo", "123");
-			assert.equal(getCookie("foo"), "123");
+			expect(getCookie("foo")).to.equal("123");
 		});
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isUndefined(getCookie("prefix:baz"));
+			expect(getCookie("prefix:baz")).to.be.undefined;
 
 			service.set("baz", "qux");
-			assert.equal(getCookie("prefix:baz"), "qux");
+			expect(getCookie("prefix:baz")).to.equal("qux");
 
 			service.set("baz", "456");
-			assert.equal(getCookie("prefix:baz"), "456");
+			expect(getCookie("prefix:baz")).to.equal("456");
 		});
 	});
 
 	describe(".setObject()", () => {
 		it("should properly serialize and set the cookies", () => {
 			const service = new CookieStore;
-			assert.isUndefined(getCookie("foo"));
+			expect(getCookie("foo")).to.be.undefined;
 
 			service.setObject("foo", "bar");
-			assert.equal(getCookie("foo"), '"bar"');
+			expect(getCookie("foo")).to.equal('"bar"');
 
 			service.setObject("foo", 123);
-			assert.equal(getCookie("foo"), "123");
+			expect(getCookie("foo")).to.equal("123");
 
 			service.setObject("foo", {key: "value"});
-			assert.equal(getCookie("foo"), '{"key":"value"}');
+			expect(getCookie("foo")).to.equal('{"key":"value"}');
 		});
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isUndefined(getCookie("prefix:baz"));
+			expect(getCookie("prefix:baz")).to.be.undefined;
 
 			service.setObject("baz", "qux");
-			assert.equal(getCookie("prefix:baz"), '"qux"');
+			expect(getCookie("prefix:baz")).to.equal('"qux"');
 
 			service.setObject("baz", 456);
-			assert.equal(getCookie("prefix:baz"), "456");
+			expect(getCookie("prefix:baz")).to.equal("456");
 
 			service.setObject("baz", {key: "value"});
-			assert.equal(getCookie("prefix:baz"), '{"key":"value"}');
+			expect(getCookie("prefix:baz")).to.equal('{"key":"value"}');
 		});
 	});
 
 	describe(".toJSON()", () => {
 		it("should return an empty array for an empty cookie store", () => {
-			assert.equal(JSON.stringify(new CookieStore), "[]");
+			expect(JSON.stringify(new CookieStore)).to.equal("[]");
 		});
 
 		it("should return a non-empty array for a non-empty cookie store", () => {
@@ -410,8 +410,8 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			const json = JSON.stringify(new CookieStore);
-			assert.include(json, '["foo","bar"]');
-			assert.include(json, '["prefix:baz","qux"]');
+			expect(json).to.include('["foo","bar"]');
+			expect(json).to.include('["prefix:baz","qux"]');
 		});
 
 		it("should handle the key prefix", () => {
@@ -419,26 +419,26 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "qux");
 
 			const json = JSON.stringify(new CookieStore({keyPrefix: "prefix:"}));
-			assert.notInclude(json, '["foo","bar"]');
-			assert.include(json, '["baz","qux"]');
+			expect(json).to.not.include('["foo","bar"]');
+			expect(json).to.include('["baz","qux"]');
 		});
 	});
 
 	describe(".toString()", () => {
 		it("should return an empty string for an empty cookie store", () => {
-			assert.isEmpty(String(new CookieStore));
+			expect(String(new CookieStore)).to.be.empty;
 		});
 
 		it("should return a non-empty string for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.equal(String(new CookieStore), "foo=bar; prefix:baz=qux");
+			expect(String(new CookieStore)).to.equal("foo=bar; prefix:baz=qux");
 		});
 
 		it("should handle the key prefix", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.equal(String(new CookieStore({keyPrefix: "prefix:"})), "baz=qux");
+			expect(String(new CookieStore({keyPrefix: "prefix:"}))).to.equal("baz=qux");
 		});
 	});
 });
