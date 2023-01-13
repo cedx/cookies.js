@@ -159,7 +159,7 @@ export class CookieStore extends EventTarget {
 	 * @throws {Error} The cookie name is invalid.
 	 */
 	set(key, value, options = {}) {
-		if (!key || key.includes("=") || key.includes(";")) throw new Error("Invalid cookie name.");
+		if (!key || key.includes("=") || key.includes(";")) throw Error("Invalid cookie name.");
 
 		let cookie = `${this.#buildKey(key)}=${encodeURIComponent(value)}`;
 		const cookieOptions = this.#getOptions(options).toString();
