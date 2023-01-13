@@ -8,6 +8,7 @@
 		"moduleResolution": "NodeNext",
 		"resolveJsonModule": true,
 		"paths": {"@cedx/cookies": ["src"]},
+		"rootDir": "./src",
 		"strict": true,
 		"target": "ESNext"
 	}
