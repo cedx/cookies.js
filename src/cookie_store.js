@@ -98,7 +98,7 @@ export class CookieStore extends EventTarget {
 	/**
 	 * Gets a value indicating whether this cookie store contains the specified key.
 	 * @param {string} key The cookie name.
-	 * @returns {boolean} `true` of this cookie store contains the specified key, otherwise `false`.
+	 * @returns {boolean} `true` if this cookie store contains the specified key, otherwise `false`.
 	 */
 	has(key) {
 		return CookieStore.all.has(this.#buildKey(key));
