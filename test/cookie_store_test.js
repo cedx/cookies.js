@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import {expect} from "@esm-bundle/chai";
-import {CookieEvent, CookieStore} from "../src/index.js";
+import {CookieEvent, CookieStore} from "#cookies";
 
 /**
  * Gets the value of the cookie with the specified name.

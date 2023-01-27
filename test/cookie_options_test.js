@@ -1,5 +1,5 @@
 import {expect} from "@esm-bundle/chai";
-import {CookieOptions, SameSite} from "../src/index.js";
+import {CookieOptions, SameSite} from "#cookies";
 
 /**
  * Tests the features of the {@link CookieOptions} class.
