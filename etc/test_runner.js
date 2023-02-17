@@ -12,6 +12,6 @@ export default {
 	],
 	coverage: true,
 	coverageConfig: {reportDir: "var"},
-	files: "test/**/*.js",
+	files: "test/js/**/*.js",
 	nodeResolve: true
 };
