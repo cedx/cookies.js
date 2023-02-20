@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [5.0.1](https://github.com/cedx/cookies.js/compare/v5.0.0...v5.0.1)
+- Fixed the [TypeScript](https://www.typescriptlang.org) typings.
+
 ## Version [5.0.0](https://github.com/cedx/cookies.js/compare/v4.5.0...v5.0.0)
 - Breaking change: removed the `defaultValue` parameter from the getter methods.
 - Breaking change: removed the `fromJson()`, `fromString()` and `toJSON()` methods from the `CookieOptions` class.

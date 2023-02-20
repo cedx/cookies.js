@@ -69,7 +69,7 @@ export class CookieStore extends EventTarget {
 
 	/**
 	 * Removes all entries from this cookie store.
-	 * @param {import("./cookie_options.js").CookieOptionsParams} options The cookie options.
+	 * @param {import("./cookie_options.js").CookieOptionsParams} [options] The cookie options.
 	 */
 	clear(options = {}) {
 		this.keys.forEach(key => this.remove(key, options));
@@ -115,7 +115,7 @@ export class CookieStore extends EventTarget {
 	 * Looks up the value of the specified key, or add a new value if it isn't there.
 	 * @param {string} key The cookie name.
 	 * @param {() => string} ifAbsent A function producing the new cookie value.
-	 * @param {import("./cookie_options.js").CookieOptionsParams} options The cookie options.
+	 * @param {import("./cookie_options.js").CookieOptionsParams} [options] The cookie options.
 	 * @returns {string} The value associated with the key.
 	 */
 	putIfAbsent(key, ifAbsent, options = {}) {
@@ -127,7 +127,7 @@ export class CookieStore extends EventTarget {
 	 * Looks up the deserialized value of the specified key, or add a new serialized value if it isn't there.
 	 * @param {string} key The cookie name.
 	 * @param {() => unknown} ifAbsent A function producing the new cookie value.
-	 * @param {import("./cookie_options.js").CookieOptionsParams} options The cookie options.
+	 * @param {import("./cookie_options.js").CookieOptionsParams} [options] The cookie options.
 	 * @returns {any} The deserialized value associated with the key.
 	 */
 	putObjectIfAbsent(key, ifAbsent, options = {}) {
@@ -138,7 +138,7 @@ export class CookieStore extends EventTarget {
 	/**
 	 * Removes the value associated with the specified key.
 	 * @param {string} key The cookie name.
-	 * @param {import("./cookie_options.js").CookieOptionsParams} options The cookie options.
+	 * @param {import("./cookie_options.js").CookieOptionsParams} [options] The cookie options.
 	 * @returns {string|null} The value associated with the key before it was removed.
 	 */
 	remove(key, options = {}) {
