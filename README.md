@@ -1,5 +1,5 @@
 # Cookies for JS
-![Runtime](https://badgen.net/npm/node/@cedx/cookies) ![Release](https://badgen.net/npm/v/@cedx/cookies) ![License](https://badgen.net/npm/license/@cedx/cookies) ![Downloads](https://badgen.net/npm/dt/@cedx/cookies) ![Coverage](https://badgen.net/codecov/c/github/cedx/cookies.js)
+![Node.js](https://badgen.net/npm/node/@cedx/cookies) ![npm](https://badgen.net/npm/v/@cedx/cookies) ![License](https://badgen.net/npm/license/@cedx/cookies) ![Downloads](https://badgen.net/npm/dt/@cedx/cookies) ![Coverage](https://badgen.net/codecov/c/github/cedx/cookies.js)
 
 Service for interacting with the [HTTP cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies)
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
