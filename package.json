@@ -1,7 +1,7 @@
 {
 	"bugs": "https://github.com/cedx/cookies.js/issues",
 	"description": "Service for interacting with the HTTP cookies.",
-	"homepage": "https://github.com/cedx/cookies.js",
+	"homepage": "https://docs.belin.io/cookies.js",
 	"license": "MIT",
 	"name": "@cedx/cookies",
 	"repository": "github:cedx/cookies.js",
