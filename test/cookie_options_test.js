@@ -5,7 +5,7 @@ import {CookieOptions, SameSite} from "#cookies";
  * Tests the features of the {@link CookieOptions} class.
  */
 describe("CookieOptions", () => {
-	describe(".toString()", () => {
+	describe("toString()", () => {
 		it("should return an empty string for a newly created instance", () => {
 			expect(String(new CookieOptions)).to.be.empty;
 		});

@@ -34,7 +34,7 @@ function setCookie(name, value) {
 describe("CookieStore", () => {
 	beforeEach(() => [...CookieStore.all.keys()].forEach(key => removeCookie(key)));
 
-	describe(".keys", () => {
+	describe("keys", () => {
 		it("should return an empty array for an empty cookie store", () => {
 			expect(new CookieStore().keys).to.be.empty;
 		});
@@ -52,7 +52,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".length", () => {
+	describe("length", () => {
 		it("should return zero for an empty cookie store", () => {
 			expect(new CookieStore).to.have.lengthOf(0);
 		});
@@ -70,7 +70,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".[Symbol.iterator]()", () => {
+	describe("[Symbol.iterator]()", () => {
 		it("should end iteration immediately if the cookie store is empty", () => {
 			const iterator = new CookieStore()[Symbol.iterator]();
 			expect(iterator.next().done).to.be.true;
@@ -102,7 +102,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".clear()", () => {
+	describe("clear()", () => {
 		it("should remove all cookies", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
@@ -120,7 +120,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".get()", () => {
+	describe("get()", () => {
 		it("should properly get the cookies", () => {
 			const service = new CookieStore;
 			expect(service.get("foo")).to.be.null;
@@ -150,7 +150,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".getObject()", () => {
+	describe("getObject()", () => {
 		it("should properly get the deserialized cookies", () => {
 			const service = new CookieStore;
 			expect(service.getObject("foo")).to.be.null;
@@ -192,7 +192,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".has()", () => {
+	describe("has()", () => {
 		it("should return `false` if the specified key is not contained", () => {
 			expect(new CookieStore().has("foo")).to.be.false;
 		});
@@ -217,7 +217,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".onChange()", () => {
+	describe("onChange()", () => {
 		it("should trigger an event when a cookie is added", done => {
 			const listener = (/** @type {CookieEvent} */ event) => {
 				expect(event.key).to.equal("foo");
@@ -274,7 +274,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".putIfAbsent()", () => {
+	describe("putIfAbsent()", () => {
 		it("should add a new entry if it does not exis", () => {
 			expect(getCookie("foo")).to.be.undefined;
 			expect(new CookieStore().putIfAbsent("foo", () => "bar")).to.equal("bar");
@@ -300,7 +300,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".putObjectIfAbsent()", () => {
+	describe("putObjectIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
 			expect(getCookie("foo")).to.be.undefined;
 			expect(new CookieStore().putObjectIfAbsent("foo", () => "bar")).to.equal("bar");
@@ -326,7 +326,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".remove()", () => {
+	describe("remove()", () => {
 		it("should properly remove the cookies", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
@@ -346,7 +346,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".set()", () => {
+	describe("set()", () => {
 		it("should properly set the cookies", () => {
 			const service = new CookieStore;
 			expect(getCookie("foo")).to.be.undefined;
@@ -370,7 +370,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".setObject()", () => {
+	describe("setObject()", () => {
 		it("should properly serialize and set the cookies", () => {
 			const service = new CookieStore;
 			expect(getCookie("foo")).to.be.undefined;
@@ -400,7 +400,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".toJSON()", () => {
+	describe("toJSON()", () => {
 		it("should return an empty array for an empty cookie store", () => {
 			expect(JSON.stringify(new CookieStore)).to.equal("[]");
 		});
@@ -424,7 +424,7 @@ describe("CookieStore", () => {
 		});
 	});
 
-	describe(".toString()", () => {
+	describe("toString()", () => {
 		it("should return an empty string for an empty cookie store", () => {
 			expect(String(new CookieStore)).to.be.empty;
 		});
