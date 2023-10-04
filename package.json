@@ -4,7 +4,7 @@
 	"homepage": "https://docs.belin.io/cookies.js",
 	"license": "MIT",
 	"name": "@cedx/cookies",
-	"repository": "github:cedx/cookies.js",
+	"repository": "cedx/cookies.js",
 	"type": "module",
 	"version": "5.1.0",
 	"author": {
