@@ -48,7 +48,8 @@ export class CookieStore extends EventTarget {
 	 * @type {string[]}
 	 */
 	get keys() {
-		return [...CookieStore.all.keys()].filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length));
+		const keys = Array.from(CookieStore.all.keys());
+		return keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length));
 	}
 
 	/**
@@ -188,7 +189,7 @@ export class CookieStore extends EventTarget {
 	 * @returns {Array<[string, string]>} The JSON representation of this object.
 	 */
 	toJSON() {
-		return [...this];
+		return Array.from(this);
 	}
 
 	/**
@@ -196,7 +197,7 @@ export class CookieStore extends EventTarget {
 	 * @returns {string} The string representation of this object.
 	 */
 	toString() {
-		return this.#keyPrefix ? [...this].map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join("; ") : document.cookie;
+		return this.#keyPrefix ? Array.from(this).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join("; ") : document.cookie;
 	}
 
 	/**

@@ -32,7 +32,7 @@ function setCookie(name, value) {
  * Tests the features of the {@link CookieStore} class.
  */
 describe("CookieStore", () => {
-	beforeEach(() => [...CookieStore.all.keys()].forEach(key => removeCookie(key)));
+	beforeEach(() => Array.from(CookieStore.all.keys()).forEach(key => removeCookie(key)));
 
 	describe("keys", () => {
 		it("should return an empty array for an empty cookie store", () => {
