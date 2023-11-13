@@ -5,8 +5,8 @@ Service for interacting with the [HTTP cookies](https://developer.mozilla.org/do
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
-- [User guide](https://docs.belin.io/cookies.js)
-- [API reference](https://docs.belin.io/cookies.js/api)
+- [User guide](https://cedx.github.io/cookies.js)
+- [API reference](https://cedx.github.io/cookies.js/api)
 
 ## Development
 - [Git repository](https://github.com/cedx/cookies.js)
@@ -14,4 +14,4 @@ in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 - [Submit an issue](https://github.com/cedx/cookies.js/issues)
 
 ## License
-[Cookies for JS](https://docs.belin.io/cookies.js) is distributed under the MIT License.
+[Cookies for JS](https://cedx.github.io/cookies.js) is distributed under the MIT License.
