@@ -14,4 +14,4 @@ in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 - [Submit an issue](https://github.com/cedx/cookies.js/issues)
 
 ## License
-[Cookies for JS](https://cedx.github.io/cookies.js) is distributed under the MIT License.
+[Cookies for JS](https://github.com/cedx/cookies.js) is distributed under the MIT License.
