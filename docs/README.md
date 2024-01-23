@@ -20,4 +20,3 @@ For detailed instructions, see the [installation guide](installation.md).
 ## See also
 - [API reference](api/)
 - [npm package](https://www.npmjs.com/package/@cedx/cookies)
-- [Code coverage](https://app.codecov.io/gh/cedx/cookies.js)
