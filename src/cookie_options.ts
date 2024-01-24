@@ -1,3 +1,5 @@
+import type {SameSite} from "./same_site.js";
+
 /**
  * Defines the attributes of a HTTP cookie.
  */
@@ -5,45 +7,39 @@ export class CookieOptions {
 
 	/**
 	 * The domain for which the cookie is valid.
-	 * @type {string}
 	 */
-	domain;
+	domain: string;
 
 	/**
 	 * The expiration date and time for the cookie.
-	 * @type {Date|null}
 	 */
-	expires;
+	expires: Date|null;
 
 	/**
 	 * The maximum duration, in seconds, until the cookie expires.
-	 * @type {number}
 	 */
-	maxAge;
+	maxAge: number;
 
 	/**
 	 * The path to which the cookie applies.
-	 * @type {string}
 	 */
-	path;
+	path: string;
 
 	/**
 	 * The cross-site requests policy.
-	 * @type {import("./same_site.js").SameSite}
 	 */
-	sameSite;
+	sameSite: string;
 
 	/**
 	 * Value indicating whether to transmit the cookie over HTTPS only.
-	 * @type {boolean}
 	 */
-	secure;
+	secure: boolean;
 
 	/**
 	 * Creates new cookie options.
-	 * @param {CookieOptionsParams} [options] An object providing values to initialize this instance.
+	 * @param options An object providing values to initialize this instance.
 	 */
-	constructor(options = {}) {
+	constructor(options: Partial<CookieOptionsParams> = {}) {
 		this.domain = options.domain ?? "";
 		this.expires = options.expires ?? null;
 		this.maxAge = options.maxAge ?? -1;
@@ -54,9 +50,9 @@ export class CookieOptions {
 
 	/**
 	 * Returns a string representation of this object.
-	 * @returns {string} The string representation of this object.
+	 * @returns The string representation of this object.
 	 */
-	toString() {
+	toString(): string {
 		const value = [];
 		if (this.domain) value.push(`domain=${this.domain}`);
 		if (this.expires) value.push(`expires=${this.expires.toUTCString()}`);
@@ -70,11 +66,36 @@ export class CookieOptions {
 
 /**
  * Defines the parameters of a {@link CookieOptions} instance.
- * @typedef {object} CookieOptionsParams
- * @property {string} [domain] The domain for which the cookie is valid.
- * @property {Date|null} [expires] The expiration date and time for the cookie.
- * @property {number} [maxAge] The maximum duration, in seconds, until the cookie expires.
- * @property {string} [path] The path to which the cookie applies.
- * @property {import("./same_site.js").SameSite} [sameSite] The cross-site requests policy.
- * @property {boolean} [secure] Value indicating whether to transmit the cookie over HTTPS only.
  */
+export interface CookieOptionsParams {
+
+	/**
+	 * The domain for which the cookie is valid.
+	 */
+	domain: string;
+
+	/**
+	 * The expiration date and time for the cookie.
+	 */
+	expires: Date|null;
+
+	/**
+	 * The maximum duration, in seconds, until the cookie expires.
+	 */
+	maxAge: number;
+
+	/**
+	 * The path to which the cookie applies.
+	 */
+	path: string;
+
+	/**
+	 * The cross-site requests policy.
+	 */
+	sameSite: string;
+
+	/**
+	 * Value indicating whether to transmit the cookie over HTTPS only.
+	 */
+	secure: boolean;
+}
