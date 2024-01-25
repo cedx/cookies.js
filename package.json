@@ -6,7 +6,7 @@
 	"name": "@cedx/cookies",
 	"repository": "cedx/cookies.js",
 	"type": "module",
-	"version": "5.1.0",
+	"version": "5.2.0",
 	"author": {
 		"email": "cedric@belin.io",
 		"name": "Cédric Belin",
