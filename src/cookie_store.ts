@@ -128,7 +128,7 @@ export class CookieStore extends EventTarget {
 	 */
 	putObjectIfAbsent<T>(key: string, ifAbsent: () => T, options: Partial<CookieOptionsParams> = {}): T {
 		if (!this.has(key)) this.setObject(key, ifAbsent(), options);
-		return this.getObject(key) as T;
+		return this.getObject(key)!;
 	}
 
 	/**
