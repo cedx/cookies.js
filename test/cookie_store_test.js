@@ -1,32 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import {expect} from "@esm-bundle/chai";
+import {expect} from "chai";
 import {CookieEvent, CookieStore} from "#cookies";
-
-/**
- * Gets the value of the cookie with the specified name.
- * @param {string} name The cookie name.
- * @returns {string|undefined} The cookie value.
- */
-function getCookie(name) {
-	return CookieStore.all.get(name);
-}
-
-/**
- * Removes the cookie with the specified name.
- * @param {string} name The cookie name.
- */
-function removeCookie(name) {
-	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0`;
-}
-
-/**
- * Sets a cookie with the specified name and value.
- * @param {string} name The cookie name.
- * @param {string} value The cookie value.
- */
-function setCookie(name, value) {
-	document.cookie = `${name}=${encodeURIComponent(value)}`;
-}
 
 /**
  * Tests the features of the {@link CookieStore} class.
@@ -35,9 +9,8 @@ describe("CookieStore", () => {
 	beforeEach(() => Array.from(CookieStore.all.keys()).forEach(key => removeCookie(key)));
 
 	describe("keys", () => {
-		it("should return an empty array for an empty cookie store", () => {
-			expect(new CookieStore().keys).to.be.empty;
-		});
+		it("should return an empty array for an empty cookie store", () =>
+			expect(new CookieStore().keys).to.be.empty);
 
 		it("should return the list of keys for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
@@ -53,9 +26,8 @@ describe("CookieStore", () => {
 	});
 
 	describe("length", () => {
-		it("should return zero for an empty cookie store", () => {
-			expect(new CookieStore).to.have.lengthOf(0);
-		});
+		it("should return zero for an empty cookie store", () =>
+			expect(new CookieStore).to.have.lengthOf(0));
 
 		it("should return the number of entries for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
@@ -193,9 +165,8 @@ describe("CookieStore", () => {
 	});
 
 	describe("has()", () => {
-		it("should return `false` if the specified key is not contained", () => {
-			expect(new CookieStore().has("foo")).to.be.false;
-		});
+		it("should return `false` if the specified key is not contained", () =>
+			expect(new CookieStore().has("foo")).to.be.false);
 
 		it("should return `true` if the specified key is contained", () => {
 			setCookie("foo", "bar");
@@ -401,9 +372,8 @@ describe("CookieStore", () => {
 	});
 
 	describe("toJSON()", () => {
-		it("should return an empty array for an empty cookie store", () => {
-			expect(JSON.stringify(new CookieStore)).to.equal("[]");
-		});
+		it("should return an empty array for an empty cookie store", () =>
+			expect(JSON.stringify(new CookieStore)).to.equal("[]"));
 
 		it("should return a non-empty array for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
@@ -425,9 +395,8 @@ describe("CookieStore", () => {
 	});
 
 	describe("toString()", () => {
-		it("should return an empty string for an empty cookie store", () => {
-			expect(String(new CookieStore)).to.be.empty;
-		});
+		it("should return an empty string for an empty cookie store", () =>
+			expect(String(new CookieStore)).to.be.empty);
 
 		it("should return a non-empty string for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
@@ -442,3 +411,29 @@ describe("CookieStore", () => {
 		});
 	});
 });
+
+/**
+ * Gets the value of the cookie with the specified name.
+ * @param {string} name The cookie name.
+ * @returns {string|undefined} The cookie value.
+ */
+function getCookie(name) {
+	return CookieStore.all.get(name);
+}
+
+/**
+ * Removes the cookie with the specified name.
+ * @param {string} name The cookie name.
+ */
+function removeCookie(name) {
+	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0`;
+}
+
+/**
+ * Sets a cookie with the specified name and value.
+ * @param {string} name The cookie name.
+ * @param {string} value The cookie value.
+ */
+function setCookie(name, value) {
+	document.cookie = `${name}=${encodeURIComponent(value)}`;
+}

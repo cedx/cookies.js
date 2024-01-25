@@ -1,4 +1,4 @@
-import {expect} from "@esm-bundle/chai";
+import {expect} from "chai";
 import {CookieOptions, SameSite} from "#cookies";
 
 /**
@@ -6,9 +6,8 @@ import {CookieOptions, SameSite} from "#cookies";
  */
 describe("CookieOptions", () => {
 	describe("toString()", () => {
-		it("should return an empty string for a newly created instance", () => {
-			expect(String(new CookieOptions)).to.be.empty;
-		});
+		it("should return an empty string for a newly created instance", () =>
+			expect(String(new CookieOptions)).to.be.empty);
 
 		it("should return a formatted string for an initialized instance", () => {
 			let options = new CookieOptions({expires: new Date(0), path: "/path", secure: true});
