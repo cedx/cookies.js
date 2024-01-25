@@ -1,4 +1,4 @@
-/* eslint-disable curly, lines-around-comment */
+/* eslint-disable curly */
 import {CookieStore} from "@cedx/cookies";
 
 // Loop over all entries of the cookie store.
