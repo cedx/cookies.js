@@ -1,5 +1,5 @@
 import {CookieEvent} from "./cookie_event.js";
-import {CookieOptions, CookieOptionsParams} from "./cookie_options.js";
+import {CookieOptions, type CookieOptionsParams} from "./cookie_options.js";
 
 /**
  * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
@@ -59,7 +59,7 @@ export class CookieStore extends EventTarget {
 	 * @returns An iterator for the entries of this cookie store.
 	 */
 	*[Symbol.iterator](): IterableIterator<[string, string]> {
-		for (const key of this.keys) yield [key, this.get(key) as string];
+		for (const key of this.keys) yield [key, this.get(key)!];
 	}
 
 	/**
@@ -115,7 +115,7 @@ export class CookieStore extends EventTarget {
 	 */
 	putIfAbsent(key: string, ifAbsent: () => string, options: Partial<CookieOptionsParams> = {}): string {
 		if (!this.has(key)) this.set(key, ifAbsent(), options);
-		return this.get(key) as string;
+		return this.get(key)!;
 	}
 
 	/**

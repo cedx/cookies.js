@@ -28,7 +28,7 @@ export class CookieOptions {
 	/**
 	 * The cross-site requests policy.
 	 */
-	sameSite: string;
+	sameSite: SameSite|null;
 
 	/**
 	 * Value indicating whether to transmit the cookie over HTTPS only.
@@ -44,7 +44,7 @@ export class CookieOptions {
 		this.expires = options.expires ?? null;
 		this.maxAge = options.maxAge ?? -1;
 		this.path = options.path ?? "";
-		this.sameSite = options.sameSite ?? "";
+		this.sameSite = options.sameSite ?? null;
 		this.secure = options.secure ?? false;
 	}
 
@@ -92,7 +92,7 @@ export interface CookieOptionsParams {
 	/**
 	 * The cross-site requests policy.
 	 */
-	sameSite: string;
+	sameSite: SameSite|null;
 
 	/**
 	 * Value indicating whether to transmit the cookie over HTTPS only.
