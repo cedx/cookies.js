@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [5.2.0](https://github.com/cedx/cookies.js/compare/v5.1.0...v5.2.0)
+- Ported the source code to [TypeScript](https://www.typescriptlang.org).
+
 ## Version [5.1.0](https://github.com/cedx/cookies.js/compare/v5.0.1...v5.1.0)
 - Use generics for the signature of the `getObject()`, `putObjectIfAbsent()` and `setObject()` methods of the `CookieStore` class.
 
