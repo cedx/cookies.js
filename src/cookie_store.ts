@@ -101,6 +101,7 @@ export class CookieStore extends EventTarget {
 	/**
 	 * Registers a function that will be invoked whenever the `change` event is triggered.
 	 * @param listener The event handler to register.
+	 * @event
 	 */
 	onChange(listener: (event: CookieEvent) => void): void {
 		this.addEventListener(CookieEvent.type, listener as EventListener, {passive: true});
