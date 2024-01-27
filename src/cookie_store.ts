@@ -188,7 +188,7 @@ export class CookieStore extends EventTarget {
 	 * Returns a string representation of this object.
 	 * @returns The string representation of this object.
 	 */
-	toString(): string {
+	override toString(): string {
 		return this.#keyPrefix ? Array.from(this).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join("; ") : document.cookie;
 	}
 
