@@ -67,7 +67,7 @@ export class CookieStore extends EventTarget {
 	 * @param options The cookie options.
 	 */
 	clear(options: Partial<CookieOptionsParams> = {}): void {
-		this.keys.forEach(key => this.remove(key, options));
+		for (const key of this.keys) this.remove(key, options);
 	}
 
 	/**

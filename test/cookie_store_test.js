@@ -6,7 +6,9 @@ import {CookieEvent, CookieStore} from "#cookies";
  * Tests the features of the {@link CookieStore} class.
  */
 describe("CookieStore", () => {
-	beforeEach(() => Array.from(CookieStore.all.keys()).forEach(key => removeCookie(key)));
+	beforeEach(() => {
+		for (const key of Array.from(CookieStore.all.keys())) removeCookie(key);
+	});
 
 	describe("keys", () => {
 		it("should return an empty array for an empty cookie store", () =>
