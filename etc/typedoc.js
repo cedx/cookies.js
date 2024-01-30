@@ -8,6 +8,5 @@ export default {
 	hideGenerator: true,
 	name: "Cookies for JS",
 	out: "../docs/api",
-	readme: "none",
-	tsconfig: "../src/tsconfig.json"
+	readme: "none"
 };
