@@ -84,8 +84,8 @@ export class CookieStore extends EventTarget {
 	 * @param key The cookie name.
 	 * @returns The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject(key: string): any {
-		try { return JSON.parse(this.get(key) ?? ""); }
+	getObject<T>(key: string): T|null {
+		try { return JSON.parse(this.get(key) ?? "") as T; }
 		catch { return null; }
 	}
 
@@ -126,7 +126,7 @@ export class CookieStore extends EventTarget {
 	 * @param options The cookie options.
 	 * @returns The deserialized value associated with the key.
 	 */
-	putObjectIfAbsent(key: string, ifAbsent: () => any, options: Partial<CookieOptionsParams> = {}): any {
+	putObjectIfAbsent<T>(key: string, ifAbsent: () => T, options: Partial<CookieOptionsParams> = {}): T {
 		if (!this.has(key)) this.setObject(key, ifAbsent(), options);
 		return this.getObject(key)!;
 	}
@@ -172,7 +172,7 @@ export class CookieStore extends EventTarget {
 	 * @param options The cookie options.
 	 * @returns This instance.
 	 */
-	setObject(key: string, value: unknown, options: Partial<CookieOptionsParams> = {}): this {
+	setObject<T>(key: string, value: T, options: Partial<CookieOptionsParams> = {}): this {
 		return this.set(key, JSON.stringify(value), options);
 	}
 
