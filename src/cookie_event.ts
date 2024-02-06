@@ -6,7 +6,7 @@ export class CookieEvent extends Event {
 	/**
 	 * The event type.
 	 */
-	static readonly type = "change";
+	static readonly type = "cookie:change";
 
 	/**
 	 * The changed key.
