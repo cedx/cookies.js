@@ -1,4 +1,4 @@
-import {expect} from "chai";
+import {assert} from "chai";
 import {CookieOptions, SameSite} from "#cookies";
 
 /**
@@ -7,14 +7,14 @@ import {CookieOptions, SameSite} from "#cookies";
 describe("CookieOptions", () => {
 	describe("toString()", () => {
 		it("should return an empty string for a newly created instance", () =>
-			expect(String(new CookieOptions)).to.be.empty);
+			assert.isEmpty(String(new CookieOptions)));
 
 		it("should return a formatted string for an initialized instance", () => {
 			let options = new CookieOptions({expires: new Date(0), path: "/path", secure: true});
-			expect(String(options)).to.equal("expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/path; secure");
+			assert.equal(String(options), "expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/path; secure");
 
 			options = new CookieOptions({domain: "domain.com", maxAge: 123, sameSite: SameSite.strict});
-			expect(String(options)).to.equal("domain=domain.com; max-age=123; samesite=strict");
+			assert.equal(String(options), "domain=domain.com; max-age=123; samesite=strict");
 		});
 	});
 });
