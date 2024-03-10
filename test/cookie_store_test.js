@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import {assert} from "chai";
-import {CookieEvent, CookieStore} from "#cookies";
+import {CookieEvent, CookieStore} from "@cedx/cookies";
 
 /**
  * Tests the features of the {@link CookieStore} class.

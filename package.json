@@ -38,12 +38,6 @@
 		"lib/",
 		"src/"
 	],
-	"imports": {
-		"#cookies": {
-			"types": "./lib/index.d.ts",
-			"import": "./lib/index.js"
-		}
-	},
 	"keywords": [
 		"browser",
 		"cookie",
