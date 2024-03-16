@@ -67,7 +67,25 @@ export class CookieStore extends EventTarget {
 	 * @param options The cookie options.
 	 */
 	clear(options: Partial<CookieOptionsParams> = {}): void {
-		for (const key of this.keys) this.remove(key, options);
+		for (const key of this.keys) this.delete(key, options);
+	}
+
+	/**
+	 * Removes the value associated with the specified key.
+	 * @param key The cookie name.
+	 * @param options The cookie options.
+	 * @returns The value associated with the key before it was removed.
+	 */
+	delete(key: string, options: Partial<CookieOptionsParams> = {}): string|null {
+		const oldValue = this.get(key);
+
+		const cookieOptions = this.#getOptions(options);
+		cookieOptions.expires = new Date(0);
+		cookieOptions.maxAge = 0;
+		document.cookie = `${this.#buildKey(key)}=; ${cookieOptions}`;
+
+		this.dispatchEvent(new CookieEvent(key, oldValue));
+		return oldValue;
 	}
 
 	/**
@@ -216,18 +234,6 @@ export class CookieStore extends EventTarget {
 			sameSite: options.sameSite ?? this.defaults.sameSite,
 			secure: options.secure ?? this.defaults.secure
 		});
-	}
-
-	/**
-	 * Removes the value associated with the specified key.
-	 * @param key The key to remove.
-	 * @param options The cookie options.
-	 */
-	#removeItem(key: string, options: Partial<CookieOptionsParams> = {}): void {
-		const cookieOptions = this.#getOptions(options);
-		cookieOptions.expires = new Date(0);
-		cookieOptions.maxAge = 0;
-		document.cookie = `${key}=; ${cookieOptions}`;
 	}
 }
 

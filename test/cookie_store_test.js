@@ -7,7 +7,7 @@ import {CookieEvent, CookieStore} from "@cedx/cookies";
  */
 describe("CookieStore", () => {
 	beforeEach(() => {
-		for (const key of Array.from(CookieStore.all.keys())) removeCookie(key);
+		for (const key of CookieStore.all.keys()) deleteCookie(key);
 	});
 
 	describe("keys", () => {
@@ -96,6 +96,26 @@ describe("CookieStore", () => {
 		});
 	});
 
+	describe("delete()", () => {
+		it("should properly remove the cookies", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+
+			new CookieStore().delete("foo");
+			assert.equal(document.cookie, "prefix:baz=qux");
+			assert.isUndefined(getCookie("foo"));
+		});
+
+		it("should handle the key prefix", () => {
+			setCookie("foo", "bar");
+			setCookie("prefix:baz", "qux");
+
+			new CookieStore({keyPrefix: "prefix:"}).delete("baz");
+			assert.equal(document.cookie, "foo=bar");
+			assert.isUndefined(getCookie("prefix:baz"));
+		});
+	});
+
 	describe("get()", () => {
 		it("should properly get the cookies", () => {
 			const service = new CookieStore;
@@ -107,7 +127,7 @@ describe("CookieStore", () => {
 			setCookie("foo", "123");
 			assert.equal(service.get("foo"), "123");
 
-			removeCookie("foo");
+			deleteCookie("foo");
 			assert.isNull(service.get("foo"));
 		});
 
@@ -121,7 +141,7 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "456");
 			assert.equal(service.get("baz"), "456");
 
-			removeCookie("prefix:baz");
+			deleteCookie("prefix:baz");
 			assert.isNull(service.get("baz"));
 		});
 	});
@@ -143,7 +163,7 @@ describe("CookieStore", () => {
 			setCookie("foo", "{bar[123]}");
 			assert.isNull(service.getObject("foo"));
 
-			removeCookie("foo");
+			deleteCookie("foo");
 			assert.isNull(service.getObject("foo"));
 		});
 
@@ -163,7 +183,7 @@ describe("CookieStore", () => {
 			setCookie("prefix:baz", "{qux[456]}");
 			assert.isNull(service.getObject("baz"));
 
-			removeCookie("prefix:baz");
+			deleteCookie("prefix:baz");
 			assert.isNull(service.getObject("baz"));
 		});
 	});
@@ -230,7 +250,7 @@ describe("CookieStore", () => {
 
 			const service = new CookieStore;
 			service.onChange(listener);
-			service.remove("foo");
+			service.delete("foo");
 			service.removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
 			done();
 		});
@@ -417,20 +437,20 @@ describe("CookieStore", () => {
 });
 
 /**
+ * Removes the cookie with the specified name.
+ * @param {string} name The cookie name.
+ */
+function deleteCookie(name) {
+	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0`;
+}
+
+/**
  * Gets the value of the cookie with the specified name.
  * @param {string} name The cookie name.
  * @returns {string|undefined} The cookie value.
  */
 function getCookie(name) {
 	return CookieStore.all.get(name);
-}
-
-/**
- * Removes the cookie with the specified name.
- * @param {string} name The cookie name.
- */
-function removeCookie(name) {
-	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0`;
 }
 
 /**
