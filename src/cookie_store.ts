@@ -128,43 +128,6 @@ export class CookieStore extends EventTarget {
 	}
 
 	/**
-	 * Looks up the value of the specified key, or add a new value if it isn't there.
-	 * @param key The cookie name.
-	 * @param ifAbsent A function producing the new cookie value.
-	 * @param options The cookie options.
-	 * @returns The value associated with the key.
-	 */
-	putIfAbsent(key: string, ifAbsent: () => string, options: Partial<CookieOptionsParams> = {}): string {
-		if (!this.has(key)) this.set(key, ifAbsent(), options);
-		return this.get(key)!;
-	}
-
-	/**
-	 * Looks up the deserialized value of the specified key, or add a new serialized value if it isn't there.
-	 * @param key The cookie name.
-	 * @param ifAbsent A function producing the new cookie value.
-	 * @param options The cookie options.
-	 * @returns The deserialized value associated with the key.
-	 */
-	putObjectIfAbsent<T>(key: string, ifAbsent: () => T, options: Partial<CookieOptionsParams> = {}): T {
-		if (!this.has(key)) this.setObject(key, ifAbsent(), options);
-		return this.getObject(key)!;
-	}
-
-	/**
-	 * Removes the value associated with the specified key.
-	 * @param key The cookie name.
-	 * @param options The cookie options.
-	 * @returns The value associated with the key before it was removed.
-	 */
-	remove(key: string, options: Partial<CookieOptionsParams> = {}): string|null {
-		const oldValue = this.get(key);
-		this.#removeItem(this.#buildKey(key), options);
-		this.dispatchEvent(new CookieEvent(key, oldValue));
-		return oldValue;
-	}
-
-	/**
 	 * Associates a given value with the specified key.
 	 * @param key The cookie name.
 	 * @param value The cookie value.
