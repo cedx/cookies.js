@@ -5,7 +5,7 @@ in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 ## Quick start
 Install the latest version of **Cookies for JS** with [npm](https://www.npmjs.com) package manager:
 
-```shell
+``` shell
 npm install @cedx/cookies
 ```
 
