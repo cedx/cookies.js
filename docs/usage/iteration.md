@@ -21,7 +21,7 @@ for (const [key, value] of cookieStore) {
 !!! warning
     The order of keys is user-agent defined, so you should not rely on it.
 
-If you have configured the instance to use a [key prefix](usage/key_prefix.md), the iteration will only loop over the values that have that same key prefix:
+If you have configured the instance to use a [key prefix](key_prefix.md), the iteration will only loop over the values that have that same key prefix:
 
 ```js
 import {CookieStore} from "@cedx/cookies";
