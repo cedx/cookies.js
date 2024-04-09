@@ -1,5 +1,5 @@
 # Iteration
-The [`CookieStore`](usage/api.md) class is iterable: it implements the [`Symbol.iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) function.
+The [`CookieStore`](api.md) class is iterable: it implements the [`Symbol.iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) function.
 You can go through all key/value pairs contained using a `for...of` loop:
 
 ```js
@@ -18,7 +18,8 @@ for (const [key, value] of cookieStore) {
 }
 ```
 
-> The order of keys is user-agent defined, so you should not rely on it.
+!!! warning
+    The order of keys is user-agent defined, so you should not rely on it.
 
 If you have configured the instance to use a [key prefix](usage/key_prefix.md), the iteration will only loop over the values that have that same key prefix:
 
@@ -39,4 +40,5 @@ for (const [key, value] of prefixedStore) {
 }
 ```
 
-> The prefix is stripped from the keys returned by the iteration.
+!!! info
+    The prefix is stripped from the keys returned by the iteration.
