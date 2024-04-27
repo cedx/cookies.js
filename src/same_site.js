@@ -1,20 +1,21 @@
 /**
  * Defines the values of the `SameSite` cookie attribute.
+ * @enum {string}
  */
-export enum SameSite {
+export const SameSite = Object.freeze({
 
 	/**
 	 * Only send cookies for top level navigation requests.
 	 */
-	lax = "lax",
+	lax: "lax",
 
 	/**
 	 * No restrictions on cross-site requests.
 	 */
-	none = "none",
+	none: "none",
 
 	/**
 	 * Prevents the cookie from being sent to the target site in all cross-site browsing context.
 	 */
-	strict = "strict"
-}
+	strict: "strict"
+});

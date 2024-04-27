@@ -1,5 +1,5 @@
 import {CookieEvent} from "./cookie_event.js";
-import {CookieOptions, type CookieOptionsParams} from "./cookie_options.js";
+import {CookieOptions} from "./cookie_options.js";
 
 /**
  * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
@@ -8,19 +8,23 @@ export class CookieStore extends EventTarget {
 
 	/**
 	 * The default cookie options.
+	 * @type {CookieOptions}
+	 * @readonly
 	 */
-	readonly defaults: CookieOptions;
+	defaults;
 
 	/**
 	 * A string prefixed to every key so that it is unique globally in the whole cookie store.
+	 * @type {string}
+	 * @readonly
 	 */
-	readonly #keyPrefix: string;
+	#keyPrefix;
 
 	/**
 	 * Creates a new cookie store.
-	 * @param options An object providing values to initialize this instance.
+	 * @param {Partial<CookieStoreOptions>} options An object providing values to initialize this instance.
 	 */
-	constructor(options: Partial<CookieStoreOptions> = {}) {
+	constructor(options = {}) {
 		super();
 		this.defaults = new CookieOptions(options.defaults ?? {});
 		this.#keyPrefix = options.keyPrefix ?? "";
@@ -28,8 +32,9 @@ export class CookieStore extends EventTarget {
 
 	/**
 	 * The map of all cookies.
+	 * @type {Map<string, string>}
 	 */
-	static get all(): Map<string, string> {
+	static get all() {
 		const map = new Map;
 		if (document.cookie) for (const item of document.cookie.split(";")) {
 			const parts = item.trimStart().split("=");
@@ -41,42 +46,44 @@ export class CookieStore extends EventTarget {
 
 	/**
 	 * The keys of this cookie store.
+	 * @type {string[]}
 	 */
-	get keys(): string[] {
+	get keys() {
 		const keys = Array.from(CookieStore.all.keys());
 		return keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length));
 	}
 
 	/**
 	 * The number of entries in this cookie store.
+	 * @type {number}
 	 */
-	get length(): number {
+	get length() {
 		return this.keys.length;
 	}
 
 	/**
 	 * Returns a new iterator that allows iterating the entries of this cookie store.
-	 * @returns An iterator for the entries of this cookie store.
+	 * @returns {IterableIterator<[string, string]>} An iterator for the entries of this cookie store.
 	 */
-	*[Symbol.iterator](): IterableIterator<[string, string]> {
-		for (const key of this.keys) yield [key, this.get(key)!];
+	*[Symbol.iterator]() {
+		for (const key of this.keys) yield [key, /** @type {string} */ (this.get(key))];
 	}
 
 	/**
 	 * Removes all entries from this cookie store.
-	 * @param options The cookie options.
+	 * @param {Partial<import("./cookie_options.js").CookieOptionsParams>} options The cookie options.
 	 */
-	clear(options: Partial<CookieOptionsParams> = {}): void {
+	clear(options = {}) {
 		for (const key of this.keys) this.delete(key, options);
 	}
 
 	/**
 	 * Removes the value associated with the specified key.
-	 * @param key The cookie name.
-	 * @param options The cookie options.
-	 * @returns The value associated with the key before it was removed.
+	 * @param {string} key The cookie name.
+	 * @param {Partial<import("./cookie_options.js").CookieOptionsParams>} options The cookie options.
+	 * @returns {string|null} The value associated with the key before it was removed.
 	 */
-	delete(key: string, options: Partial<CookieOptionsParams> = {}): string|null {
+	delete(key, options = {}) {
 		const oldValue = this.get(key);
 
 		const cookieOptions = this.#getOptions(options);
@@ -90,52 +97,53 @@ export class CookieStore extends EventTarget {
 
 	/**
 	 * Gets the value associated to the specified key.
-	 * @param key The cookie name.
-	 * @returns The cookie value, or `null` if the key does not exist.
+	 * @param {string} key The cookie name.
+	 * @returns {string|null} The cookie value, or `null` if the key does not exist.
 	 */
-	get(key: string): string|null {
+	get(key) {
 		return CookieStore.all.get(this.#buildKey(key)) ?? null;
 	}
 
 	/**
 	 * Gets the deserialized value associated with the specified key.
-	 * @param key The cookie name.
-	 * @returns The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
+	 * @template T
+	 * @param {string} key The cookie name.
+	 * @returns {T|null} The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject<T>(key: string): T|null {
-		try { return JSON.parse(this.get(key) ?? "") as T; }
+	getObject(key) {
+		try { return JSON.parse(this.get(key) ?? ""); }
 		catch { return null; }
 	}
 
 	/**
 	 * Gets a value indicating whether this cookie store contains the specified key.
-	 * @param key The cookie name.
-	 * @returns `true` if this cookie store contains the specified key, otherwise `false`.
+	 * @param {string} key The cookie name.
+	 * @returns {boolean} `true` if this cookie store contains the specified key, otherwise `false`.
 	 */
-	has(key: string): boolean {
+	has(key) {
 		return CookieStore.all.has(this.#buildKey(key));
 	}
 
 	/**
 	 * Registers a function that will be invoked whenever the `change` event is triggered.
-	 * @param listener The event handler to register.
-	 * @returns This instance.
+	 * @param {(event: CookieEvent) => void} listener The event handler to register.
+	 * @returns {this} This instance.
 	 * @event
 	 */
-	onChange(listener: (event: CookieEvent) => void): this {
-		this.addEventListener(CookieEvent.type, listener as EventListener, {passive: true});
+	onChange(listener) {
+		this.addEventListener(CookieEvent.type, /** @type {EventListener} */ (listener), {passive: true});
 		return this;
 	}
 
 	/**
 	 * Associates a given value with the specified key.
-	 * @param key The cookie name.
-	 * @param value The cookie value.
-	 * @param options The cookie options.
-	 * @returns This instance.
+	 * @param {string} key The cookie name.
+	 * @param {string} value The cookie value.
+	 * @param {Partial<import("./cookie_options.js").CookieOptionsParams>} options The cookie options.
+	 * @returns {this} This instance.
 	 * @throws `Error` if the cookie name is invalid.
 	 */
-	set(key: string, value: string, options: Partial<CookieOptionsParams> = {}): this {
+	set(key, value, options = {}) {
 		if (!key || key.includes("=") || key.includes(";")) throw Error("Invalid cookie name.");
 
 		let cookie = `${this.#buildKey(key)}=${encodeURIComponent(value)}`;
@@ -150,45 +158,48 @@ export class CookieStore extends EventTarget {
 
 	/**
 	 * Serializes and associates a given `value` with the specified `key`.
-	 * @param key The cookie name.
-	 * @param value The cookie value.
-	 * @param options The cookie options.
-	 * @returns This instance.
+	 * @template T
+	 * @param {string} key The cookie name.
+	 * @param {T} value The cookie value.
+	 * @param {Partial<import("./cookie_options.js").CookieOptionsParams>} options The cookie options.
+	 * @returns {this} This instance.
 	 */
-	setObject<T>(key: string, value: T, options: Partial<CookieOptionsParams> = {}): this {
+	setObject(key, value, options = {}) {
 		return this.set(key, JSON.stringify(value), options);
 	}
 
 	/**
 	 * Returns a JSON representation of this object.
-	 * @returns The JSON representation of this object.
+	 * @returns {[string, string][]} The JSON representation of this object.
 	 */
-	toJSON(): [string, string][] {
+	toJSON() {
 		return Array.from(this);
 	}
 
 	/**
 	 * Returns a string representation of this object.
-	 * @returns The string representation of this object.
+	 * @returns {string} The string representation of this object.
+	 * @override
 	 */
-	override toString(): string {
+	toString() {
 		return this.#keyPrefix ? Array.from(this).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join("; ") : document.cookie;
 	}
 
 	/**
 	 * Builds a normalized cookie key from the given key.
-	 * @param key The original key.
-	 * @returns The normalized cookie key.
+	 * @param {string} key The original key.
+	 * @returns {string} The normalized cookie key.
 	 */
-	#buildKey(key: string): string {
+	#buildKey(key) {
 		return `${this.#keyPrefix}${key}`;
 	}
 
 	/**
 	 * Merges the default cookie options with the specified ones.
-	 * @param options The cookie options.
+	 * @param {Partial<import("./cookie_options.js").CookieOptionsParams>} options Some cookie options.
+	 * @returns {CookieOptions} The merged cookie options.
 	 */
-	#getOptions(options: Partial<CookieOptionsParams> = {}): CookieOptions {
+	#getOptions(options = {}) {
 		return new CookieOptions({
 			domain: options.domain ?? this.defaults.domain,
 			expires: options.expires ?? this.defaults.expires,
@@ -202,16 +213,7 @@ export class CookieStore extends EventTarget {
 
 /**
  * Defines the options of a {@link CookieStore} instance.
+ * @typedef {object} CookieStoreOptions
+ * @property {Partial<import("./cookie_options.js").CookieOptionsParams>} defaults The default cookie options.
+ * @property {string} keyPrefix A string prefixed to every key so that it is unique globally in the whole cookie store.
  */
-export interface CookieStoreOptions {
-
-	/**
-	 * The default cookie options.
-	 */
-	defaults: Partial<CookieOptionsParams>;
-
-	/**
-	 * A string prefixed to every key so that it is unique globally in the whole cookie store.
-	 */
-	keyPrefix: string;
-}
