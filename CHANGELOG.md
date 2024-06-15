@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [6.0.1](https://github.com/cedx/cookies.js/compare/v6.0.0...v6.0.1)
+- Migrated the documentation to the [GitHub wiki](https://github.com/cedx/cookies.js/wiki).
+
 ## Version [6.0.0](https://github.com/cedx/cookies.js/compare/v5.2.0...v6.0.0)
 - Breaking change: renamed the `CookieStore.remove()` method to `delete()`.
 - Breaking change: removed the `putIfAbsent()` and `putObjectIfAbsent()` methods from the `CookieStore` class.
