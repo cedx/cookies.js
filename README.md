@@ -5,12 +5,11 @@ Service for interacting with the [HTTP cookies](https://developer.mozilla.org/do
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
-- [User guide](https://docs.belin.io/cookies.js)
-- [API reference](https://docs.belin.io/cookies.js/api)
+- [User guide](https://github.com/cedx/cookies.js/wiki)
+- [Examples](https://github.com/cedx/cookies.js/tree/main/example)
 
 ## Development
 - [Git repository](https://github.com/cedx/cookies.js)
-- [npm package](https://www.npmjs.com/package/@cedx/cookies)
 - [Submit an issue](https://github.com/cedx/cookies.js/issues)
 
 ## License
