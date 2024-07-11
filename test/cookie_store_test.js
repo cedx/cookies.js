@@ -55,7 +55,6 @@ describe("CookieStore", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
 
-			/** @type {IteratorResult<[string, string], [string, string]>} */
 			let next = iterator.next();
 			assert.isFalse(next.done);
 			assert.sameOrderedMembers(next.value, ["foo", "bar"]);
@@ -70,7 +69,6 @@ describe("CookieStore", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
 
-			/** @type {IteratorResult<[string, string], [string, string]>} */
 			const next = iterator.next();
 			assert.isFalse(next.done);
 			assert.sameOrderedMembers(next.value, ["baz", "qux"]);
