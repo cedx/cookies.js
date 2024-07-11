@@ -1,5 +1,5 @@
 import {CookieEvent} from "./cookie_event.js";
-import {CookieOptions, CookieOptionsParams} from "./cookie_options.js";
+import {CookieOptions, type CookieOptionsParams} from "./cookie_options.js";
 
 /**
  * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
@@ -66,7 +66,7 @@ export class CookieStore extends EventTarget {
 	 * Removes all entries from this cookie store.
 	 * @param options The cookie options.
 	 */
-	clear(options: Partial<CookieOptionsParams> = {}) {
+	clear(options: Partial<CookieOptionsParams> = {}): void {
 		for (const key of this.keys) this.delete(key, options);
 	}
 
@@ -102,8 +102,8 @@ export class CookieStore extends EventTarget {
 	 * @param key The cookie name.
 	 * @returns The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject<T>(key: string): T|null {
-		try { return JSON.parse(this.get(key) ?? ""); }
+	getObject<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+		try { return JSON.parse(this.get(key) ?? "") as T; }
 		catch { return null; }
 	}
 
@@ -154,7 +154,7 @@ export class CookieStore extends EventTarget {
 	 * @param options The cookie options.
 	 * @returns This instance.
 	 */
-	setObject<T>(key: string, value: T, options: Partial<CookieOptionsParams> = {}): this {
+	setObject(key: string, value: unknown, options: Partial<CookieOptionsParams> = {}): this {
 		return this.set(key, JSON.stringify(value), options);
 	}
 
