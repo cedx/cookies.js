@@ -1,5 +1,5 @@
-import {assert} from "chai";
 import {CookieOptions, SameSite} from "@cedx/cookies";
+import {assert} from "chai";
 
 /**
  * Tests the features of the {@link CookieOptions} class.
