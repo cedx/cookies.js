@@ -42,16 +42,16 @@ export class CookieStore extends EventTarget {
 	/**
 	 * The keys of this cookie store.
 	 */
-	get keys(): string[] {
+	get keys(): Set<string> {
 		const keys = Array.from(CookieStore.all.keys());
-		return keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length));
+		return new Set(this.#keyPrefix ? keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)) : keys);
 	}
 
 	/**
 	 * The number of entries in this cookie store.
 	 */
 	get length(): number {
-		return this.keys.length;
+		return this.keys.size;
 	}
 
 	/**

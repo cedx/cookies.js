@@ -17,13 +17,13 @@ describe("CookieStore", () => {
 		it("should return the list of keys for a non-empty cookie store", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.sameMembers(new CookieStore().keys, ["foo", "prefix:baz"]);
+			assert.sameMembers(Array.from(new CookieStore().keys), ["foo", "prefix:baz"]);
 		});
 
 		it("should handle the key prefix", () => {
 			setCookie("foo", "bar");
 			setCookie("prefix:baz", "qux");
-			assert.sameMembers(new CookieStore({keyPrefix: "prefix:"}).keys, ["baz"]);
+			assert.sameMembers(Array.from(new CookieStore({keyPrefix: "prefix:"}).keys), ["baz"]);
 		});
 	});
 
