@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [7.0.0](https://github.com/cedx/cookies.js/compare/v6.0.1...v7.0.0)
+- Breaking change: the `CookieStore.keys` property is now implemented as `Set<string>`.
+
 ## Version [6.0.1](https://github.com/cedx/cookies.js/compare/v6.0.0...v6.0.1)
 - Migrated the documentation to the [GitHub wiki](https://github.com/cedx/cookies.js/wiki).
 
