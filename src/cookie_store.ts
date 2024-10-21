@@ -20,7 +20,7 @@ export class CookieStore extends EventTarget {
 	 * Creates a new cookie store.
 	 * @param options An object providing values to initialize this instance.
 	 */
-	constructor(options: Partial<CookieStoreOptions> = {}) {
+	constructor(options: CookieStoreOptions = {}) {
 		super();
 		this.defaults = new CookieOptions(options.defaults ?? {});
 		this.#keyPrefix = options.keyPrefix ?? "";
@@ -66,7 +66,7 @@ export class CookieStore extends EventTarget {
 	 * Removes all entries from this cookie store.
 	 * @param options The cookie options.
 	 */
-	clear(options: Partial<CookieOptionsParams> = {}): void {
+	clear(options: CookieOptionsParams = {}): void {
 		for (const key of this.keys) this.delete(key, options);
 	}
 
@@ -76,7 +76,7 @@ export class CookieStore extends EventTarget {
 	 * @param options The cookie options.
 	 * @returns The value associated with the key before it was removed.
 	 */
-	delete(key: string, options: Partial<CookieOptionsParams> = {}): string|null {
+	delete(key: string, options: CookieOptionsParams = {}): string|null {
 		const oldValue = this.get(key);
 
 		const cookieOptions = this.#getOptions(options);
@@ -134,7 +134,7 @@ export class CookieStore extends EventTarget {
 	 * @returns This instance.
 	 * @throws `Error` if the cookie name is invalid.
 	 */
-	set(key: string, value: string, options: Partial<CookieOptionsParams> = {}): this {
+	set(key: string, value: string, options: CookieOptionsParams = {}): this {
 		if (!key || key.includes("=") || key.includes(";")) throw Error("Invalid cookie name.");
 
 		let cookie = `${this.#buildKey(key)}=${encodeURIComponent(value)}`;
@@ -154,7 +154,7 @@ export class CookieStore extends EventTarget {
 	 * @param options The cookie options.
 	 * @returns This instance.
 	 */
-	setObject(key: string, value: unknown, options: Partial<CookieOptionsParams> = {}): this {
+	setObject(key: string, value: unknown, options: CookieOptionsParams = {}): this {
 		return this.set(key, JSON.stringify(value), options);
 	}
 
@@ -188,7 +188,7 @@ export class CookieStore extends EventTarget {
 	 * @param options Some cookie options.
 	 * @returns The merged cookie options.
 	 */
-	#getOptions(options: Partial<CookieOptionsParams> = {}): CookieOptions {
+	#getOptions(options: CookieOptionsParams = {}): CookieOptions {
 		return new CookieOptions({
 			domain: options.domain ?? this.defaults.domain,
 			expires: options.expires ?? this.defaults.expires,
@@ -203,7 +203,7 @@ export class CookieStore extends EventTarget {
 /**
  * Defines the options of a {@link CookieStore} instance.
  */
-export interface CookieStoreOptions {
+export type CookieStoreOptions = Partial<{
 
 	/**
 	 * The default cookie options.
@@ -214,4 +214,4 @@ export interface CookieStoreOptions {
 	 * A string prefixed to every key so that it is unique globally in the whole cookie store.
 	 */
 	keyPrefix: string;
-}
+}>;

@@ -39,7 +39,7 @@ export class CookieOptions {
 	 * Creates new cookie options.
 	 * @param options An object providing values to initialize this instance.
 	 */
-	constructor(options: Partial<CookieOptionsParams> = {}) {
+	constructor(options: CookieOptionsParams = {}) {
 		this.domain = options.domain ?? "";
 		this.expires = options.expires ?? null;
 		this.maxAge = options.maxAge ?? -1;
@@ -67,7 +67,7 @@ export class CookieOptions {
 /**
  * Defines the parameters of a {@link CookieOptions} instance.
  */
-export interface CookieOptionsParams {
+export type CookieOptionsParams = Partial<{
 
 	/**
 	 * The domain for which the cookie is valid.
@@ -98,4 +98,4 @@ export interface CookieOptionsParams {
 	 * Value indicating whether to transmit the cookie over HTTPS only.
 	 */
 	secure: boolean;
-}
+}>;
