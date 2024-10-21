@@ -208,10 +208,10 @@ export type CookieStoreOptions = Partial<{
 	/**
 	 * The default cookie options.
 	 */
-	defaults: CookieOptionsParams;
+	defaults: CookieOptionsParams,
 
 	/**
 	 * A string prefixed to every key so that it is unique globally in the whole cookie store.
 	 */
-	keyPrefix: string;
+	keyPrefix: string
 }>;
