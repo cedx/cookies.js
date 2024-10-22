@@ -50,6 +50,6 @@
 	],
 	"scripts": {
 		"prepack": "gulp",
-		"test": "gulp build && web-test-runner --config=etc/test_runner.js"
+		"test": "gulp test"
 	}
 }
