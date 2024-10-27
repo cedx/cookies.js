@@ -101,7 +101,7 @@ describe("CookieStore", () => {
 
 			new CookieStore().delete("foo");
 			assert.equal(document.cookie, "prefix:baz=qux");
-			assert.isUndefined(getCookie("foo"));
+			assert.isNull(getCookie("foo"));
 		});
 
 		it("should handle the key prefix", () => {
@@ -110,7 +110,7 @@ describe("CookieStore", () => {
 
 			new CookieStore({keyPrefix: "prefix:"}).delete("baz");
 			assert.equal(document.cookie, "foo=bar");
-			assert.isUndefined(getCookie("prefix:baz"));
+			assert.isNull(getCookie("prefix:baz"));
 		});
 	});
 
@@ -270,7 +270,7 @@ describe("CookieStore", () => {
 	describe("set()", () => {
 		it("should properly set the cookies", () => {
 			const service = new CookieStore;
-			assert.isUndefined(getCookie("foo"));
+			assert.isNull(getCookie("foo"));
 
 			service.set("foo", "bar");
 			assert.equal(getCookie("foo"), "bar");
@@ -281,7 +281,7 @@ describe("CookieStore", () => {
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isUndefined(getCookie("prefix:baz"));
+			assert.isNull(getCookie("prefix:baz"));
 
 			service.set("baz", "qux");
 			assert.equal(getCookie("prefix:baz"), "qux");
@@ -294,7 +294,7 @@ describe("CookieStore", () => {
 	describe("setObject()", () => {
 		it("should properly serialize and set the cookies", () => {
 			const service = new CookieStore;
-			assert.isUndefined(getCookie("foo"));
+			assert.isNull(getCookie("foo"));
 
 			service.setObject("foo", "bar");
 			assert.equal(getCookie("foo"), '"bar"');
@@ -308,7 +308,7 @@ describe("CookieStore", () => {
 
 		it("should handle the key prefix", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isUndefined(getCookie("prefix:baz"));
+			assert.isNull(getCookie("prefix:baz"));
 
 			service.setObject("baz", "qux");
 			assert.equal(getCookie("prefix:baz"), '"qux"');
@@ -373,10 +373,10 @@ function deleteCookie(name) {
 /**
  * Gets the value of the cookie with the specified name.
  * @param {string} name The cookie name.
- * @returns {string|undefined} The cookie value.
+ * @returns {string|null} The cookie value.
  */
 function getCookie(name) {
-	return CookieStore.all.get(name);
+	return CookieStore.all.get(name) ?? null;
 }
 
 /**
