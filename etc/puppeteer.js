@@ -22,8 +22,7 @@ page.on("console", async message => {
 await page.evaluate(() => console.log(navigator.userAgent));
 await page.exposeFunction("exit", async code => {
 	await browser.close();
-	server.close();
-	process.exit(code);
+	server.close(() => process.exit(code));
 });
 
 // Run the test suite.
@@ -50,7 +49,7 @@ await writeFile(join(directory, "tests.html"), `
 	</html>
 `);
 
-server.listen(0, "127.0.0.1", () => {
+server.listen({host: "127.0.0.1", port: 0}, () => {
 	const {address, port} = server.address();
 	page.goto(`http://${address}:${port}/tests.html`);
 });
