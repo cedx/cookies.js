@@ -26,9 +26,9 @@ export class CookieOptions
 	toString: ->
 		value = []
 		value.push "domain=#{@domain}" if @domain
-		value.push "expires=#{@expires.toUTCString()}" if @expires?
+		value.push "expires=#{@expires.toUTCString()}" if @expires
 		value.push "max-age=#{@maxAge}" if @maxAge >= 0
 		value.push "path=#{@path}" if @path
-		value.push "samesite=#{@sameSite}" if @sameSite?
+		value.push "samesite=#{@sameSite}" if @sameSite
 		value.push "secure" if @secure
 		value.join "; "
