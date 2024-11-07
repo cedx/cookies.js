@@ -11,7 +11,7 @@ export class CookieOptions
 		@expires = options.expires ? null
 
 		# The maximum duration, in seconds, until the cookie expires.
-		@maxAge = options.maxAge ? -1
+		@maxAge = options.maxAge ? (-1)
 
 		# The path to which the cookie applies.
 		@path = options.path ? ""
