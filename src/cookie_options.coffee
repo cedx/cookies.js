@@ -20,7 +20,7 @@ export class CookieOptions
 		@sameSite = options.sameSite ? null
 
 		# Value indicating whether to transmit the cookie over HTTPS only.
-		@secure = options.secure ? false
+		@secure = options.secure ? no
 
 	# Returns a string representation of this object.
 	toString: ->
