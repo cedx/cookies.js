@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 import {CookieStore} from "@cedx/cookies";
 import console from "node:console";
 
@@ -8,12 +7,10 @@ const cookieStore = new CookieStore()
 	.set("bar", "baz")
 	.set("baz", "qux");
 
-for (const [key, value] of cookieStore) {
-	console.log(`${key} => ${value}`);
-	// Round 1: "foo => bar"
-	// Round 2: "bar => baz"
-	// Round 3: "baz => qux"
-}
+for (const [key, value] of cookieStore) console.log(`${key} => ${value}`);
+// Round 1: "foo => bar"
+// Round 2: "bar => baz"
+// Round 3: "baz => qux"
 
 cookieStore.clear();
 
@@ -22,11 +19,7 @@ cookieStore
 	.set("foo", "bar")
 	.set("prefix:bar", "baz");
 
-const prefixedStore = new CookieStore({keyPrefix: "prefix:"})
-	.set("baz", "qux");
-
-for (const [key, value] of prefixedStore) {
-	console.log(`${key} => ${value}`);
-	// Round 1: "bar => baz"
-	// Round 2: "baz => qux"
-}
+const prefixedStore = new CookieStore({keyPrefix: "prefix:"}).set("baz", "qux");
+for (const [key, value] of prefixedStore) console.log(`${key} => ${value}`);
+// Round 1: "bar => baz"
+// Round 2: "baz => qux"
