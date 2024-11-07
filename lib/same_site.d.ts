@@ -1,7 +1,7 @@
 /**
  * Defines the values of the `SameSite` cookie attribute.
  */
-export const SameSite = Object.freeze({
+export const SameSite: Readonly<{
 
 	/**
 	 * Only send cookies for top level navigation requests.
@@ -17,7 +17,7 @@ export const SameSite = Object.freeze({
 	 * Prevents the cookie from being sent to the target site in all cross-site browsing context.
 	 */
 	strict: "strict"
-});
+}>;
 
 /**
  * Defines the values of the `SameSite` cookie attribute.
