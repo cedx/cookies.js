@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [8.0.0](https://github.com/cedx/cookies.js/compare/v7.0.0...v8.0.0)
+- Ported the source code to [CoffeeScript](https://coffeescript.org).
+
 ## Version [7.0.0](https://github.com/cedx/cookies.js/compare/v6.0.1...v7.0.0)
 - Breaking change: the `CookieStore.keys` property is now implemented as `Set<string>`.
 
