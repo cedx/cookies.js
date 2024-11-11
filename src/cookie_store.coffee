@@ -4,6 +4,16 @@ import {CookieOptions} from "./cookie_options.js"
 # Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
 export class CookieStore extends EventTarget
 
+	# Creates a new cookie store.
+	constructor: (options = {}) ->
+		super()
+
+		# The default cookie options.
+		@defaults = new CookieOptions options.defaults
+
+		# A string prefixed to every key so that it is unique globally in the whole cookie store.
+		@_keyPrefix = options.keyPrefix ? ""
+
 	# The map of all cookies.
 	Object.defineProperty @, "all",
 		get: ->
@@ -23,16 +33,6 @@ export class CookieStore extends EventTarget
 	# The number of entries in this cookie store.
 	Object.defineProperty @prototype, "length",
 		get: -> @keys.size
-
-	# Creates a new cookie store.
-	constructor: (options = {}) ->
-		super()
-
-		# The default cookie options.
-		@defaults = new CookieOptions options.defaults
-
-		# A string prefixed to every key so that it is unique globally in the whole cookie store.
-		@_keyPrefix = options.keyPrefix ? ""
 
 	# Returns a new iterator that allows iterating the entries of this cookie store.
 	[Symbol.iterator]: ->
