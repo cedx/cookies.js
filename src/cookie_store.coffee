@@ -12,7 +12,7 @@ export class CookieStore extends EventTarget
 		@defaults = new CookieOptions options.defaults
 
 		# A string prefixed to every key so that it is unique globally in the whole cookie store.
-		@_keyPrefix = options.keyPrefix ? ""
+		@_keyPrefix = options.keyPrefix or ""
 
 	# The map of all cookies.
 	Object.defineProperty @, "all",
@@ -55,7 +55,7 @@ export class CookieStore extends EventTarget
 		oldValue
 
 	# Gets the value associated to the specified key.
-	get: (key) -> CookieStore.all.get(@_buildKey key) ? null
+	get: (key) -> CookieStore.all.get(@_buildKey key) or null
 
 	# Gets the deserialized value associated with the specified key.
 	getObject: (key) -> try JSON.parse(@get(key) ? "") catch then null

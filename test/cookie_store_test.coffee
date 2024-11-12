@@ -5,7 +5,7 @@ import {assert} from "chai"
 deleteCookie = (name) -> document.cookie = "#{name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0"
 
 # Gets the value of the cookie with the specified name.
-getCookie = (name) -> CookieStore.all.get(name) ? null
+getCookie = (name) -> CookieStore.all.get(name) or null
 
 # Sets a cookie with the specified name and value.
 setCookie = (name, value) -> document.cookie = "#{name}=#{encodeURIComponent value}"
