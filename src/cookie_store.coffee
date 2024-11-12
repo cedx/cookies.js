@@ -82,7 +82,7 @@ export class CookieStore extends EventTarget
 		this # coffeelint: disable-line = no_this
 
 	# Serializes and associates a given value with the specified key.
-	setObject: (key, value, options = {}) -> @set key, JSON.stringify value, options
+	setObject: (key, value, options = {}) -> @set key, JSON.stringify(value), options
 
 	# Returns a JSON representation of this object.
 	toJSON: -> Array.from @
