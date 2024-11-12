@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [8.0.1](https://github.com/cedx/cookies.js/compare/v8.0.0...v8.0.1)
+- Fixed the `CookieStore.setObject()` method.
+
 ## Version [8.0.0](https://github.com/cedx/cookies.js/compare/v7.0.0...v8.0.0)
 - Ported the source code to [CoffeeScript](https://coffeescript.org).
 
