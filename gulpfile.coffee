@@ -15,7 +15,7 @@ export clean = ->
 
 # Performs the static analysis of source code.
 export lint = ->
-	await npx "coffeelint", "--file=etc/coffeelint.json", "example", "src", "test"
+	await npx "coffeelint", "--file=etc/coffeelint.json", "gulpfile.coffee", "example", "src", "test"
 
 # Publishes the package.
 export publish = ->
@@ -28,13 +28,14 @@ export publish = ->
 export test = ->
 	env.NODE_ENV = "test"
 	await npx "coffee", "--compile", "--map", "--no-header", "--output", "lib", "src", "test"
-	await run "node", "--enable-source-maps", "--test", "--test-reporter=spec", "lib/**/*_test.js"
+	await npx "rollup", "--config=etc/rollup.js"
+	await run "node", "lib/puppeteer.js"
 
 # Watches for file changes.
 export watch = ->
 	await npx "coffee", "--compile", "--no-header", "--output", "lib", "--watch", "src", "test"
 
-# The default task.
+# Packages the project.
 export default gulp.series clean, build
 
 # Executes a command from a local package.
