@@ -65,7 +65,7 @@ export class CookieStore extends EventTarget
 
 	# Registers a function that will be invoked whenever the "change" event is triggered.
 	onChange: (listener) ->
-		@addEventListener CookieEvent.type, listener, passive: yes
+		@addEventListener CookieEvent.type, listener
 		this # coffeelint: disable-line = no_this
 
 	# Associates a given value with the specified key.
