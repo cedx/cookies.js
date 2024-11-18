@@ -98,18 +98,6 @@ export class CookieStore extends EventTarget {
 	 * @returns This instance.
 	 */
 	setObject(key: string, value: unknown, options?: CookieOptionsParams): this;
-
-	/**
-	 * Returns a JSON representation of this object.
-	 * @returns The JSON representation of this object.
-	 */
-	toJSON(): Array<[string, string]>;
-
-	/**
-	 * Returns a string representation of this object.
-	 * @returns The string representation of this object.
-	 */
-	toString(): string;
 }
 
 /**

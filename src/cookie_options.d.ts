@@ -40,12 +40,6 @@ export class CookieOptions {
 	 * @param options An object providing values to initialize this instance.
 	 */
 	constructor(options?: CookieOptionsParams);
-
-	/**
-	 * Returns a string representation of this object.
-	 * @returns The string representation of this object.
-	 */
-	toString(): string;
 }
 
 /**
