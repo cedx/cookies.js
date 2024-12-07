@@ -24,14 +24,14 @@ export class CookieStore extends EventTarget
 			map
 
 	# The keys of this cookie store.
-	Object.defineProperty @prototype, "keys",
+	Object.defineProperty @::, "keys",
 		get: ->
 			keys = Array.from CookieStore.all.keys()
 			{length} = @_keyPrefix
 			new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
 
 	# The number of entries in this cookie store.
-	Object.defineProperty @prototype, "length",
+	Object.defineProperty @::, "length",
 		get: -> @keys.size
 
 	# Returns a new iterator that allows iterating the entries of this cookie store.
