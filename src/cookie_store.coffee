@@ -28,7 +28,7 @@ export class CookieStore extends EventTarget
 		get: ->
 			keys = Array.from CookieStore.all.keys()
 			{length} = @_keyPrefix
-			new Set if length then keys.filter(($) => $.startsWith @_keyPrefix).map(($) -> $[length..]) else keys
+			new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
 
 	# The number of entries in this cookie store.
 	Object.defineProperty @::, "length",
@@ -89,7 +89,7 @@ export class CookieStore extends EventTarget
 
 	# Returns a string representation of this object.
 	toString: ->
-		if @_keyPrefix then Array.from(@).map(($) -> "#{$[0]}=#{encodeURIComponent $[1]}").join "; "
+		if @_keyPrefix then Array.from(@).map(([key, value]) -> "#{key}=#{encodeURIComponent value}").join "; "
 		else document.cookie
 
 	# Builds a normalized cookie key from the given key.
