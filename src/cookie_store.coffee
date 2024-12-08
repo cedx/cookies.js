@@ -15,24 +15,21 @@ export class CookieStore extends EventTarget
 		@_keyPrefix = options.keyPrefix or ""
 
 	# The map of all cookies.
-	Object.defineProperty @, "all",
-		get: ->
-			map = new Map
-			if document.cookie then for item from document.cookie.split ";"
-				parts = item.trimStart().split "="
-				map.set parts[0], decodeURIComponent parts[1..].join("=") if parts.length >= 2
-			map
+	Object.defineProperty @, "all", get: ->
+		map = new Map
+		if document.cookie then for item from document.cookie.split ";"
+			parts = item.trimStart().split "="
+			map.set parts[0], decodeURIComponent parts[1..].join("=") if parts.length >= 2
+		map
 
 	# The keys of this cookie store.
-	Object.defineProperty @::, "keys",
-		get: ->
-			keys = Array.from CookieStore.all.keys()
-			{length} = @_keyPrefix
-			new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
+	Object.defineProperty @::, "keys", get: ->
+		keys = Array.from CookieStore.all.keys()
+		{length} = @_keyPrefix
+		new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
 
 	# The number of entries in this cookie store.
-	Object.defineProperty @::, "length",
-		get: -> @keys.size
+	Object.defineProperty @::, "length", get: -> @keys.size
 
 	# Returns a new iterator that allows iterating the entries of this cookie store.
 	[Symbol.iterator]: ->
