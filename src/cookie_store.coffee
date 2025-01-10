@@ -63,7 +63,7 @@ export class CookieStore extends EventTarget
 	# Registers a function that will be invoked whenever the "change" event is triggered.
 	onChange: (listener) ->
 		@addEventListener CookieEvent.type, listener
-		this # coffeelint: disable-line = no_this
+		this # coffeelint: disable-line=no_this
 
 	# Associates a given value with the specified key.
 	set: (key, value, options = {}) ->
@@ -76,7 +76,7 @@ export class CookieStore extends EventTarget
 		oldValue = @get key
 		document.cookie = cookie
 		@dispatchEvent new CookieEvent key, oldValue, value
-		this # coffeelint: disable-line = no_this
+		this # coffeelint: disable-line=no_this
 
 	# Serializes and associates a given value with the specified key.
 	setObject: (key, value, options = {}) -> @set key, JSON.stringify(value), options
