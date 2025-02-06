@@ -67,35 +67,4 @@ export class CookieOptions {
 /**
  * Defines the parameters of a {@link CookieOptions} instance.
  */
-export type CookieOptionsParams = Partial<{
-
-	/**
-	 * The domain for which the cookie is valid.
-	 */
-	domain: string;
-
-	/**
-	 * The expiration date and time for the cookie.
-	 */
-	expires: Date|null;
-
-	/**
-	 * The maximum duration, in seconds, until the cookie expires.
-	 */
-	maxAge: number;
-
-	/**
-	 * The path to which the cookie applies.
-	 */
-	path: string;
-
-	/**
-	 * The cross-site requests policy.
-	 */
-	sameSite: SameSite|null;
-
-	/**
-	 * Value indicating whether to transmit the cookie over HTTPS only.
-	 */
-	secure: boolean;
-}>;
+export type CookieOptionsParams = Partial<Omit<CookieOptions, "toString">>;
