@@ -1,0 +1,6 @@
+<Solution>
+	<Project Path="cookies.esproj">
+		<Build />
+		<Deploy />
+	</Project>
+</Solution>
