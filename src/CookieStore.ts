@@ -1,5 +1,5 @@
-import {CookieEvent} from "./cookie_event.js";
-import {CookieOptions, type CookieOptionsParams} from "./cookie_options.js";
+import {CookieEvent} from "./CookieEvent.js";
+import {CookieOptions, type CookieOptionsParams} from "./CookieOptions.js";
 
 /**
  * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).

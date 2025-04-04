@@ -1,4 +1,4 @@
-import type {SameSite} from "./same_site.js";
+import type {SameSite} from "./SameSite.js";
 
 /**
  * Defines the attributes of a HTTP cookie.
