@@ -16,7 +16,7 @@ describe("CookieOptions", () => {
 			let options = new CookieOptions({expires: new Date(0), path: "/path", secure: true});
 			equal(String(options), "expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/path; secure");
 
-			options = new CookieOptions({domain: "domain.com", maxAge: 123, sameSite: SameSite.strict});
+			options = new CookieOptions({domain: "domain.com", maxAge: 123, sameSite: SameSite.Strict});
 			equal(String(options), "domain=domain.com; max-age=123; samesite=strict");
 		});
 	});
