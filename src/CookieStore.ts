@@ -43,7 +43,7 @@ export class CookieStore extends EventTarget {
 	 * The keys of this cookie store.
 	 */
 	get keys(): Set<string> {
-		const keys = Array.from(CookieStore.all.keys());
+		const keys = CookieStore.all.keys();
 		return new Set(this.#keyPrefix ? keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)) : keys);
 	}
 
