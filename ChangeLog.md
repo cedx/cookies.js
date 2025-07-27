@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [8.1.1](https://github.com/cedx/cookies.js/compare/v8.1.0...v8.1.1)
+- Fixed the return type of the generator functions.
+
 ## Version [8.1.0](https://github.com/cedx/cookies.js/compare/v8.0.1...v8.1.0)
 - Ported the source code to [TypeScript](https://www.typescriptlang.org).
 
