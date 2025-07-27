@@ -7,7 +7,7 @@
 	"name": "@cedx/cookies",
 	"repository": "cedx/cookies.js",
 	"type": "module",
-	"version": "8.1.0",
+	"version": "8.1.1",
 	"devDependencies": {
 		"@types/chai": "^5.2.2",
 		"@types/gulp": "^4.0.17",
