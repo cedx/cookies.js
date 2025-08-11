@@ -4,7 +4,7 @@ import {CookieOptions, type CookieOptionsParams} from "./CookieOptions.js";
 /**
  * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
  */
-export class CookieStore extends EventTarget implements Iterable<[string, string]> {
+export class CookieStore extends EventTarget implements Iterable<[string, string], void, void> {
 
 	/**
 	 * The default cookie options.
@@ -58,7 +58,7 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	 * Returns a new iterator that allows iterating the entries of this cookie store.
 	 * @returns An iterator for the entries of this cookie store.
 	 */
-	*[Symbol.iterator](): Iterator<[string, string]> {
+	*[Symbol.iterator](): Iterator<[string, string], void, void> {
 		for (const key of this.keys) yield [key, this.get(key)!];
 	}
 
