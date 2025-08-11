@@ -135,7 +135,7 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	 * @throws `Error` if the cookie name is invalid.
 	 */
 	set(key: string, value: string, options: CookieOptionsParams = {}): this {
-		if (!key || key.includes("=") || key.includes(";")) throw Error("Invalid cookie name.");
+		if (!key || key.includes("=") || key.includes(";")) throw new Error("Invalid cookie name.");
 
 		let cookie = `${this.#buildKey(key)}=${encodeURIComponent(value)}`;
 		const cookieOptions = this.#getOptions(options).toString();
