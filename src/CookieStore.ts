@@ -7,6 +7,11 @@ import {CookieOptions, type CookieOptionsParams} from "./CookieOptions.js";
 export class CookieStore extends EventTarget implements Iterable<[string, string], void, void> {
 
 	/**
+	 * The `change` event type.
+	 */
+	static readonly changeEvent = "CookieStore.change";
+
+	/**
 	 * The default cookie options.
 	 */
 	readonly defaults: CookieOptions;
@@ -84,7 +89,7 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 		cookieOptions.maxAge = 0;
 		document.cookie = `${this.#buildKey(key)}=; ${cookieOptions}`;
 
-		this.dispatchEvent(new CookieEvent(key, oldValue));
+		this.dispatchEvent(new CookieEvent(CookieStore.changeEvent, key, oldValue));
 		return oldValue;
 	}
 
@@ -122,7 +127,7 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	 * @returns This instance.
 	 */
 	onChange(listener: (event: CookieEvent) => void): this {
-		this.addEventListener(CookieEvent.type, listener as EventListener);
+		this.addEventListener(CookieStore.changeEvent, listener as EventListener);
 		return this;
 	}
 
@@ -143,7 +148,7 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 
 		const oldValue = this.get(key);
 		document.cookie = cookie;
-		this.dispatchEvent(new CookieEvent(key, oldValue, value));
+		this.dispatchEvent(new CookieEvent(CookieStore.changeEvent, key, oldValue, value));
 		return this;
 	}
 

@@ -4,11 +4,6 @@
 export class CookieEvent extends Event {
 
 	/**
-	 * The event type.
-	 */
-	static readonly type = "cookie:change";
-
-	/**
 	 * The changed key.
 	 */
 	readonly key: string;
@@ -25,12 +20,13 @@ export class CookieEvent extends Event {
 
 	/**
 	 * Creates a new cookie event.
+	 * @param type The event type.
 	 * @param key The changed key.
 	 * @param oldValue The original value.
 	 * @param newValue The new value.
 	 */
-	constructor(key: string, oldValue: string|null = null, newValue: string|null = null) {
-		super(CookieEvent.type);
+	constructor(type: string, key: string, oldValue: string|null = null, newValue: string|null = null) {
+		super(type);
 		this.key = key;
 		this.newValue = newValue;
 		this.oldValue = oldValue;
