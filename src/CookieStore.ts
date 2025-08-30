@@ -9,7 +9,7 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	/**
 	 * The `change` event type.
 	 */
-	static readonly changeEvent = "CookieStore.change";
+	static readonly changeEvent = "cookies:change";
 
 	/**
 	 * The default cookie options.
