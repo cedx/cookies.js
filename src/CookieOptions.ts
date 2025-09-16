@@ -16,11 +16,6 @@ export class CookieOptions {
 	expires: Date|null;
 
 	/**
-	 * The maximum duration, in seconds, until the cookie expires.
-	 */
-	maxAge: number;
-
-	/**
 	 * The path to which the cookie applies.
 	 */
 	path: string;
@@ -42,7 +37,6 @@ export class CookieOptions {
 	constructor(options: CookieOptionsParams = {}) {
 		this.domain = options.domain ?? "";
 		this.expires = options.expires ?? null;
-		this.maxAge = options.maxAge ?? -1;
 		this.path = options.path ?? "";
 		this.sameSite = options.sameSite ?? null;
 		this.secure = options.secure ?? false;
@@ -56,7 +50,6 @@ export class CookieOptions {
 		const value = [];
 		if (this.domain) value.push(`domain=${this.domain}`);
 		if (this.expires) value.push(`expires=${this.expires.toUTCString()}`);
-		if (this.maxAge >= 0) value.push(`max-age=${this.maxAge}`);
 		if (this.path) value.push(`path=${this.path}`);
 		if (this.sameSite) value.push(`samesite=${this.sameSite}`);
 		if (this.secure) value.push("secure");
