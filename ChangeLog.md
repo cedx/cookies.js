@@ -3,8 +3,8 @@
 ## Version [9.0.0](https://github.com/cedx/cookies.js/compare/v8.1.1...v9.0.0)
 - Breaking change: all `CookieStore` methods and properties are now asynchronous.
 - Breaking change: the `CookieStore` class now **always** serializes/deserializes values to/from JSON.
-- Breaking change: removed the `getObject()` and `setObject()` methods from the `CookieStore` class.
-- Breaking change: removed the `maxAge` property from the `CookieOptions` class.
+- Breaking change: removed the `getObject()`, `setObject()`, `toJSON()` and `toString()` methods from the `CookieStore` class.
+- Breaking change: removed the `SameSite` enumeration.
 - Breaking change: replaced the `CookieEvent.type` property by `CookieStore.changeEvent`.
 
 ## Version [8.1.1](https://github.com/cedx/cookies.js/compare/v8.1.0...v8.1.1)
