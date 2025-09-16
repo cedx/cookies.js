@@ -1,10 +1,14 @@
 import {CookieEvent} from "./CookieEvent.js";
-import {CookieOptions, type CookieOptionsParams} from "./CookieOptions.js";
+
+/**
+ * Defines the attributes of a HTTP cookie.
+ */
+export type CookieOptions = Omit<CookieInit, "name"|"value">;
 
 /**
  * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
  */
-export class CookieStore extends EventTarget implements Iterable<[string, any], void, void> {
+export class CookieStore extends EventTarget implements AsyncIterable<[string, any], void, void> {
 
 	/**
 	 * The `change` event type.
@@ -27,52 +31,41 @@ export class CookieStore extends EventTarget implements Iterable<[string, any], 
 	 */
 	constructor(options: CookieStoreOptions = {}) {
 		super();
-		this.defaults = new CookieOptions(options.defaults ?? {});
+		this.defaults = options.defaults ?? {};
 		this.#keyPrefix = options.keyPrefix ?? "";
-	}
-
-	/**
-	 * The map of all cookies.
-	 */
-	static get all(): Map<string, string> {
-		const map = new Map;
-		if (document.cookie) for (const item of document.cookie.split(";")) {
-			const parts = item.trimStart().split("=");
-			if (parts.length >= 2) map.set(parts[0], decodeURIComponent(parts.slice(1).join("=")));
-		}
-
-		return map;
 	}
 
 	/**
 	 * The keys of this cookie store.
 	 */
-	get keys(): Set<string> {
-		const keys = CookieStore.all.keys();
-		return new Set(this.#keyPrefix ? keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)) : keys);
+	get keys(): Promise<Set<string>> {
+		return cookieStore.getAll().then(cookies => {
+			const keys = cookies.map(cookie => cookie.name!);
+			return new Set(this.#keyPrefix ? keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)) : keys);
+		});
 	}
 
 	/**
 	 * The number of entries in this cookie store.
 	 */
-	get length(): number {
-		return this.keys.size;
+	get length(): Promise<number> {
+		return this.keys.then(keys => keys.size);
 	}
 
 	/**
 	 * Returns a new iterator that allows iterating the entries of this cookie store.
 	 * @returns An iterator for the entries of this cookie store.
 	 */
-	*[Symbol.iterator](): Iterator<[string, any], void, void> {
-		for (const key of this.keys) yield [key, this.get(key)];
+	async *[Symbol.asyncIterator](): AsyncIterator<[string, any], void, void> {
+		for (const key of await this.keys) yield [key, await this.get(key)];
 	}
 
 	/**
 	 * Removes all entries from this cookie store.
 	 * @param options The cookie options.
 	 */
-	clear(options: CookieOptionsParams = {}): void {
-		for (const key of this.keys) this.delete(key, options);
+	async clear(options: CookieOptions = {}): Promise<void> {
+		for (const key of await this.keys) await this.delete(key, options);
 	}
 
 	/**
@@ -81,13 +74,9 @@ export class CookieStore extends EventTarget implements Iterable<[string, any], 
 	 * @param options The cookie options.
 	 * @returns The value associated with the key before it was removed.
 	 */
-	delete<T>(key: string, options: CookieOptionsParams = {}): T|null {
-		const oldValue = this.get<T>(key);
-
-		const cookieOptions = this.#getOptions(options);
-		cookieOptions.expires = new Date(0);
-		document.cookie = `${this.#buildKey(key)}=; ${cookieOptions}`;
-
+	async delete<T>(key: string, options: CookieOptions = {}): Promise<T|null> {
+		const oldValue = await this.get<T>(key);
+		await cookieStore.delete({...this.#getOptions(options), name: this.#buildKey(key)});
 		this.dispatchEvent(new CookieEvent(CookieStore.changeEvent, key, oldValue));
 		return oldValue;
 	}
@@ -97,8 +86,8 @@ export class CookieStore extends EventTarget implements Iterable<[string, any], 
 	 * @param key The cookie name.
 	 * @returns The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	get<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
-		try { return JSON.parse(this.#get(key) ?? "") as T; }
+	async get<T>(key: string): Promise<T|null> {
+		try { return JSON.parse((await cookieStore.get(this.#buildKey(key)))?.value ?? "") as T; }
 		catch { return null; }
 	}
 
@@ -107,8 +96,8 @@ export class CookieStore extends EventTarget implements Iterable<[string, any], 
 	 * @param key The cookie name.
 	 * @returns `true` if this cookie store contains the specified key, otherwise `false`.
 	 */
-	has(key: string): boolean {
-		return CookieStore.all.has(this.#buildKey(key));
+	async has(key: string): Promise<boolean> {
+		return await cookieStore.get(this.#buildKey(key)) != null;
 	}
 
 	/**
@@ -127,35 +116,12 @@ export class CookieStore extends EventTarget implements Iterable<[string, any], 
 	 * @param value The cookie value.
 	 * @param options The cookie options.
 	 * @returns This instance.
-	 * @throws `Error` if the cookie name is invalid.
 	 */
-	set(key: string, value: unknown, options: CookieOptionsParams = {}): this {
-		if (!key || key.includes("=") || key.includes(";")) throw new Error("Invalid cookie name.");
-
-		let cookie = `${this.#buildKey(key)}=${encodeURIComponent(JSON.stringify(value))}`;
-		const cookieOptions = this.#getOptions(options).toString();
-		if (cookieOptions) cookie += `; ${cookieOptions}`;
-
-		const oldValue = this.get(key);
-		document.cookie = cookie;
+	async set(key: string, value: unknown, options: CookieOptions = {}): Promise<this> {
+		const oldValue = await this.get(key);
+		await cookieStore.set({...this.#getOptions(options), name: this.#buildKey(key), value: JSON.stringify(value)});
 		this.dispatchEvent(new CookieEvent(CookieStore.changeEvent, key, oldValue, value));
 		return this;
-	}
-
-	/**
-	 * Returns a JSON representation of this object.
-	 * @returns The JSON representation of this object.
-	 */
-	toJSON(): Array<[string, any]> {
-		return Array.from(this);
-	}
-
-	/**
-	 * Returns a string representation of this object.
-	 * @returns The string representation of this object.
-	 */
-	override toString(): string {
-		return this.#keyPrefix ? Array.from(this).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join("; ") : document.cookie;
 	}
 
 	/**
@@ -168,27 +134,18 @@ export class CookieStore extends EventTarget implements Iterable<[string, any], 
 	}
 
 	/**
-	 * Gets the value associated to the specified key.
-	 * @param key The cookie name.
-	 * @returns The cookie value, or `null` if the key does not exist.
-	 */
-	#get(key: string): string|null {
-		return CookieStore.all.get(this.#buildKey(key)) ?? null;
-	}
-
-	/**
 	 * Merges the default cookie options with the specified ones.
 	 * @param options Some cookie options.
 	 * @returns The merged cookie options.
 	 */
-	#getOptions(options: CookieOptionsParams = {}): CookieOptions {
-		return new CookieOptions({
+	#getOptions(options: CookieOptions = {}): CookieOptions {
+		return {
 			domain: options.domain ?? this.defaults.domain,
 			expires: options.expires ?? this.defaults.expires,
+			partitioned: options.partitioned ?? this.defaults.partitioned,
 			path: options.path ?? this.defaults.path,
-			sameSite: options.sameSite ?? this.defaults.sameSite,
-			secure: options.secure ?? this.defaults.secure
-		});
+			sameSite: options.sameSite ?? this.defaults.sameSite
+		};
 	}
 }
 
@@ -200,7 +157,7 @@ export type CookieStoreOptions = Partial<{
 	/**
 	 * The default cookie options.
 	 */
-	defaults: CookieOptionsParams;
+	defaults: Partial<CookieOptions>;
 
 	/**
 	 * A string prefixed to every key so that it is unique globally in the whole cookie store.
