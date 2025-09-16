@@ -81,8 +81,8 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	 * @param options The cookie options.
 	 * @returns The value associated with the key before it was removed.
 	 */
-	delete(key: string, options: CookieOptionsParams = {}): string|null {
-		const oldValue = this.get(key);
+	delete<T>(key: string, options: CookieOptionsParams = {}): T|null {
+		const oldValue = this.get<T>(key);
 
 		const cookieOptions = this.#getOptions(options);
 		cookieOptions.expires = new Date(0);
@@ -94,21 +94,12 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	}
 
 	/**
-	 * Gets the value associated to the specified key.
-	 * @param key The cookie name.
-	 * @returns The cookie value, or `null` if the key does not exist.
-	 */
-	get(key: string): string|null {
-		return CookieStore.all.get(this.#buildKey(key)) ?? null;
-	}
-
-	/**
 	 * Gets the deserialized value associated with the specified key.
 	 * @param key The cookie name.
 	 * @returns The cookie value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
-		try { return JSON.parse(this.get(key) ?? "") as T; }
+	get<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+		try { return JSON.parse(this.#get(key) ?? "") as T; }
 		catch { return null; }
 	}
 
@@ -132,17 +123,17 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	}
 
 	/**
-	 * Associates a given value with the specified key.
+	 * Serializes and associates a given `value` with the specified `key`.
 	 * @param key The cookie name.
 	 * @param value The cookie value.
 	 * @param options The cookie options.
 	 * @returns This instance.
 	 * @throws `Error` if the cookie name is invalid.
 	 */
-	set(key: string, value: string, options: CookieOptionsParams = {}): this {
+	set(key: string, value: unknown, options: CookieOptionsParams = {}): this {
 		if (!key || key.includes("=") || key.includes(";")) throw new Error("Invalid cookie name.");
 
-		let cookie = `${this.#buildKey(key)}=${encodeURIComponent(value)}`;
+		let cookie = `${this.#buildKey(key)}=${encodeURIComponent(JSON.stringify(value))}`;
 		const cookieOptions = this.#getOptions(options).toString();
 		if (cookieOptions) cookie += `; ${cookieOptions}`;
 
@@ -150,17 +141,6 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 		document.cookie = cookie;
 		this.dispatchEvent(new CookieEvent(CookieStore.changeEvent, key, oldValue, value));
 		return this;
-	}
-
-	/**
-	 * Serializes and associates a given `value` with the specified `key`.
-	 * @param key The cookie name.
-	 * @param value The cookie value.
-	 * @param options The cookie options.
-	 * @returns This instance.
-	 */
-	setObject(key: string, value: unknown, options: CookieOptionsParams = {}): this {
-		return this.set(key, JSON.stringify(value), options);
 	}
 
 	/**
@@ -186,6 +166,15 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	 */
 	#buildKey(key: string): string {
 		return `${this.#keyPrefix}${key}`;
+	}
+
+	/**
+	 * Gets the value associated to the specified key.
+	 * @param key The cookie name.
+	 * @returns The cookie value, or `null` if the key does not exist.
+	 */
+	#get(key: string): string|null {
+		return CookieStore.all.get(this.#buildKey(key)) ?? null;
 	}
 
 	/**

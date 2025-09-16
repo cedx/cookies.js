@@ -50,8 +50,8 @@ describe("CookieStore", () => {
 
 		it("should iterate over the values if the cookie store is not empty", () => {
 			const iterator = new CookieStore()[Symbol.iterator]();
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			let next = iterator.next();
 			assert.isFalse(next.done);
@@ -64,8 +64,8 @@ describe("CookieStore", () => {
 
 		it("should handle the key prefix", () => {
 			const iterator = new CookieStore({keyPrefix: "prefix:"})[Symbol.iterator]();
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			const next = iterator.next();
 			assert.isFalse(next.done);
@@ -113,15 +113,21 @@ describe("CookieStore", () => {
 	});
 
 	describe("get()", () => {
-		it("should properly get the cookies", () => {
+		it("should properly get the deserialized cookies", () => {
 			const service = new CookieStore;
 			assert.isNull(service.get("foo"));
 
-			setCookie("foo", "bar");
+			setCookie("foo", '"bar"');
 			assert.equal(service.get("foo"), "bar");
 
 			setCookie("foo", "123");
-			assert.equal(service.get("foo"), "123");
+			assert.equal(service.get("foo"), 123);
+
+			setCookie("foo", '{"key": "value"}');
+			assert.deepEqual(service.get("foo"), {key: "value"});
+
+			setCookie("foo", "{bar[123]}");
+			assert.isNull(service.get("foo"));
 
 			deleteCookie("foo");
 			assert.isNull(service.get("foo"));
@@ -131,56 +137,20 @@ describe("CookieStore", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
 			assert.isNull(service.get("baz"));
 
-			setCookie("prefix:baz", "qux");
+			setCookie("prefix:baz", '"qux"');
 			assert.equal(service.get("baz"), "qux");
 
 			setCookie("prefix:baz", "456");
-			assert.equal(service.get("baz"), "456");
+			assert.equal(service.get("baz"), 456);
+
+			setCookie("prefix:baz", '{"key": "value"}');
+			assert.deepEqual(service.get("baz"), {key: "value"});
+
+			setCookie("prefix:baz", "{qux[456]}");
+			assert.isNull(service.get("baz"));
 
 			deleteCookie("prefix:baz");
 			assert.isNull(service.get("baz"));
-		});
-	});
-
-	describe("getObject()", () => {
-		it("should properly get the deserialized cookies", () => {
-			const service = new CookieStore;
-			assert.isNull(service.getObject("foo"));
-
-			setCookie("foo", '"bar"');
-			assert.equal(service.getObject("foo"), "bar");
-
-			setCookie("foo", "123");
-			assert.equal(service.getObject("foo"), 123);
-
-			setCookie("foo", '{"key": "value"}');
-			assert.deepEqual(service.getObject("foo"), {key: "value"});
-
-			setCookie("foo", "{bar[123]}");
-			assert.isNull(service.getObject("foo"));
-
-			deleteCookie("foo");
-			assert.isNull(service.getObject("foo"));
-		});
-
-		it("should handle the key prefix", () => {
-			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isNull(service.getObject("baz"));
-
-			setCookie("prefix:baz", '"qux"');
-			assert.equal(service.getObject("baz"), "qux");
-
-			setCookie("prefix:baz", "456");
-			assert.equal(service.getObject("baz"), 456);
-
-			setCookie("prefix:baz", '{"key": "value"}');
-			assert.deepEqual(service.getObject("baz"), {key: "value"});
-
-			setCookie("prefix:baz", "{qux[456]}");
-			assert.isNull(service.getObject("baz"));
-
-			deleteCookie("prefix:baz");
-			assert.isNull(service.getObject("baz"));
 		});
 	});
 
@@ -218,7 +188,7 @@ describe("CookieStore", () => {
 
 			const service = new CookieStore;
 			service.onChange(listener);
-			service.set("foo", "bar").removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
+			service.set("foo", "bar").removeEventListener(CookieStore.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 
@@ -232,7 +202,7 @@ describe("CookieStore", () => {
 
 			const service = new CookieStore;
 			service.onChange(listener);
-			service.set("foo", "baz").removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
+			service.set("foo", "baz").removeEventListener(CookieStore.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 
@@ -247,7 +217,7 @@ describe("CookieStore", () => {
 			const service = new CookieStore;
 			service.onChange(listener);
 			service.delete("foo");
-			service.removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
+			service.removeEventListener(CookieStore.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 
@@ -260,47 +230,23 @@ describe("CookieStore", () => {
 
 			const service = new CookieStore({keyPrefix: "prefix:"});
 			service.onChange(listener);
-			service.set("baz", "qux").removeEventListener(CookieEvent.type, /** @type {EventListener} */ (listener));
+			service.set("baz", "qux").removeEventListener(CookieStore.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 	});
 
 	describe("set()", () => {
-		it("should properly set the cookies", () => {
-			const service = new CookieStore;
-			assert.isNull(getCookie("foo"));
-
-			service.set("foo", "bar");
-			assert.equal(getCookie("foo"), "bar");
-
-			service.set("foo", "123");
-			assert.equal(getCookie("foo"), "123");
-		});
-
-		it("should handle the key prefix", () => {
-			const service = new CookieStore({keyPrefix: "prefix:"});
-			assert.isNull(getCookie("prefix:baz"));
-
-			service.set("baz", "qux");
-			assert.equal(getCookie("prefix:baz"), "qux");
-
-			service.set("baz", "456");
-			assert.equal(getCookie("prefix:baz"), "456");
-		});
-	});
-
-	describe("setObject()", () => {
 		it("should properly serialize and set the cookies", () => {
 			const service = new CookieStore;
 			assert.isNull(getCookie("foo"));
 
-			service.setObject("foo", "bar");
+			service.set("foo", "bar");
 			assert.equal(getCookie("foo"), '"bar"');
 
-			service.setObject("foo", 123);
+			service.set("foo", 123);
 			assert.equal(getCookie("foo"), "123");
 
-			service.setObject("foo", {key: "value"});
+			service.set("foo", {key: "value"});
 			assert.equal(getCookie("foo"), '{"key":"value"}');
 		});
 
@@ -308,13 +254,13 @@ describe("CookieStore", () => {
 			const service = new CookieStore({keyPrefix: "prefix:"});
 			assert.isNull(getCookie("prefix:baz"));
 
-			service.setObject("baz", "qux");
+			service.set("baz", "qux");
 			assert.equal(getCookie("prefix:baz"), '"qux"');
 
-			service.setObject("baz", 456);
+			service.set("baz", 456);
 			assert.equal(getCookie("prefix:baz"), "456");
 
-			service.setObject("baz", {key: "value"});
+			service.set("baz", {key: "value"});
 			assert.equal(getCookie("prefix:baz"), '{"key":"value"}');
 		});
 	});

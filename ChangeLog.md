@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version [9.0.0](https://github.com/cedx/cookies.js/compare/v8.1.1...v9.0.0)
+- Breaking change: the `CookieStore` class now **always** serializes/deserializes values to/from JSON.
 - Breaking change: replaced the `CookieEvent.type` property by `CookieStore.changeEvent`.
 
 ## Version [8.1.1](https://github.com/cedx/cookies.js/compare/v8.1.0...v8.1.1)
