@@ -4,7 +4,7 @@ import {CookieOptions, type CookieOptionsParams} from "./CookieOptions.js";
 /**
  * Provides access to the [HTTP Cookies](https://developer.mozilla.org/docs/Web/HTTP/Cookies).
  */
-export class CookieStore extends EventTarget implements Iterable<[string, string], void, void> {
+export class CookieStore extends EventTarget implements Iterable<[string, any], void, void> {
 
 	/**
 	 * The `change` event type.
@@ -63,8 +63,8 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	 * Returns a new iterator that allows iterating the entries of this cookie store.
 	 * @returns An iterator for the entries of this cookie store.
 	 */
-	*[Symbol.iterator](): Iterator<[string, string], void, void> {
-		for (const key of this.keys) yield [key, this.get(key)!];
+	*[Symbol.iterator](): Iterator<[string, any], void, void> {
+		for (const key of this.keys) yield [key, this.get(key)];
 	}
 
 	/**
@@ -86,7 +86,6 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 
 		const cookieOptions = this.#getOptions(options);
 		cookieOptions.expires = new Date(0);
-		cookieOptions.maxAge = 0;
 		document.cookie = `${this.#buildKey(key)}=; ${cookieOptions}`;
 
 		this.dispatchEvent(new CookieEvent(CookieStore.changeEvent, key, oldValue));
@@ -147,7 +146,7 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 	 * Returns a JSON representation of this object.
 	 * @returns The JSON representation of this object.
 	 */
-	toJSON(): Array<[string, string]> {
+	toJSON(): Array<[string, any]> {
 		return Array.from(this);
 	}
 
@@ -186,7 +185,6 @@ export class CookieStore extends EventTarget implements Iterable<[string, string
 		return new CookieOptions({
 			domain: options.domain ?? this.defaults.domain,
 			expires: options.expires ?? this.defaults.expires,
-			maxAge: options.maxAge ?? this.defaults.maxAge,
 			path: options.path ?? this.defaults.path,
 			sameSite: options.sameSite ?? this.defaults.sameSite,
 			secure: options.secure ?? this.defaults.secure

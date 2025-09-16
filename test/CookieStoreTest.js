@@ -13,14 +13,14 @@ describe("CookieStore", () => {
 			assert.isEmpty(new CookieStore().keys));
 
 		it("should return the list of keys for a non-empty cookie store", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 			assert.sameMembers(Array.from(new CookieStore().keys), ["foo", "prefix:baz"]);
 		});
 
 		it("should handle the key prefix", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 			assert.sameMembers(Array.from(new CookieStore({keyPrefix: "prefix:"}).keys), ["baz"]);
 		});
 	});
@@ -30,14 +30,14 @@ describe("CookieStore", () => {
 			assert.lengthOf(new CookieStore, 0));
 
 		it("should return the number of entries for a non-empty cookie store", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 			assert.lengthOf(new CookieStore, 2);
 		});
 
 		it("should handle the key prefix", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 			assert.lengthOf(new CookieStore({keyPrefix: "prefix:"}), 1);
 		});
 	});
@@ -76,38 +76,38 @@ describe("CookieStore", () => {
 
 	describe("clear()", () => {
 		it("should remove all cookies", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			new CookieStore().clear();
 			assert.isEmpty(document.cookie);
 		});
 
 		it("should handle the key prefix", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			new CookieStore({keyPrefix: "prefix:"}).clear();
-			assert.equal(document.cookie, "foo=bar");
+			assert.equal(document.cookie, `foo=${encodeURIComponent('"bar"')}`);
 		});
 	});
 
 	describe("delete()", () => {
 		it("should properly remove the cookies", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			new CookieStore().delete("foo");
-			assert.equal(document.cookie, "prefix:baz=qux");
+			assert.equal(document.cookie, `prefix:baz=${encodeURIComponent('"qux"')}`);
 			assert.isNull(getCookie("foo"));
 		});
 
 		it("should handle the key prefix", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			new CookieStore({keyPrefix: "prefix:"}).delete("baz");
-			assert.equal(document.cookie, "foo=bar");
+			assert.equal(document.cookie, `foo=${encodeURIComponent('"bar"')}`);
 			assert.isNull(getCookie("prefix:baz"));
 		});
 	});
@@ -159,8 +159,8 @@ describe("CookieStore", () => {
 			assert.isFalse(new CookieStore().has("foo")));
 
 		it("should return `true` if the specified key is contained", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			const service = new CookieStore;
 			assert.isFalse(service.has("foo:bar"));
@@ -169,8 +169,8 @@ describe("CookieStore", () => {
 		});
 
 		it("should handle the key prefix", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			const service = new CookieStore({keyPrefix: "prefix:"});
 			assert.isFalse(service.has("foo"));
@@ -193,7 +193,7 @@ describe("CookieStore", () => {
 		});
 
 		it("should trigger an event when a cookie is updated", done => {
-			setCookie("foo", "bar");
+			setCookie("foo", '"bar"');
 			const listener = (/** @type {CookieEvent} */ event) => {
 				assert.equal(event.key, "foo");
 				assert.equal(event.oldValue, "bar");
@@ -207,7 +207,7 @@ describe("CookieStore", () => {
 		});
 
 		it("should trigger an event when a cookie is removed", done => {
-			setCookie("foo", "bar");
+			setCookie("foo", '"bar"');
 			const listener = (/** @type {CookieEvent} */ event) => {
 				assert.equal(event.key, "foo");
 				assert.equal(event.oldValue, "bar");
@@ -270,8 +270,8 @@ describe("CookieStore", () => {
 			assert.equal(JSON.stringify(new CookieStore), "[]"));
 
 		it("should return a non-empty array for a non-empty cookie store", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			const json = JSON.stringify(new CookieStore);
 			assert.include(json, '["foo","bar"]');
@@ -279,8 +279,8 @@ describe("CookieStore", () => {
 		});
 
 		it("should handle the key prefix", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
 
 			const json = JSON.stringify(new CookieStore({keyPrefix: "prefix:"}));
 			assert.notInclude(json, '["foo","bar"]');
@@ -293,15 +293,15 @@ describe("CookieStore", () => {
 			assert.isEmpty(String(new CookieStore)));
 
 		it("should return a non-empty string for a non-empty cookie store", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
-			assert.equal(String(new CookieStore), "foo=bar; prefix:baz=qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
+			assert.equal(String(new CookieStore), `foo=${encodeURIComponent('"bar"')}; prefix:baz=${encodeURIComponent('"qux"')}`);
 		});
 
 		it("should handle the key prefix", () => {
-			setCookie("foo", "bar");
-			setCookie("prefix:baz", "qux");
-			assert.equal(String(new CookieStore({keyPrefix: "prefix:"})), "baz=qux");
+			setCookie("foo", '"bar"');
+			setCookie("prefix:baz", '"qux"');
+			assert.equal(String(new CookieStore({keyPrefix: "prefix:"})), `baz=${encodeURIComponent('"qux"')}`);
 		});
 	});
 });
@@ -311,7 +311,7 @@ describe("CookieStore", () => {
  * @param {string} name The cookie name.
  */
 function deleteCookie(name) {
-	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0`;
+	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
 }
 
 /**
