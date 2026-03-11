@@ -3,8 +3,7 @@ Service for interacting with the [HTTP cookies](https://developer.mozilla.org/do
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
-- [User guide](https://github.com/cedx/cookies.js/wiki)
-- [API reference](https://cedx.github.io/cookies.js)
+- [User guide](https://github.com/cedx/cookies.js/tree/main/docs)
 - [Examples](https://github.com/cedx/cookies.js/tree/main/example)
 
 ## Development
