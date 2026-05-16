@@ -1,11 +1,11 @@
 {
 	"author": "Cédric Belin <cedx@outlook.com>",
-	"bugs": "https://github.com/cedx/cookies.js/issues",
+	"bugs": "https://github.com/CedX/Cookies.js/issues",
 	"description": "Service for interacting with the HTTP cookies.",
-	"homepage": "https://github.com/cedx/cookies.js",
+	"homepage": "https://github.com/CedX/Cookies.js",
 	"license": "MIT",
 	"name": "@cedx/cookies",
-	"repository": "cedx/cookies.js",
+	"repository": "CedX/Cookies.js",
 	"type": "module",
 	"version": "9.0.0",
 	"devDependencies": {
